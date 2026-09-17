@@ -154,16 +154,65 @@ const MODULES = [
   {t:"p",v:"This course is built for tenant coordinators. Most of what you will do every day is answer a tenant: about a repair, a bill, a cooling charge, a deposit, a renewal. Around that sits the structure you need to know in order to answer correctly — who the three companies are, what the owner bought, and where our authority stops."},
   {t:"h",v:"How it works"},
   {t:"list",v:[
-    "Eleven modules. Read, then answer the questions inside each one.",
+    "Thirteen modules. Read, then answer the questions inside each one.",
     "Most questions are real tenant or owner messages. You choose how you would reply.",
     "A module cannot be marked complete until every question in it has been answered. Getting one wrong is useful — the explanation is the point.",
-    "Final exam: 18 questions, 80% to pass, retakeable. When you pass, your results are sent to your manager."
+    "Final exam: 27 questions, 80% to pass, retakeable. When you finish, send your result to your manager with the button at the end."
   ]},
   {t:"callout",v:"<b>The one habit to build on day one.</b> If a tenant asks something you are not sure about, the right answer is “let me confirm and come back to you today”. Never improvise. A delayed answer costs nothing. A confident wrong answer costs a client."}
  ]
 },
+
 {
- id:"m1", nav:"1 · Who does what", num:"Module 1", title:"Three companies behind one inbox",
+ id:"m_role", nav:"1 · Your role", num:"Module 1", title:"What a Tenant Coordinator actually owns",
+ lede:"Straight from your job description. This is the shape of the job before any process detail — what you're responsible for, who you work with, and how you'll be measured.",
+ blocks:[
+  {t:"p",v:"The Tenant Coordinator is the central point of contact between tenants, landlords, building management and service providers, across the whole tenancy lifecycle. The job is coordination, communication and operational support — keeping service standards and tenant satisfaction high, not just processing paperwork."},
+  {t:"h",v:"What you own"},
+  {t:"list",v:[
+    "Being the tenant's primary point of contact — handling inquiries, requests and concerns promptly and professionally, and proactively solving them within Managd's established processes, not just relaying them upward.",
+    "Coordinating handovers, move-ins, move-outs and lease renewals for your assigned portfolio, start to finish.",
+    "Managing tenant requests about maintenance, services and building operations — coordination, follow-up and resolution.",
+    "Supporting lease administration: documentation tracking, and coordination with internal teams, particularly Finance.",
+    "Ensuring compliance with building regulations, SLAs and the tenancy contracts actually in place.",
+    "Coordinating and following up on snagging and de-snagging documentation to timely closure, and overseeing deep cleaning after handover.",
+    "Providing leave coverage with structured handovers, so your portfolio keeps running when a colleague is out — and so yours does when you are.",
+    "Providing administrative support for the investment handover process."
+  ]},
+  {t:"h",v:"Beyond day-to-day tickets"},
+  {t:"p",v:"The role also includes process improvement — noticing gaps or recurring issues in tenant operations, proposing practical fixes with Line Management, helping document and standardise processes, and helping put agreed changes into daily practice — and data integrity: accurate, timely entry in the Managd platform, and feedback that helps improve the platform itself. You may also take on leasing activities end-to-end for your portfolio where required, and support Leadership on operational projects."},
+  {t:"h",v:"Who you work with"},
+  {t:"p",v:"You report to the Tenant Coordinator Lead. Your regular interfaces are the Team Lead Operations, Managd Lease Agents, Investor Relations, the Chief of Staff, Finance, tenants, and external service providers. The Finance link matters daily: cheque collection, rent processing and fee payments run through that relationship."},
+  {t:"h",v:"Communication and records"},
+  {t:"p",v:"You are the communication link between tenants, internal teams and external service providers, and the information you pass on must be timely, accurate and consistent. All tenant communications are documented and aligned with Managd's communication standards and processes; you maintain and update tenant communication channels where required, and you follow up on action items from meetings so responsibilities are clear and things actually get done. Data, reports and records are filed according to the SOPs and workflows."},
+  {t:"p",v:"Among the key competencies the job description lists: the ability to follow processes and to escalate risks or deviations appropriately, a high level of accuracy in data entry and record management, and excellent spoken and written English."},
+  {t:"h",v:"How the role is actually measured"},
+  {t:"list",v:[
+    "Timely execution of move-ins, move-outs and renewals, in line with process workflows.",
+    "Adherence to approved processes and timelines — not improvised shortcuts, even fast ones.",
+    "Data accuracy and completeness in the platform.",
+    "Response times to tenants and internal stakeholders.",
+    "Timely completion of assigned project tasks.",
+    "Volume of successfully completed leasing transactions, where leasing is part of your remit."
+  ]},
+  {t:"callout",v:"<b>Two things the job description states directly, and that shape everything after this module.</b> First, you are expected to act “independently and proactively” within established processes — the goal is not to escalate everything, it's to resolve what the process already covers. Second, response times are measured — but so are adherence to approved processes and data accuracy. Speed does not replace either."},
+  {t:"quiz",v:{q:"A tenant's request falls squarely within an established Managd process you already know well.",
+   o:["Escalate it anyway, to be safe","Resolve it independently and proactively, within that process, and document it","Wait for your Team Lead to confirm before doing anything","Refer the tenant to Finance directly"],
+   c:1,w:"The role is explicitly defined around independent, proactive resolution within established processes — escalating routine, in-scope requests defeats the purpose of the role."}},
+  {t:"quiz",v:{q:"Which of these is explicitly one of the performance measures for this role?",
+   o:["Number of five-star tenant reviews","Data accuracy and completeness in the platform","Number of properties personally viewed","Total portfolio rent value"],
+   c:1,w:"Data accuracy and completeness is named directly, alongside timely execution of move-ins/move-outs/renewals, adherence to process and timelines, response times, project task completion, and leasing volume where applicable."}},
+  {t:"quiz",v:{q:"A tenant asks for something no Managd process covers, and saying yes would mean departing from the signed contract.",
+   o:["Agree, to keep the tenant satisfied","Refuse and close the conversation","Escalate it as a deviation to your line management, and tell the tenant you will confirm and come back","Ask the tenant to put it in writing and then approve it yourself"],
+   c:2,w:"Independent resolution applies within established processes. Outside them, the job description asks you to escalate risks or deviations appropriately — not to improvise."}},
+  {t:"quiz",v:{q:"On a phone call you agreed with a tenant that the AC technician will come on Thursday.",
+   o:["Nothing more is needed — the tenant heard it","Document the communication in line with Managd's communication standards and keep the platform record up to date","Mention it to a colleague","Send it only if the tenant asks for confirmation"],
+   c:1,w:"All tenant communications are documented, and the platform must be accurate and up to date — undocumented agreements are exactly what breaks during leave coverage."}}
+ ]
+},
+
+{
+ id:"m1", nav:"2 · Who does what", num:"Module 2", title:"Three companies behind one inbox",
  lede:"A tenant writes to one place. Behind it are three legal entities with strictly separated jobs. Knowing the split is what stops you promising something that is not yours to give.",
  blocks:[
   {t:"h",v:"MANAGD Property Management L.L.C. — operations, and your job"},
@@ -190,7 +239,7 @@ const MODULES = [
  ]
 },
 {
- id:"m2", nav:"2 · Our authority", num:"Module 2", title:"What the Power of Attorney lets us do",
+ id:"m2", nav:"3 · Our authority", num:"Module 3", title:"What the Power of Attorney lets us do",
  lede:"Everything we do for an owner rests on one notarised document. You need both halves: what it covers, and what it explicitly excludes.",
  blocks:[
   {t:"p",v:"The Power of Attorney allows the authorised representatives to act on the owner's behalf in relation to their real estate assets in the UAE. It includes letting properties, collecting rent, negotiating and terminating tenancy contracts, and representation before authorities and service providers."},
@@ -204,17 +253,17 @@ const MODULES = [
   {t:"callout",v:"<b>Named in the PoA ≠ allowed to handle money.</b> Managd and DG Homes are both named representatives, and neither may receive funds. No other company or individual named in the PoA is authorised to do so."},
   {t:"h",v:"Limits and duties"},
   {t:"p",v:"The PoA does not authorise the purchase, sale or transfer of properties, and the representative may not enter into agreements going beyond the powers set out in it. The representative is obliged to act in the owner's interest and to properly maintain all relevant financial and legal documents; misuse or breach of duty may result in criminal consequences."},
-  {t:"p",v:"It takes effect on notarisation and remains valid until revoked, and revocation must be carried out officially and lodged with the notary and the relevant authorities. Notarisation happens with a local UAE notary on the basis of a video recording provided by the investor, after digital onboarding through the Managd portal is complete and the DGMA and Managd invoices are settled."},
+  {t:"p",v:"It takes effect on notarisation and remains valid until revoked, and revocation must be carried out officially and lodged with the notary and the relevant authorities. Notarisation happens with a local UAE notary on the basis of a video recording provided by the investor, after digital onboarding through the Managd portal is complete and the DGMA and Managd invoices are settled. The investor needs a passport valid for at least 6 months (a national ID card is not sufficient), and the video is recorded in English; investors without an Emirates ID confirm the PoA in a video call with the notary instead. Preparation usually takes 5 to 7 working days. The PoA remains valid until it is expressly revoked, unless a specific validity period is noted in the document; revocation is possible at any time, also digitally, but in person via video call."},
   {t:"quiz",v:{q:"An owner abroad asks whether we can sell the unit for them under the PoA.",
    o:["Yes — it covers representation before the Dubai Land Department","Yes, if DGMA and Managd act jointly","No — the PoA does not authorise purchase, sale or transfer","Yes, after the Defect Liability Period"],
    c:2,w:"An explicit limitation. The PoA covers letting and management, not disposal of the asset."}},
   {t:"quiz",v:{q:"When does the PoA stop being valid?",
    o:["After two years, with the management agreement","When the tenancy ends","When it is officially revoked and lodged with the notary and the authorities","When the owner leaves the UAE"],
-   c:2,w:"Effective on notarisation, valid until formally revoked. Revocation is an official act, not an email."}}
+   c:2,w:"Effective on notarisation, valid until formally revoked (unless the document itself names a validity period). Revocation is an official act, not an email."}}
  ]
 },
 {
- id:"m3", nav:"3 · Basic or Premium", num:"Module 3", title:"What the owner bought — and why it reaches the tenant",
+ id:"m3", nav:"4 · Basic or Premium", num:"Module 4", title:"What the owner bought — and why it reaches the tenant",
  lede:"The package decides what you may promise. It also decides who pays the service charge invoice and how far legal support goes when a tenant stops paying.",
  blocks:[
   {t:"p",v:"The rental management agreement governs the relationship between owner and property manager: services, responsibilities and financial obligations, so that the property is managed while the owner is not in Dubai."},
@@ -241,7 +290,7 @@ const MODULES = [
  ]
 },
 {
- id:"m4", nav:"4 · Handover & snagging", num:"Module 4", title:"How a unit becomes lettable",
+ id:"m4", nav:"5 · Handover & snagging", num:"Module 5", title:"How a unit becomes lettable",
  lede:"You will inherit units from this phase and answer tenant questions about defects that came out of it. You need the shape of it and the honest expectations it sets.",
  blocks:[
   {t:"flow",v:[["1","Snagging"],["2","Report to the developer"],["3","De-snagging"],["4","Check by our team"],["5","Letting clearance"]]},
@@ -259,6 +308,7 @@ const MODULES = [
     ["Clearly visible cosmetic defects","Damaged tiles, faulty surfaces that stand out at first glance","As a rule, yes"],
     ["Minor cosmetic snags","Fine scratches, minimal paint or grouting inaccuracies, traces of use — visible only on close inspection","Realistically not; considered customary in construction practice, but they remain documented in the report"]
   ]}},
+  {t:"p",v:"No snagging report is ever completely “defect-free” — this is normal for new builds and affects neither lettability nor value. Snagging deliberately happens before the deep cleaning, because many items that look cosmetic (dust, stains, film on surfaces) disappear with professional cleaning. Owners can view and download both the snagging and de-snagging reports in the investor portal. The Defect Liability Period is usually one year after handover."},
   {t:"h",v:"Why handover can stall"},
   {t:"p",v:"Almost all developers require proof, before handing over the keys, that a DEWA account has been activated in the owner's name — the developer does not want to remain liable for the unit's consumption after handover. Registration takes 3 to 5 working days and the deposit must be paid locally, so a late start delays the whole handover."},
   {t:"scenario",v:{from:"New tenant, day two in the apartment",msg:"There are fine scratches on the wardrobe doors and the grouting in the second bathroom is uneven. This is a brand new building. Can you have the developer redo it?",
@@ -267,36 +317,59 @@ const MODULES = [
  ]
 },
 {
- id:"m5", nav:"5 · Move-in", num:"Module 5", title:"Move-in: Ejari, accounts, and the photo protocol",
- lede:"Everything that goes wrong at move-out was either done or not done in this first week.",
+ id:"m5", nav:"6 · Move-in", num:"Module 6", title:"Move-in: Ejari, accounts, and the photo protocol",
+ lede:"Everything that goes wrong at move-out was either done or not done before and on move-in day.",
  blocks:[
   {t:"h",v:"The sequence"},
-  {t:"flow",v:[["1","Tenancy contract concluded, DGMA representing the owner"],["2","Ejari registration"],["3","Tenant opens their own DEWA and Empower accounts"],["4","Photo handover protocol with the tenant"]]},
-  {t:"p",v:"The tenant opens their own new accounts with both DEWA and Empower and bears the ongoing cost of electricity, water and cooling from move-in. This requires Ejari registration of the tenancy contract — which is why the order matters and why a delayed Ejari means a tenant who cannot register."},
-  {t:"callout",v:"<b>There is no transfer of accounts.</b> The owner's DEWA account is not transferred to the tenant. It stays active permanently so the unit is supplied during vacancy — viewings, deep cleaning, the weekly walkthrough, and protecting the unit, for example running the AC against moisture and mould."},
+  {t:"flow",v:[["1","Tenancy contract concluded, DGMA representing the owner"],["2","Ejari registration"],["3","Tenant connects their own DEWA — and Empower, if the building is connected"],["4","Tenant sends Managd all connection documents — BEFORE move-in"],["5","Deep cleaning of the unit"],["6","Move-in day: unit is clean, Move-In Condition Report / photo protocol signed, keys"]]},
+  {t:"callout",v:"<b>Managd rule: the tenant's DEWA is connected before move-in.</b> Only once it is connected is the deep cleaning scheduled, so that on move-in day the unit is already clean. All connection documents — DEWA, and Empower where the building is connected — must reach Managd before move-in."},
+  {t:"p",v:"The tenant opens their own DEWA account (and Empower, where the building is connected). This requires the Ejari registration first — so a delayed Ejari delays the connection, the cleaning and the move-in date."},
+  {t:"p",v:"Before any of this, tenants are vetted: residence visa, permanent employment and a salary certificate, plus the security deposit. Owners may propose their own prospective tenants, but vetting is always done by the management."},
+  {t:"callout",v:"<b>There is no transfer of accounts.</b> The owner's DEWA account is not transferred to the tenant. It stays active permanently so the unit is supplied during vacancy — viewings, the weekly walkthrough, and protecting the unit, for example running the AC against moisture and mould. For a new tenancy, however, the rule is fixed: the tenant's DEWA must be connected before move-in — only then do we carry out the deep cleaning."},
   {t:"h",v:"The photo handover protocol"},
   {t:"p",v:"At move-in a detailed photo handover protocol is created with the tenant. At move-out the pre-inspection is carried out with the tenant against that protocol, and the deposit is settled on its basis. A protocol done carelessly at move-in becomes a dispute you cannot win later."},
-  {t:"p",v:"The deposit is 5%, held and settled by Managd, and it is settled only at move-out."},
+  {t:"p",v:"In the tenancy contract Addendum this document is called the <b>Move-In Condition Report</b>. Managd conducts the inspection jointly with the tenant on or before the move-in date; the tenant reviews it, annotates where necessary and signs it at the inspection, before taking the keys. By signing, the tenant unconditionally accepts the condition as documented, and no amendments or additions are accepted after the keys have been handed over. At move-out it is the sole reference: no claim of pre-existing damage is accepted unless it is documented in the signed report. Any pre-move-in works that were agreed must be recorded in a separate written addendum signed by both parties before the move-in date."},
+  {t:"h",v:"What the signed contract requires before and at move-in"},
+  {t:"list",v:[
+    "The tenancy is activated and keys are released only once all cheques — every postdated rental cheque and the security deposit cheque — have been handed over to Managd, and all other applicable fees are paid.",
+    "At signing the tenant provides copies of a valid Emirates ID and passport for every occupant aged 18 and above, and a signed declaration of whether a pet will be kept.",
+    "The tenant hands over the postdated rental cheques, payable to DGMA Legal Consultancy FZ-LLC, and the security deposit cheque.",
+    "If Ejari is not provided by the lease start date, a penalty of AED 500 is payable to Managd, once per lease year."
+  ]},
+  {t:"p",v:"The security deposit is 5% of the annual rent, plus an additional 5% if a pet has been approved in writing. It is settled only at move-out."},
   {t:"cards",v:[
     {f:"What must exist before the tenant can open DEWA and Empower accounts?",b:"Ejari registration of the tenancy contract"},
-    {f:"Deposit",b:"5%, held by Managd, settled only at move-out"},
+    {f:"Security deposit",b:"5% of the annual rent (+5% with an approved pet) — settled only at move-out"},
+    {f:"When must the tenant's DEWA (and Empower, if connected) be active and documented to Managd?",b:"Before move-in — so the deep cleaning can be done and the unit is clean on move-in day"},
+    {f:"What comes right after the tenant's DEWA connection?",b:"Deep cleaning of the unit"},
     {f:"What is the deposit settled against?",b:"The photo handover protocol created at move-in"},
     {f:"Who holds the rent cheques?",b:"Cheques are issued to DGMA Legal; Managd administers them operationally"}
   ]},
   {t:"scenario",v:{from:"Tenant, move-in day",msg:"DEWA is asking for Ejari and I don't have it yet. Can I just use the owner's account for the first month and settle it later?",
    o:["Yes, that is simplest — we will bill it back","No — the tenant opens their own accounts, and that requires Ejari; escalate the Ejari registration today so it is not delayed","Tell them to wait until next month","Ask the owner to pay it as goodwill"],
-   c:1,w:"There is no transfer and no informal sharing. What you can actually influence is the Ejari registration, so treat this as an internal escalation rather than a tenant problem."}},
+   c:1,w:"There is no transfer and no informal sharing. And this should never surface on move-in day: the tenant's DEWA has to be connected and documented before move-in. What you can influence is the Ejari registration, so escalate it internally — and if the connection cannot be done in time, the move-in date is what moves, not the rule."}},
+  {t:"scenario",v:{from:"New tenant, one week before move-in",msg:"I'll set up DEWA after I move in, it's easier once I'm there. Can we just keep the move-in date?",
+   o:["Fine, as long as it is done in the first week","Explain that the DEWA connection (and Empower, if the building is connected) must be done and the documents sent to us before move-in — the cleaning is scheduled only after that, so the unit is clean on move-in day; help them start today with Ejari in place","Let them use the owner's account for a week","Schedule the cleaning anyway and hope DEWA follows"],
+   c:1,w:"The order is fixed: tenant's DEWA connected → documents to Managd → deep cleaning → move-in."}},
   {t:"quiz",v:{q:"A colleague did the move-in while you were away and took no photos. What is the consequence?",
    o:["None, the contract is enough","The move-out pre-inspection has nothing to check the unit against, so the deposit settlement becomes one person's word against another's","The developer covers any damage","The tenant automatically loses the deposit"],
-   c:1,w:"The pre-inspection at move-out is done against the photo handover protocol. Without it there is no basis for either charging or clearing the tenant."}}
+   c:1,w:"The pre-inspection at move-out is done against the photo handover protocol. Without it there is no basis for either charging or clearing the tenant."}},
+  {t:"quiz",v:{q:"Ten days after getting the keys, a tenant emails photos of a chipped kitchen tile and asks you to add it to the Move-In Condition Report.",
+   o:["Add it — the tenant is being transparent","No amendments are accepted after the keys were handed over; the signed report stands as the reference at move-out","Add it only if the owner agrees","Add it and charge an administration fee"],
+   c:1,w:"The report is annotated and signed at the inspection, before the keys. That is why the joint inspection has to be done carefully — it cannot be reopened later."}},
+  {t:"scenario",v:{from:"New tenant, two days before move-in",msg:"You have my deposit cheque and two of the four rent cheques. I'll bring the other two after I move in. Can I pick up the keys tomorrow so the movers can start?",
+   o:["Yes, most of the cheques are already with us","Explain that keys are released only once all cheques — all rental cheques and the deposit cheque — have been handed over and all applicable fees are paid, so the remaining two cheques are needed first","Release the keys if the owner agrees by phone","Release a spare key only"],
+   c:1,w:"Part of the cheques is not enough. Activation of the tenancy and the key release depend on all cheques being handed over."}}
  ]
 },
 {
- id:"m6", nav:"6 · DEWA & Empower", num:"Module 6", title:"Electricity, water, cooling — the biggest source of tenant questions",
+ id:"m6", nav:"7 · DEWA & Empower", num:"Module 7", title:"Electricity, water, cooling — the biggest source of tenant questions",
  lede:"This module produces more wrong answers from new colleagues than the rest of the course combined. Read it twice.",
  blocks:[
   {t:"h",v:"Who is who"},
   {t:"p",v:"DEWA, the Dubai Electricity and Water Authority, is the government provider for electricity and water; every unit requires its own DEWA account. Empower provides cooling — in many Dubai buildings air conditioning runs on district cooling, with chilled water delivered to the building, billed through a separate account per unit. Both providers are independent of Managd, DGMA Legal and the building management. We handle registration and coordination; the contracting party is always the owner, or later the tenant."},
+  {t:"h",v:"The tenant's connection comes before move-in"},
+  {t:"p",v:"For every new tenancy: the tenant's DEWA must be connected before move-in, and all connection documents — DEWA, and Empower where the building is connected — must be sent to Managd before move-in. The deep cleaning is scheduled only once DEWA is connected, so the unit is clean on move-in day. This is the most important utility rule in your daily work; the rest of this module explains the background."},
   {t:"h",v:"Before the building is connected to Empower"},
   {t:"p",v:"An Empower account for a unit can only be set up once the building itself is connected to the district cooling network. New buildings frequently are not connected at handover. The apartment is still cooled — the supply runs centrally through the building and is billed through the service charges."},
   {t:"p",v:"So that no high outstanding balance arises on the tenant's side during the tenancy, we bill the tenant a flat quarterly fee in advance for cooling, collect it, and transfer it to the owner together with the rent. Once the connection is made, the owners' accounts are registered and the tenant must register with Empower themselves; we inform the owner as soon as that is the case."},
@@ -321,18 +394,55 @@ const MODULES = [
   {t:"scenario",v:{from:"Owner, forwarding an invoice",msg:"An Empower bill arrived covering a period when the tenant was living there. Shall I just pay it and we deduct it later?",
    o:["Yes, pay and deduct","No — invoices of the tenancy period are never taken over by the owner, not even to bridge a gap; we pursue it with the tenant","Split it","Send it to the building management company"],
    c:1,w:"Paying once establishes the precedent, and recovering it afterwards is much harder than never paying it."}},
+  {t:"quiz",v:{q:"A tenant is moving into a building that is connected to Empower. Which documents must reach Managd, and when?",
+   o:["DEWA only, after move-in","DEWA and Empower connection documents, before move-in","Empower only, since DEWA stays with the owner","None — the owner's accounts cover the first month"],
+   c:1,w:"In a connected building the tenant opens both accounts, and both sets of documents come to us before move-in. In a building not yet connected, only DEWA applies and cooling runs via the quarterly flat charge."}},
   {t:"quiz",v:{q:"The building has just been connected to Empower. The tenant does nothing.",
    o:["Central billing simply continues","Managd registers on their behalf","In the worst case the connection is cut and restored at the tenant's own expense — AED 2,000 plus outstanding amounts","The owner becomes liable"],
    c:2,w:"We give the tenant notice of the registration obligation. Enforcement and the reconnection cost sit with the provider and the tenant."}}
  ]
 },
 {
- id:"m7", nav:"7 · Living in the unit", num:"Module 7", title:"Maintenance, emergencies, and what is not ours",
- lede:"The day-to-day. Most of it is one decision: can I commission this, or do I need the owner first?",
+ id:"m7", nav:"8 · Living in the unit", num:"Module 8", title:"Maintenance, emergencies, and what is not ours",
+ lede:"The day-to-day. There are two separate AED thresholds here, and mixing them up is the single most common numeric error new coordinators make.",
  blocks:[
-  {t:"h",v:"The maintenance rule"},
-  {t:"p",v:"A cost estimate is always prepared. Up to AED 1,000 the work can be commissioned independently with the owner informed; above that, owner approval is required. A maintenance deposit of AED 2,000 applies after the Defect Liability Period. Managd selects and supervises the service providers and handles warranty management."},
-  {t:"callout",v:"<b>AED 1,000 and AED 2,000 are different things.</b> AED 1,000 is the threshold for acting without approval. AED 2,000 is the maintenance deposit after the DLP. Mixing them up is the most common numeric error in this job."},
+  {t:"h",v:"Two different thresholds — do not merge them"},
+  {t:"p",v:"AED 500 answers “who pays for this repair?”. AED 1,000 answers “can Managd commission this repair without asking the owner first?”. They are independent of each other."},
+  {t:"table",v:{head:["Threshold","Question it answers","Rule"],rows:[
+    ["AED 500","Who pays for the repair?","While the unit is rented: repairs up to AED 500 are borne by the tenant, per the tenancy contract. Repairs above AED 500 are borne by the owner. While the unit is vacant, the owner bears repairs of any amount — there is no tenant to charge."],
+    ["AED 1,000","Can Managd commission the work without prior owner approval?","A cost estimate is always prepared. Up to AED 1,000, Managd can commission the work independently, informing the owner. Above AED 1,000, explicit owner approval is obtained in advance."]
+  ]}},
+  {t:"callout",v:"<b>Worked example.</b> A tap needs replacing, quoted at AED 350, tenant in place. You can commission it without asking the owner (it is under the AED 1,000 approval line) — and the invoice goes to the tenant (it is under the AED 500 cost line), per the tenancy contract. A AED 800 repair in the same rented unit: still no owner approval needed, but now the owner pays, because it crossed AED 500."},
+  {t:"h",v:"Other costs worth knowing at a glance"},
+  {t:"table",v:{head:["Cost item","While vacant","While rented"],rows:[
+    ["Utility base fees (DEWA, Empower)","Owner","Tenant — registered in their own name"],
+    ["Consumption (electricity, water, cooling)","Owner (usually minor)","Tenant"],
+    ["Deep cleaning before move-in (one-off)","—","Owner — once before move-in, AED 0.6/sqft plus VAT"],
+    ["Defects within the Defect Liability Period","Developer","Developer"]
+  ]}},
+  {t:"h",v:"How a repair actually runs — step by step"},
+  {t:"flow",v:[["1","Tenant reports the issue in writing"],["2","Managd obtains a cost estimate"],["3","Up to AED 1,000: Managd commissions and informs the owner · above AED 1,000: owner approves first"],["4","Work done by Managd's approved contractors"],["5","Invoice: up to AED 500 → tenant · above AED 500 → owner"]]},
+  {t:"list",v:[
+    "<b>First check: is the unit still in the Defect Liability Period?</b> The DLP is usually the first year after handover. During it, the developer remedies defects not caused by the user — whether the unit is rented or vacant. Report these to the developer; they are not a tenant or owner cost.",
+    "<b>Reporting.</b> The tenant submits maintenance requests to Managd in writing. Water leaks, water damage and structural issues must be reported immediately — if a late report makes the damage worse, the additional damage is the tenant's liability.",
+    "<b>Cost estimate — always.</b> Managd obtains an estimate for every repair and informs the owner of every maintenance measure, even the small ones.",
+    "<b>Approval.</b> Up to AED 1,000 Managd may commission the work under the management agreement without separate consent. Above AED 1,000 the owner's explicit approval is obtained before commissioning.",
+    "<b>Contractors.</b> Managd coordinates the work through its panel of approved contractors. The tenant may not bring in their own contractor for work above AED 500 without Managd's prior written approval.",
+    "<b>Who pays, while rented.</b> Up to AED 500 per occurrence: the tenant. Above AED 500: the owner, who is responsible for major structural and systemic maintenance — electrical, mechanical, plumbing and air-conditioning systems. Damage caused by misuse, negligence or a tenant breach is the tenant's cost regardless of the amount. The tenant keeps the unit in good condition, normal wear and tear excepted.",
+    "<b>Who pays, while vacant.</b> The owner, for any amount."
+  ]},
+  {t:"h",v:"Two deposits — do not confuse them"},
+  {t:"p",v:"Tenants only ever deal with the first one. The second is an owner arrangement you need to know about, because it is what makes fast repairs possible."},
+  {t:"table",v:{head:["","Security deposit","Maintenance deposit"],rows:[
+    ["Who pays it","The tenant","The owner"],
+    ["Amount","5% of the annual rent (+5% with an approved pet)","AED 2,000, one-off"],
+    ["When","At signing, before keys","After the first year of letting or once the Defect Liability Period has lapsed (the Handover Guide: from the second year onwards)"],
+    ["Purpose","Security for the owner against damage, unpaid rent and tenant obligations","Money on hand so Managd can commission repairs immediately, especially in emergencies such as water damage, without waiting for the owner to send funds"],
+    ["If used","Deductions only at move-out — for damage beyond normal wear and tear and other outstanding amounts","Topped up again to AED 2,000 by the owner"],
+    ["Returned","Within 45 days of full move-out clearance, less deductions","At the end of the management agreement"]
+  ]}},
+  {t:"callout",v:"<b>The maintenance deposit does not change the rules.</b> Cost estimate, owner information, and owner approval above AED 1,000 all still apply — the deposit only removes the waiting time for money. And it never shifts a cost from the tenant to the owner: a AED 300 repair in a rented unit is still the tenant's."},
+  {t:"p",v:"Liability: the manager is liable for gross negligence and deliberate breaches of duty — not for market fluctuations or tenant defaults."},
   {t:"h",v:"What is not our responsibility"},
   {t:"list",v:[
     "Common areas, pool and outdoor facilities — the building management company. We forward defects as a courtesy, without obligation and without follow-up.",
@@ -340,26 +450,36 @@ const MODULES = [
     "The amount and use of service charges — the owners association and the building management company."
   ]},
   {t:"h",v:"Vacancy and emergencies"},
-  {t:"p",v:"Vacant units are walked through weekly and the water pressure is reduced. For emergencies Managd provides fast coordination and is the direct on-site contact for tenants. For electricity and water emergencies, DEWA's emergency number is 991."},
+  {t:"p",v:"Vacant units are walked through weekly; during longer vacancy the water pressure is also reduced to prevent damage such as leaks. For emergencies Managd provides fast coordination and is the direct on-site contact for tenants. For electricity and water emergencies, DEWA's emergency number is 991."},
   {t:"scenario",v:{from:"Tenant, 9pm",msg:"Water is coming through the ceiling in the bedroom. It's getting worse.",
    o:["Ask them to email the details tomorrow","Treat it as an emergency: coordinate immediately, and if electricity or water safety is involved, DEWA emergency is 991; document it and get a cost estimate for the works","Tell them to call the building management","Tell them to arrange a plumber and send the invoice"],
-   c:1,w:"Fast coordination in emergencies is exactly what Managd is contracted for. The cost estimate and the AED 1,000 approval logic still apply to the repair itself — but they do not delay stopping the damage."}},
-  {t:"quiz",v:{q:"A quote comes in at AED 1,600 for a repair.",
-   o:["Commission it and inform the owner afterwards","Send the cost estimate to the owner and wait for approval","Split it into two jobs under AED 1,000","Take it from the tenant's deposit"],
-   c:1,w:"Above AED 1,000 the owner approves first. The deposit is settled only at move-out and is not a working budget."}},
+   c:1,w:"Fast coordination in emergencies is exactly what Managd is contracted for. The cost estimate and approval logic still apply to the repair itself — but they do not delay stopping the damage."}},
+  {t:"quiz",v:{q:"A quote comes in at AED 1,600 for a repair in an occupied unit.",
+   o:["Commission it and inform the owner afterwards","Send the cost estimate to the owner and wait for approval before commissioning — and since it is above AED 500, the owner also bears the cost","Split it into two jobs under AED 1,000 each","Take it from the tenant's deposit"],
+   c:1,w:"Above AED 1,000, the owner approves before you commission. Above AED 500, the owner pays regardless of who approved it. Both thresholds point the same way here, but they are still two separate questions."}},
   {t:"quiz",v:{q:"A tenant asks who services the AC inside the apartment.",
    o:["The building management, via service charges","The developer","It is the owner's responsibility; Managd coordinates it on request","The tenant, at their own cost"],
-   c:2,w:"Explicitly carved out as the owner's responsibility, with coordination by Managd on request."}}
+   c:2,w:"Explicitly carved out as the owner's responsibility, with coordination by Managd on request."}},
+  {t:"quiz",v:{q:"A tenant asks: “Do I also need to pay the AED 2,000 maintenance deposit I heard about?”",
+   o:["Yes, together with the security deposit","No — the AED 2,000 maintenance deposit is placed by the owner after the first year of letting or once the DLP has lapsed, so repairs can be commissioned immediately; the tenant pays only the security deposit","Only if they have a pet","Only at renewal"],
+   c:1,w:"Two different deposits from two different people. The tenant's is the 5% security deposit."}},
+  {t:"quiz",v:{q:"A tenant is billed AED 420 for a repair. They push back: “Isn't this covered by the AED 1,000 you people always mention?”",
+   o:["Yes, refund them","No — the AED 1,000 is about whether Managd needed the owner's approval to commission the job, not about who pays; repairs up to AED 500 in an occupied unit are the tenant's cost per the tenancy contract","Only the owner can decide","It depends on the building"],
+   c:1,w:"This is exactly the confusion the two thresholds create for tenants too. Explain the two questions separately, plainly, and point to the tenancy contract for the AED 500 line."}}
  ]
 },
 {
- id:"m8", nav:"8 · Money", num:"Module 8", title:"Rent, deposit, service charges",
+ id:"m8", nav:"9 · Money", num:"Module 9", title:"Rent, deposit, service charges",
  lede:"Three different pots of money that tenants routinely confuse with each other.",
  blocks:[
   {t:"h",v:"Rent"},
   {t:"p",v:"Cheques are issued to DGMA Legal, the only party authorised to receive funds. Managd administers the cheques operationally and handles default management for bounced cheques. The owner is paid 10 to 14 days after clearing; under Premium the service charges are paid out of the rental income first."},
+  {t:"p",v:"The annual rent is customarily paid by postdated cheques — usually in one to four instalments, in individual cases up to six. Monthly payment is possible only in individual cases, and one condition is mandatory: the owner must hold a bank account in the UAE."},
   {t:"h",v:"Deposit"},
-  {t:"p",v:"The tenant deposit is 5%, held and settled by Managd, and settled only at move-out — against the photo handover protocol, with the remaining balance returned to the tenant."},
+  {t:"p",v:"The security deposit is 5% of the annual rent, plus 5% with an approved pet; it is settled only at move-out, against the photo handover protocol, and the remaining balance is returned to the tenant."},
+  {t:"p",v:"The deposit is not a payment channel during the tenancy. Deductions are made exclusively at move-out — for damage beyond normal wear and tear and other outstanding amounts. Repairs, fines and fees during the tenancy are paid separately."},
+  {t:"h",v:"Paying a cheque instalment by bank transfer instead"},
+  {t:"p",v:"A tenant may settle a rent instalment by bank transfer, but the money must be credited to the designated account at least 5 calendar days before the due date of the corresponding postdated cheque, and the tenant must send Managd proof of the transfer so the cheque is not presented."},
   {t:"h",v:"Service charges — the owner's cost, not the tenant's"},
   {t:"p",v:"Service charges are every owner's annual contribution to the running costs of the building: maintenance and cleaning of common areas, pool, gym and outdoor facilities, security, lifts, building insurance, building management, and a reserve fund for major repairs. While the building is not connected to Empower, central cooling runs through them too."},
   {t:"p",v:"They are calculated per square foot according to the allocation key registered with the Dubai Land Department; the rate differs from building to building and is set anew every year. The budget is decided by the owners association and the building management company it appoints, and is reviewed and approved by RERA before it may be billed through Mollak — the Dubai Land Department platform on which every building, unit and owner is registered. Billing runs on quarterly prepayment with automated reminders."},
@@ -372,29 +492,60 @@ const MODULES = [
    c:2,w:"The charge follows the unit, not the tenancy."}},
   {t:"quiz",v:{q:"A tenant asks to have a damaged blind deducted from their deposit now, mid-tenancy.",
    o:["Deduct it and send confirmation","The deposit is settled only at move-out; arrange the repair through the normal maintenance route instead","Refuse any repair","Take it from the next rent cheque"],
-   c:1,w:"The deposit is held and settled at move-out, against the photo handover protocol. Mid-tenancy repairs run through the maintenance process with its cost estimate and approval threshold."}}
+   c:1,w:"Mid-tenancy repairs run through the maintenance process with its cost estimate and thresholds. Deductions from the deposit happen only at move-out."}}
  ]
 },
 {
- id:"m9", nav:"9 · Renewal", num:"Module 9", title:"Renewal: when the right move is silence",
- lede:"Your own core area. The sequence is fixed, and the most common mistake is talking to the tenant too early.",
+ id:"m9", nav:"10 · Renewal", num:"Module 10", title:"Renewal: how the 90-day system actually works",
+ lede:"A core part of the job. There is a system behind this, a contract clause behind the system, and a penalty behind the contract clause. Know all three.",
  blocks:[
-  {t:"p",v:"Before the 90-day window, the market and the RERA index are reviewed and the position is aligned with the owner. If the rent is at market level, no tenant contact is made deliberately — the contract renews automatically. If the tenant comes back with a counter-offer, the owner is consulted. Market monitoring runs with DG Homes, using the RERA index and rent levels."},
+  {t:"p",v:"Before the 90-day window, the market and the RERA index are reviewed and the position is aligned with the owner. If the rent is already at or above market level, no tenant contact is made deliberately — without notice, the contract renews automatically on unchanged terms, provided the tenant stays; approaching the tenant without cause would only open a price discussion that currently tends towards a reduction. Any change to rent or terms must reach the tenant no later than 90 days before the contract ends. If the tenant asks for an adjustment or counter-offers, the owner is always consulted before any commitment, and an agreed minimum rent is never undercut without the owner's consent. Market monitoring runs with DG Homes, using the RERA index and rent levels."},
   {t:"callout",v:"<b>Silence here is a decision, not an oversight.</b> Opening a conversation with a tenant who would have renewed quietly at market rent invites a negotiation the owner did not need."},
-  {t:"flow",v:[["1","Review market and RERA index before the 90-day window"],["2","Align the position with the owner"],["3","If at market level: no tenant contact, auto-renewal"],["4","Counter-offer from the tenant: consult the owner"]]},
+  {t:"h",v:"What actually happens at the 90-day mark"},
+  {t:"p",v:"This isn't just a manual habit — it's built into the system. If nobody has opened a renewal discussion with the tenant before the 90-day mark — i.e. the contract is not marked “under negotiation” — the system automatically renews the contract and sends the tenant a notification. This is the mechanical version of “deliberate silence”: if the market review and owner alignment happened earlier and the decision was to say nothing, the system carries that decision out on schedule without anyone needing to remember to trigger it."},
+  {t:"h",v:"When the tenant comes to us early: “under negotiation”"},
+  {t:"p",v:"If a tenant contacts us more than 90 days before expiry — for example asking for a lower rent — the contract can be marked in the system as <b>under negotiation</b>. While this status is on, the automatic renewal is stopped. This opens a window to discuss the situation with the owner and, where the circumstances justify it, agree a rent reduction."},
+  {t:"callout",v:"<b>The “under negotiation” status cannot stay on for long</b> — as long as it is on, the contract will not renew automatically. Use it only when a real discussion is open, go to the owner straight away, and bring the matter to a result quickly. Never promise the tenant a reduction before the owner has agreed."},
+  {t:"p",v:"The tenant must give 90 days' written notice before lease expiry if they intend to vacate. Rental increases must also be notified to the tenant at least 90 days before lease expiry, using the RERA rental increase calculator — so the 90-day window cuts both ways: it's the deadline for us to communicate an increase, and the deadline for the tenant to tell us they're leaving."},
+  {t:"h",v:"If the tenant wants out early"},
+  {t:"p",v:"If the tenant terminates the contract early, for any reason initiated by the tenant, a penalty of two months' rent applies. The owner then refunds any unused rent, calculated from the confirmed move-out date. This is a fixed contractual penalty, not something to negotiate away informally."},
+  {t:"p",v:"<b>Late notice is the same case.</b> If no one opens a renewal discussion before the 90-day mark, the contract renews automatically. A tenant who only tells us later — say, one month before expiry — that they are not staying is therefore leaving a renewed contract early. The rule is the same: two months' rent penalty, and then the tenant is free to move out."},
+  {t:"h",v:"What the Addendum adds to renewal"},
+  {t:"list",v:[
+    "An annual administrative fee of AED 1,150, including VAT, is payable by the tenant to Managd at every renewal.",
+    "Renewal requires a valid Ejari registration. Failing to maintain one is a breach and may result in suspension of building access; the AED 500 Ejari penalty applies again at each renewal where Ejari is not maintained.",
+    "If the contract has not been renewed and all renewal payments have not reached Managd at least 15 days before lease expiry, non-emergency maintenance requests — including administrative inquiries — are suspended.",
+    "Continued refusal of lawful access after two written notices is also grounds for non-renewal."
+  ]},
+  {t:"flow",v:[["1","Review market and RERA index before the 90-day window"],["2","Align the position with the owner"],["3","If at or above market level: no tenant contact — the system auto-renews and notifies the tenant at 90 days"],["4","Tenant asks for a change more than 90 days ahead: mark the contract “under negotiation” (stops auto-renewal), consult the owner, resolve quickly"],["5","Tenant wants to leave early (including notice later than 90 days): two-month penalty"]]},
   {t:"scenario",v:{from:"Tenant, 100 days before contract end",msg:"I'd like to stay another year. What's the new rent going to be?",
    o:["Quote a small increase to be safe","Say nothing changes and it renews","Check market and RERA index, align with the owner, then come back — if the rent is at market level the contract renews automatically on the same terms","Refer them to DG Homes"],
    c:2,w:"Even when the tenant initiates, the order does not change: market and index, then owner, then tenant. Never quote a number the owner has not agreed."}},
+  {t:"scenario",v:{from:"Tenant, four months before lease expiry",msg:"Similar flats in the building are now cheaper than mine. I'd like to stay, but only if the rent comes down.",
+   o:["Agree a reduction straight away to keep the tenant","Tell them the rent is fixed and nothing can be discussed","Mark the contract as “under negotiation” in the system, check the market and discuss it with the owner promptly — and tell the tenant you will come back with the owner's answer, without promising a reduction","Wait until the contract renews automatically and discuss it afterwards"],
+   c:2,w:"Contact more than 90 days before expiry is exactly when the “under negotiation” status is used. It stops the automatic renewal, so it must not sit open for long, and the decision on any reduction is the owner's."}},
+  {t:"scenario",v:{from:"Tenant, 30 days before lease expiry",msg:"Sorry, I completely forgot to tell you — I'm not renewing. I'll move out when the lease ends next month.",
+   o:["No problem, a month's notice is fine","The contract has already renewed automatically, so they must stay another year","Explain that notice was due at least 90 days before expiry; after that point the contract has renewed, so leaving now is early termination — the two-month rent penalty applies, after which they are free to move out; then agree the move-out steps","Waive the penalty because it was an honest mistake"],
+   c:2,w:"It is the same rule as any early exit: two months' rent, and then the tenant is free to leave. Explain it plainly and move on to the move-out process — inspection booked 48 hours ahead, clearances, keys."}},
+  {t:"scenario",v:{from:"Tenant, 5 months into a 12-month contract",msg:"My company is relocating me. I need to end the lease now — is that a problem?",
+   o:["No problem, just give 90 days notice like normal","There's a system exit fee we waive for relocations","Early termination initiated by the tenant carries a two-month rent penalty; the owner then refunds any unused rent from the confirmed move-out date","They forfeit the full deposit instead"],
+   c:2,w:"90 days' notice is the exit mechanism for a lease that has run its course. Ending it early, for any tenant-initiated reason including relocation, triggers the two-month penalty instead — the two are not interchangeable."}},
+  {t:"quiz",v:{q:"Nobody has contacted the tenant about renewal and the 90-day mark passes. What happens?",
+   o:["The contract lapses and the unit is considered vacant","The system automatically renews the contract on the existing terms and notifies the tenant","Managd must manually approve the renewal within 24 hours or it lapses","The tenant must proactively request renewal"],
+   c:1,w:"This is the system enforcing the “deliberate silence” strategy — no action needed if the earlier review confirmed the rent was already at market level."}},
   {t:"quiz",v:{q:"The rent is at market level and the 90-day window is approaching. What do you do?",
    o:["Send a renewal offer to confirm intentions","Deliberately make no tenant contact so the contract auto-renews","Serve a 90-day notice as a formality","Ask DG Homes to re-market the unit"],
    c:1,w:"Contact is what opens a renegotiation. If the position is already right, do not create one."}},
   {t:"quiz",v:{q:"A tenant counter-offers below the position you agreed with the owner.",
    o:["Accept if it is close","Reject it immediately","Consult the owner — counter-offers are an owner decision","Ask DGMA to decide"],
-   c:2,w:"Owner consultation on tenant counter-offers is explicitly part of the renewal process."}}
+   c:2,w:"Owner consultation on tenant counter-offers is explicitly part of the renewal process."}},
+  {t:"scenario",v:{from:"Tenant, 10 days before lease expiry, renewal fee not yet paid",msg:"The wardrobe door hinge is loose, can you send someone this week?",
+   o:["Book the technician as normal","Explain that non-emergency requests are suspended until the renewal is completed and the renewal payments are received — they should have been in at least 15 days before expiry — and help them complete it","Ignore the message","Book it and add the cost to the renewal fee"],
+   c:1,w:"The suspension is contractual and only covers non-emergency requests. A water leak would still be handled immediately."}}
  ]
 },
 {
- id:"m10", nav:"10 · Default & move-out", num:"Module 10", title:"When payment stops, and when the tenancy ends",
+ id:"m10", nav:"11 · Default & move-out", num:"Module 11", title:"When payment stops, and when the tenancy ends",
  lede:"Two processes with a strict order. Skipping a step here creates legal problems, not just service problems.",
  blocks:[
   {t:"h",v:"Payment default"},
@@ -404,34 +555,148 @@ const MODULES = [
     ["Court proceedings","DGMA Legal, separate mandate only","First and second instance, plus court fees — never automatically included"]
   ]}},
   {t:"p",v:"Managd also handles default management for bounced cheques as part of rental income administration, and eviction measures in the case of rent default form part of the tenant management scope."},
+  {t:"h",v:"How the Addendum shapes enforcement"},
+  {t:"list",v:[
+    "After a returned cheque, the tenant must provide an alternative payment for the full rental amount within 3 working days of the due date; failing that is a breach and leads to eviction proceedings.",
+    "Before any RDC claim or presenting a Penalty Reserve Cheque, Managd issues a formal written demand stating the amount, the basis of the claim, and a cure period of at least 5 working days, unless the Addendum specifies a shorter one.",
+    "Managd may file claims for amounts payable to it at the RDC in its own name, without the landlord as co-claimant. Court fees, legal expenses and execution costs are borne by the tenant.",
+    "Formal notices go by email or WhatsApp to the contact details registered with Managd and are deemed received on the day of sending. Keeping those details current is the tenant's responsibility."
+  ]},
   {t:"h",v:"Move-out"},
   {t:"list",v:[
+    "The tenant gives 90 days' written notice to Managd before lease expiry — a later exit counts as early termination with the two-month rent penalty. During the final month Managd or the landlord may hold viewings with 48 hours' notice.",
+    "The tenant schedules the move-out inspection with Managd at least 48 hours in advance. DEWA must remain active until the inspection is completed.",
+    "At or before the inspection the tenant provides final clearance documents for DEWA, gas and chiller/Empower (if applicable), proof of Ejari cancellation, and returns all keys, access cards and parking fobs. Items not returned are charged at AED 350 plus VAT per item type, deductible from the deposit.",
+    "A mandatory sanitisation fee, amount advised by Managd, is deducted from the deposit. Where internal balcony wall repairs or full professional repainting are needed, the tenant completes them before vacating; otherwise the landlord arranges them and deducts the cost.",
     "Pre-inspection with the tenant against the photo handover protocol.",
     "Recording and execution of the required works.",
     "Deposit settlement, with the remaining balance returned to the tenant.",
     "The tenant settles all outstanding utility amounts first on the final bill; only then can the DEWA and Empower accounts be closed.",
-    "DGMA handles payout and settlement of the funds flows; DG Homes re-markets the unit."
+    "DGMA handles payout and settlement of the funds flows; DG Homes re-markets the unit.",
+    "The deposit is refunded within 45 calendar days from the later of the move-out date and the date all move-out clearances were received and verified by Managd.",
+    "If repair or reinstatement costs exceed the deposit, the tenant pays the balance within 5 working days of written demand; from day six a late penalty of AED 100 per day accrues until paid.",
+    "If a tenant abandons the unit for more than 60 consecutive days without written notice and without settling dues, the landlord may — in line with UAE law and any required legal procedure — access the unit, change locks and remove belongings; uncollected belongings may be disposed of after 15 days' written notice."
   ]},
   {t:"scenario",v:{from:"Tenant, two weeks before moving out",msg:"Just close my DEWA and Empower accounts for me and take whatever is owed from the deposit.",
    o:["Agree, it is simpler","Explain that they settle all outstanding amounts first on the final bill — only then can the accounts be closed — and that the deposit is settled separately against the photo handover protocol","Close the accounts on their behalf","Tell them the owner will handle it"],
-   c:1,w:"Two separate processes that tenants constantly merge. Utilities are settled with the providers; the deposit is settled against the move-in protocol."}},
+   c:1,w:"Two separate processes that tenants constantly merge. Utilities are settled with the providers, and the final clearance documents are brought to the move-out inspection — DEWA must stay active until that inspection is done. The deposit is settled separately against the move-in protocol."}},
+  {t:"scenario",v:{from:"Tenant, this morning",msg:"I'm handing back the keys at 5pm today, can someone do the inspection then?",
+   o:["Send someone at 5pm","Explain that the move-out inspection must be scheduled at least 48 hours in advance, agree the earliest slot, and remind them DEWA stays active until it is done","Tell them to leave the keys with security","Skip the inspection and settle the deposit from photos"],
+   c:1,w:"The 48-hour scheduling rule is one of the points the tenant specifically acknowledges when signing the Addendum."}},
   {t:"quiz",v:{q:"A tenant has missed two months. The owner is on Basic and wants a formal demand letter sent.",
    o:["Managd sends it","DGMA sends it as part of Premium","Stage 2 sits with DGMA Legal — included under Premium, and on a separate mandate for Basic","Refer the owner to the RDC directly"],
    c:2,w:"Stage 1 is ours: reminders and collection. Stage 2 is DGMA, and for a Basic owner it requires a separate mandate — say so before anything is promised."}}
  ]
 },
+
 {
- id:"m11", nav:"11 · Red flags", num:"Module 11", title:"Sentences that must never leave your keyboard",
+ id:"m_addendum", nav:"12 · The signed contract", num:"Module 12", title:"What's actually in the Tenancy Contract Addendum",
+ lede:"The factsheets describe how MANAGD generally works. This is the document you will actually open when a tenant disputes a charge — read it as the real rulebook, not background reading.",
+ blocks:[
+  {t:"p",v:"Every MANAGD tenancy runs on a short official Dubai Land Department contract plus a much longer Addendum that MANAGD attaches to it. The Addendum is where almost all of the operational detail actually lives — penalties, the payment order, pets, subletting, deposit timing. When you and a tenant disagree about a number, this is the document that settles it, not a factsheet."},
+  {t:"h",v:"Two entities, two jobs — restated precisely"},
+  {t:"p",v:"All rental cheques are payable to DGMA Legal Consultancy FZ-LLC, as PoA holder. Separately, Managd is entitled to collect, enforce and retain — in its own name — all management fees, administrative fees and penalty charges named in the Addendum as payable to Managd. The Addendum is explicit that these are legally distinct from the rent and deposit owed to the landlord. In practice: two different payees, and Managd can pursue its own fees at the RDC without needing the landlord as a co-claimant."},
+  {t:"h",v:"The Payment Waterfall — the single most important mechanic in this module"},
+  {t:"p",v:"Whatever a tenant pays — by cheque or bank transfer — it is applied in a fixed order, regardless of what the tenant intended it for:"},
+  {t:"table",v:{head:["Order","Applied to"],rows:[
+    ["1st","Outstanding fines and violation penalties payable to Managd"],
+    ["2nd","Outstanding Ejari and administrative penalties payable to Managd"],
+    ["3rd","Outstanding late payment fees payable to Managd"],
+    ["4th","Outstanding bounced cheque penalties payable to Managd"],
+    ["5th","Arrears of rent — oldest period first — payable to DGMA"],
+    ["6th","Current rent due, payable to DGMA"]
+  ]}},
+  {t:"callout",v:"<b>This is why a tenant can pay in full and still show as behind on rent.</b> If they owe a AED 500 fine, their next rent cheque clearing gets AED 500 of it absorbed by the fine first — the rest counts as a partial rent payment, and the shortfall is treated as unpaid rent, which can itself trigger the late payment penalty. You must notify the tenant in writing within 3 working days whenever a waterfall allocation causes a rent shortfall — this is the conversation that prevents a confused, angry tenant."},
+  {t:"h",v:"Maintenance — the same AED 500 line, from the tenant's actual contract"},
+  {t:"p",v:"The Addendum confirms the line from Module 8: maintenance costs below AED 500 per occurrence are borne by the tenant. For works above AED 500 that fall within the owner's responsibility, the tenant must submit a written request to Managd, who coordinates using its approved contractor panel — the tenant may not engage independent contractors above AED 500 without Managd's prior written approval. A water leak or structural issue must be reported immediately in writing; if a delay in reporting makes the damage worse, that additional damage becomes the tenant's liability."},
+  {t:"h",v:"Pets, subletting, and the penalties that follow"},
+  {t:"table",v:{head:["Situation","What's required","Penalty if not followed"],rows:[
+    ["Keeping a pet","Prior written landlord approval, declared at signing; if approved, an additional 5% refundable security deposit is due before the pet arrives","Without approval: AED 2,500 penalty payable to Managd, plus immediate eviction proceedings"],
+    ["Subletting or short-term/holiday letting (Airbnb etc.)","Prior written landlord consent for any subletting","Immediate termination of the tenancy, plus a penalty of three months' rent payable to the landlord within 5 working days — recoverable through legal proceedings, with court costs borne by the tenant"],
+    ["General violations (noise, cleanliness, conduct, damage to common areas)","Compliance with community and house rules","First violation: AED 500 to Managd. Second and subsequent violations: AED 1,000 per instance to Managd"]
+  ]}},
+  {t:"h",v:"When a tenant wants to get a pet during the tenancy"},
+  {t:"p",v:"At signing, every tenant declares in writing whether a pet will be kept. Plans change — a tenant who declared “no pet” may later want to adopt a dog or a cat. The contract rule is the same at any point of the tenancy: <b>written approval from the landlord first, the additional deposit second, the pet third.</b>"},
+  {t:"flow",v:[["1","Tenant asks Managd in writing — before the pet arrives"],["2","Managd asks the owner for written approval (the decision is the owner's, not ours)"],["3","If approved: tenant pays the additional 5% refundable security deposit"],["4","Only then may the pet be brought into the unit"],["5","Approval, deposit and the updated pet declaration are documented in the platform"]]},
+  {t:"list",v:[
+    "Do not promise anything while the owner has not answered — “I've passed it on and will come back to you with the owner's answer” is the right sentence.",
+    "If the owner declines, the answer is no. There is no fee that turns a refusal into a yes.",
+    "After approval the tenant is fully responsible for the pet's behaviour, cleanliness and any damage in or outside the unit. Pet-care, cleanliness and noise issues count as violations: AED 500 for the first, AED 1,000 for each further one, payable to Managd.",
+    "The additional 5% is part of the security deposit: refundable at move-out under the same rules, less deductions for damage beyond normal wear and tear.",
+    "If a pet is already living in the unit without written approval, that is a material breach: an AED 2,500 penalty payable to Managd and grounds for immediate eviction proceedings. Do not “fix” it by approving it yourself — document it and escalate it."
+  ]},
+  {t:"scenario",v:{from:"Tenant, month five",msg:"We're thinking of adopting a small dog next month. That's okay, right? It's really quiet.",
+   o:["Yes, small quiet dogs are fine","Tell them to go ahead and send a photo afterwards","Explain that any pet needs the owner's written approval before it arrives; you will request it now, and if approved an additional 5% refundable security deposit is due before the dog moves in","Tell them pets are never allowed"],
+   c:2,w:"Approval → deposit → pet, in that order. Size and temperament do not change the rule, and the decision belongs to the owner."}},
+  {t:"h",v:"Community rules, access and alterations"},
+  {t:"list",v:[
+    "The tenant follows the Master Community Rules, Owners Association Rules and Internal House Rules. Quiet hours are 10:00 PM to 10:00 AM.",
+    "Fines levied on the landlord by building management because of the tenant (noise, littering, parking) are borne by the tenant, payable within 5 working days of Managd's written notification.",
+    "The unit is for single-family residential use only — no commercial, business or professional use.",
+    "Access: 24 hours' prior notice for maintenance, inspections, repairs or potential buyers; immediate access in emergencies. Continued refusal after two written notices is a material breach and grounds for non-renewal or eviction proceedings.",
+    "No structural alterations, installations or modifications without prior written approval of the landlord or Managd; no carpets glued or nailed to tiles; no wall drilling beyond standard picture hanging. Approved alterations are reversed at the tenant's cost on vacating, otherwise the cost is deducted from the deposit.",
+    "House Rules also cover: rubbish in designated areas only, parking only in the tenant's own space, no bulky storage visible on balconies, no laundry visible from outside unless drying areas are provided, no tampering with smoke detectors or fire systems, and damage to common areas by the tenant or guests is charged to the tenant.",
+    "The tenant arranges household contents insurance; the landlord carries no liability for the tenant's personal belongings."
+  ]},
+  {t:"h",v:"Bounced cheques and late payment"},
+  {t:"list",v:[
+    "First returned cheque (insufficient funds): AED 1,050 to Managd, within 5 working days.",
+    "Repeated returned cheque (insufficient funds): AED 2,500 to Managd, within 5 working days.",
+    "Returned for irregular signature or another non-funds reason: AED 350 to Managd, within 5 working days.",
+    "In every case, an alternative payment for the full rental amount is due within 3 working days of the due date.",
+    "A second returned cheque additionally requires the tenant to provide one more postdated cheque, for an extra month's rent as security, within 5 working days.",
+    "Late payment penalty: AED 100 per day plus VAT, starting from the 4th day after the due date until paid in full — on top of any other penalty, regardless of payment method."
+  ]},
+  {t:"h",v:"Security deposit — the details that go beyond the factsheets"},
+  {t:"p",v:"The deposit is 5% of the annual rent, plus an additional 5% where a pet has been approved. It is refunded within 45 calendar days from the later of the move-out date or the date all move-out clearances are received and verified — the clock does not start until move-out compliance is complete. Deductions are made only at move-out."},
+  {t:"h",v:"Renewal fee and the right to deny renewal"},
+  {t:"p",v:"An annual administrative fee of AED 1,150 (including VAT) is payable by the tenant to Managd at each renewal, and a valid Ejari registration is required for the renewal to proceed. Managd and the landlord can decline to renew if, at renewal time, there are unpaid Managd penalties or fines, unpaid administrative or renewal fees, or an unremedied breach — but only after giving the tenant written notice of the outstanding items at least 30 days before lease expiry, with 15 days to fix them."},
+  {t:"h",v:"Sale, force majeure, data"},
+  {t:"p",v:"If the property is sold during the tenancy, the tenancy transfers to the new owner on the same terms, unless a valid legal eviction notice was served before the sale. Force majeure does not excuse rent unless the unit becomes wholly uninhabitable as a direct result, and only for that period; the landlord is not liable for interruptions caused by developer, utility provider or building management decisions outside its reasonable control. The tenant consents to Managd processing their personal data for managing the tenancy."},
+  {t:"scenario",v:{from:"Tenant, annoyed",msg:"I paid my full rent cheque this month and you're telling me I'm still short? That doesn't make sense.",
+   o:["Apologise and mark the rent as fully paid to smooth things over","Explain the Payment Allocation Waterfall — any outstanding fines or fees are deducted first, so a payment can be fully absorbed by those before anything reaches rent, and confirm exactly what was outstanding","Tell them this must be a system error","Say nothing and let Finance handle the confusion"],
+   c:1,w:"This is confusing for tenants precisely because it isn't intuitive — walking them through the actual order, with the specific amounts, is what the written notice requirement exists for."}},
+  {t:"scenario",v:{from:"Tenant, move-in day",msg:"My sister is bringing her cat when she visits for a month. That's fine, right? It's not really 'my' pet.",
+   o:["Yes, visiting pets don't count","No — the contract requires the landlord's prior written approval before any pet is brought onto the premises; request it first. Keeping a pet without approval is a material breach with an AED 2,500 penalty and grounds for eviction proceedings","Only an issue if the cat causes damage","Only relevant if the visit is longer than 30 days"],
+   c:1,w:"The approval clause covers bringing any pet onto the premises — it does not depend on who owns the pet. Get written approval before the cat arrives, not after."}},
+  {t:"quiz",v:{q:"A tenant's rent cheque and an outstanding AED 500 violation fine both come due around the same time, and the tenant only pays the rent amount.",
+   o:["The fine is simply carried over separately and the rent is marked fully paid","The payment is applied to the fine first, under the mandatory waterfall — so part of what the tenant thought was rent is actually still owed as rent, potentially triggering the late payment penalty","The tenant chooses what the payment covers","Fines are only settled at move-out, never from a rent payment"],
+   c:1,w:"The waterfall applies regardless of the tenant's stated intent, and the resulting rent shortfall must be flagged to the tenant in writing within 3 working days."}},
+  {t:"quiz",v:{q:"A tenant sublets their unit on Airbnb without telling anyone. What happens under the Addendum?",
+   o:["A warning letter and a fine of AED 1,000","Immediate termination of the tenancy plus a penalty of three months' rent, payable within 5 working days","The unit is simply removed from the short-term platform, no penalty","Nothing, as long as rent keeps being paid"],
+   c:1,w:"This is one of the most severe penalties in the whole Addendum — immediate termination plus three months' rent, with court and execution costs also falling on the tenant if it goes to legal proceedings."}},
+  {t:"quiz",v:{q:"A rent cheque is returned because the signature does not match. What does the Addendum say?",
+   o:["AED 1,050 penalty, as with any bounced cheque","AED 350 penalty to Managd within 5 working days, and an alternative payment for the full rent within 3 working days of the due date","No penalty — it is not a funds problem","AED 2,500 penalty and immediate eviction"],
+   c:1,w:"The AED 1,050 / AED 2,500 penalties are for insufficient funds. A non-funds reason carries AED 350 — but the rent still has to be replaced within 3 working days."}},
+  {t:"scenario",v:{from:"Tenant, after a second written notice",msg:"I'm not letting the technician in, I don't have time for this. Stop sending me notices.",
+   o:["Stop sending notices to avoid conflict","Explain calmly that continued refusal of lawful access after two written notices is a material breach and grounds for non-renewal or eviction proceedings — and offer concrete time slots; escalate internally","Send the technician in anyway without notice","Cancel the maintenance job permanently"],
+   c:1,w:"Access requires 24 hours' notice outside emergencies. After two written notices, refusal becomes a material breach — say so plainly, but keep offering a way forward."}},
+  {t:"quiz",v:{q:"Within how many days must the security deposit be refunded, and from when does that period run?",
+   o:["Immediately at the move-out inspection","Within 45 calendar days — but only from whichever is later: the move-out date, or the date all move-out clearances are received and verified","Within 5 working days","Within 90 days, matching the notice period"],
+   c:1,w:"The 45-day clock is anchored to full compliance, not simply to the tenant leaving — a missing DEWA final clearance or Ejari cancellation pushes the start date later."}}
+ ]
+},
+
+{
+ id:"m11", nav:"13 · Red flags", num:"Module 13", title:"Sentences that must never leave your keyboard",
  lede:"The rules behind each of these come from the documents you have just read. The wording is what you can reuse.",
  blocks:[
   {t:"table",v:{head:["Never say","Say instead"],rows:[
     ["“We'll transfer the DEWA account to you.”","“You open your own DEWA and Empower accounts after Ejari registration. The owner's account stays active so the unit is supplied when it is empty.”"],
+    ["“You can sort out DEWA after you move in.”","“Your DEWA — and Empower, if the building is connected — needs to be active and the documents sent to us before move-in. That's what lets us clean the unit for you in time.”"],
     ["“The developer will fix all of that.”","“Functional and clearly visible defects are enforced. Fine scratches and minor inaccuracies stay documented in the report but are realistically not rectified.”"],
     ["“The service charge is too high, we'll get it reduced.”","“The rate is set annually by the owners association and its building management, approved by RERA and billed via Mollak. We have no influence and no vote.”"],
     ["“Just give the money to me and I'll pass it on.”","“Rent and deposits go to DGMA Legal — the only party authorised to receive funds under the Power of Attorney.”"],
     ["“Pay the outstanding bill for now, we'll deduct it later.”","“Invoices of the tenancy period are never taken over by the owner. We'll pursue it with the tenant.”"],
     ["“I'll get this repair done today.” (above AED 1,000)","“Here is the cost estimate. Above AED 1,000 I need the owner's approval before commissioning it.”"],
-    ["“We'll take it off your deposit.” (mid-tenancy)","“The deposit is settled at move-out against the photo protocol. This goes through the normal maintenance process.”"],
+    ["“We'll take it off your deposit.” (mid-tenancy)","“The deposit is settled only at move-out against the photo protocol. This goes through the normal maintenance process.”"],
+    ["“Just transfer it whenever, we'll hold the cheque.”","“A transfer has to be credited at least 5 calendar days before the cheque date, and please send us the proof — otherwise the cheque will be presented.”"],
+    ["“Your payment went to the rent.” (when fines are outstanding)","“Payments are applied in a fixed order: Managd fines and fees first, then rent arrears, then current rent. Here is exactly how yours was allocated.”"],
+    ["“A month's notice is fine.” / “Give 90 days' notice and you can leave any time.”","“Notice is due at least 90 days before the lease expires. After that the contract has renewed, so leaving counts as early termination — the penalty is two months' rent.”"],
+    ["“A visiting pet is fine.”","“Any pet kept in the unit needs the landlord's written approval first — without it there is an AED 2,500 penalty and eviction proceedings.”"],
+    ["“Sure, you can get a dog.”","“I'll ask the owner for written approval. If it's approved, an additional 5% deposit is due before the dog moves in.”"],
+    ["“Don't worry about the penalty, I'll waive it.”","“These penalties are part of your signed contract. I can't waive them myself — I'll pass your request on and come back to you.”"],
+    ["“That's over AED 500, so it's covered by Managd.”","“AED 500 decides who pays for the repair, not who arranges it. Above AED 500 in an occupied unit, the cost is the owner's, unless the damage was caused by misuse or negligence — Managd still coordinates the work.”"],
     ["“I think so.”","“Let me confirm that and come back to you today.”"]
   ]}},
   {t:"scenario",v:{from:"Tenant, on the phone, right now",msg:"Just yes or no — will the balcony grouting be redone before I move in?",
@@ -445,24 +710,33 @@ const MODULES = [
 ];
 
 const EXAM = [
- {q:"A tenant offers you cash because their cheque bounced. What do you do?",o:["Accept and issue a receipt","Refuse — only DGMA Legal may receive rent or deposits under the PoA — and arrange payment through DGMA","Accept and pass it to the owner","Ask DG Homes to take it"],c:1,w:"Managd is named in the PoA but is not permitted to receive funds."},
- {q:"A tenant moves in. What happens to the owner's DEWA account?",o:["It transfers to the tenant","It is closed","It stays active in the owner's name; the tenant opens their own after Ejari registration","It stays active until the tenant's account opens, then closes"],c:2,w:"No transfer, ever. The owner's account keeps the unit supplied during vacancy."},
- {q:"What must exist before a tenant can open their DEWA and Empower accounts?",o:["The photo handover protocol","Ejari registration of the tenancy contract","A letter from the owner","Approval from building management"],c:1,w:"Which is why a delayed Ejari becomes a tenant problem fast."},
- {q:"The building is not connected to Empower. How is cooling handled?",o:["No cooling until connection","Centrally through the building, billed via service charges, with a quarterly flat charge collected from the tenant in advance and paid out with the rent","A temporary Empower account is opened","The developer pays for it"],c:1,w:"Individual registration is technically impossible before the building connection."},
- {q:"After the building is connected, the tenant does not register with Empower.",o:["Central billing continues","Managd registers for them","In the worst case the connection is cut and restored at the tenant's expense — AED 2,000 plus outstanding amounts","The owner becomes liable"],c:2,w:"We notify the tenant of the obligation; enforcement sits with the provider."},
- {q:"Up to what amount can maintenance be commissioned without owner approval?",o:["Any amount with a cost estimate","AED 1,000, with the owner informed","AED 2,000","No amount"],c:1,w:"AED 2,000 is the maintenance deposit after the DLP — a different number."},
- {q:"A tenant asks who services the AC inside the apartment.",o:["Building management, via service charges","The developer","The owner's responsibility; Managd coordinates on request","The tenant"],c:2,w:"Explicitly carved out as the owner's responsibility."},
- {q:"A tenant reports the podium gym is broken.",o:["We send a technician","Common areas sit with building management; we forward it as a courtesy, without obligation or follow-up","We charge it to the owner","We escalate to RERA"],c:1,w:"Also true for the pool, outdoor facilities and the collection of service charges."},
- {q:"Fine scratches and minor grouting inaccuracies visible only on close inspection:",o:["Must be rectified by the developer","Are realistically not rectified, but stay documented in the report","Are fixed by Managd at the owner's cost","Are removed from the report after de-snagging"],c:1,w:"Documented, not rectified. Set the expectation before it becomes a complaint."},
- {q:"Who decides the amount of the service charges?",o:["Managd","The Dubai Land Department alone","The owners association and its building management company, with the budget approved by RERA before billing via Mollak","The developer during the DLP"],c:2,w:"We are not in the owners association and have no vote."},
- {q:"The rent is at market level and renewal is approaching.",o:["Contact the tenant before the 90-day window","Send a renewal offer with a small increase","Review market and RERA index before the 90-day window, align with the owner, and make no tenant contact so it auto-renews","Serve a 90-day notice as a formality"],c:2,w:"Deliberate silence. Contact opens a renegotiation the owner did not need."},
- {q:"A tenant counter-offers below the agreed renewal position.",o:["Accept if close","Reject immediately","Consult the owner — counter-offers are an owner decision","Let DGMA decide"],c:2,w:"Owner consultation on counter-offers is part of the process."},
- {q:"Which is included in Premium but not Basic?",o:["Tenant search and credit checks","Ejari registration","Service charges paid from rental income, legal representation on tenant default, third-party liability management","Snagging and deep cleaning"],c:2,w:"Fee difference 5% versus 7%, minimum AED 3,500 plus 5% VAT."},
- {q:"A Basic owner wants a formal demand letter sent to a defaulting tenant.",o:["Managd sends it","It is included in Premium only, so nothing can be done","Stage 2 sits with DGMA Legal — Premium included, Basic on separate mandate","Refer the owner to the RDC"],c:2,w:"Stage 1 is ours: reminders and collection. Stage 2 is DGMA."},
- {q:"How does the money flow after a tenancy contract is signed?",o:["Cheques to Managd, immediate payout","Cheques to DGMA Legal, payout 10–14 days after clearing; Managd administers the cheques and holds the 5% deposit, settled at move-out","Tenant pays the owner directly abroad","DG Homes takes the first cheque"],c:1,w:"Operational handling and legal receipt of funds are split between two entities."},
- {q:"At move-out, the deposit is settled against:",o:["A technician's assessment","The photo handover protocol created at move-in","The snagging report","The tenancy contract"],c:1,w:"Which is why the move-in protocol has to be done properly every time."},
- {q:"A tenant asks us to close their utility accounts and take what is owed from the deposit.",o:["Agree, it is simpler","They settle outstanding amounts first on the final bill, only then can accounts be closed; the deposit is settled separately against the photo protocol","Close the accounts for them","The owner handles it"],c:1,w:"Two separate processes that tenants routinely merge."},
- {q:"An owner offers to pay an Empower invoice covering the tenancy period, to be deducted later.",o:["Let them","Invoices of the tenancy period are never taken over by the owner, not even to bridge a gap","Split it","Send it to building management"],c:1,w:"Paying once sets the precedent and makes recovery much harder."}
+ {q:"What does “Ejari” actually mean, and who pays its registration fee?",o:["Arabic for “landlord”; the owner pays","Arabic for “my rent”; the tenant pays","Arabic for “contract”; split between owner and tenant","It is not an Arabic word — it is a Managd system, and Managd absorbs the cost"],c:1,w:"Ejari is Arabic for “my rent” — the mandatory registration of every tenancy contract with the Dubai Land Department. Managd handles the registration as part of authority liaison, but the tenant pays the fee."},
+ {q:"Eight months into the tenancy, a tenant mentions in passing that they adopted a cat three weeks ago. Nobody asked for approval. What is the situation?",o:["Fine — they can simply pay the extra 5% deposit now","A material breach: keeping a pet without prior written landlord approval carries an AED 2,500 penalty payable to Managd and grounds for eviction proceedings — document it and escalate","Only a problem if the neighbours complain","A first violation, AED 500"],c:1,w:"The order is approval → deposit → pet. Once the pet is already there without approval, the breach has happened; the coordinator does not resolve it informally."},
+ {q:"Under what circumstances can a tenant actually be given notice to vacate?",o:["Whenever the owner wants to raise the rent significantly","Only for personal use by the owner or a first-degree relative, sale of the property (each with 12 months written notice), or contractual breach by the tenant","Any time after the first year, with 60 days notice","Only if the tenant misses one rent cheque"],c:1,w:"These are the only legal grounds. Personal use and sale both require 12 months written notice; disputes are decided by the Rental Dispute Settlement Centre."},
+ {q:"A tenant has an unpaid AED 500 violation fine and asks you to “just take it from my security deposit” now, mid-tenancy.",o:["Agree — it is the simplest way","No — the deposit is settled only at move-out; the fine is paid separately within 5 working days of Managd's written notification, and until it is paid, incoming payments are applied to it first under the Payment Waterfall","Agree, but only with the owner's approval","Deduct it and ask the tenant to top up the deposit later"],c:1,w:"Deductions from the deposit happen only at move-out. Fines are settled on their own deadline — and the waterfall is why an unpaid fine quietly eats into the next rent payment."},
+ {q:"An owner asks why Managd didn't check with them before agreeing a new tenancy at the rent level already set in the management agreement.",o:["This should always be checked first, without exception","Within the agreed rent range no renewed consent is needed — consent is required only for a letting below the agreed minimum rent, or an early termination","Managd needs consent only above AED 1,000 in monthly rent","Consent is needed only for Basic package owners"],c:1,w:"Letting within the agreed range happens directly, without renewed consent, so no time is lost before signing. Consent is required specifically for going below the agreed minimum, or for early termination."},
+ {q:"A prospective tenant asks for a 6-month lease on a unit. What is the correct answer?",o:["That is fine, Managd offers flexible terms","Residential tenancy contracts in Dubai generally run for at least one year; short-term letting is not offered through Managd","Only Premium-package owners can offer short leases","6 months is possible with an extra security deposit"],c:1,w:"Short-term lettings, monthly or via holiday-rental platforms, require separate permits and are not offered through Managd."},
+ {q:"An owner wants their rental payouts sent to their business partner's account instead of their own.",o:["Fine, as long as it's in writing","The account must be in the owner's name — payouts to third parties are not possible, with one exception: spouses","Possible, with DGMA's approval","Possible only under the Premium package"],c:1,w:"The only named exception to “owner's name only” for payouts is a spouse."},
+ {q:"A leak from the flat upstairs damages a tenant's laptop. The tenant asks whether the landlord's insurance will pay for it.",o:["Yes, the landlord is liable for everything inside the unit","Under the House Rules the tenant is responsible for household contents insurance, and the landlord carries no liability for the tenant's personal belongings","Managd pays and recovers it from the building","The service charges include contents cover"],c:1,w:"Contents insurance is the tenant's responsibility. Report the leak itself to building management and document it — but do not promise compensation for belongings."},
+ {q:"An owner sells their unit while a tenant is still mid-contract. What happens to the tenancy?",o:["It ends automatically on completion of the sale","It transfers to the new owner on the same terms — unless a valid legal eviction notice was served before the sale","The tenant must be given 12 months notice before the sale can complete","Managd terminates it on the owner's behalf"],c:1,w:"An ongoing tenancy is unaffected by the sale and transfers to the buyer; the Addendum adds the one exception — a valid eviction notice served before the sale."},
+ {q:"A rent cheque for a new tenancy clears on DGMA's account five days before the tenancy officially starts. When is the owner's payout initiated?",o:["Immediately once the cheque clears, regardless of contract start","Only once the tenancy contract has officially commenced — even though the cheque already cleared","10 days after the contract starts, no exceptions","Whenever the owner requests it"],c:1,w:"Payout is tied to the contract's official commencement date, not simply to the cheque clearing — a detail that explains an otherwise confusing delay to an owner."},
+ {q:"Why does the recommended asking rent for a newly vacant unit sometimes come in below what the previous tenant was paying?",o:["Managd applies a standard discount to attract tenants faster","Many expiring contracts were signed at the peak of the rental cycle; pricing at today's market level and letting quickly is usually more profitable over the year than holding out for the old price and absorbing a longer vacancy","It reflects a discount for the specific unit's condition","It only happens for units without a Premium package"],c:1,w:"A month of vacancy typically costs more than a moderate price adjustment — this is a market-timing explanation, not a discount policy."},
+ {q:"A snagging report for a new unit lists 40 items. The owner is alarmed. What is the accurate context to give them?",o:["This means the unit is in poor condition compared to others","Reports deliberately document in fine detail, including trivial items, so the count says nothing about the unit's actual condition — and in practice tenants have not declined units over snagging items", "This is unusually high and should be escalated to the developer as a formal complaint","It means the de-snagging step will be skipped"],c:1,w:"Thorough documentation is the intended behaviour — it exists to leave nothing overlooked as a basis against the developer, not to signal poor quality."},
+ {q:"Why is the deep cleaning of a new unit carried out only once a tenant is secured, rather than right after snagging is finished?",o:["Cleaning companies are unavailable earlier in the process","Cleaning right after snagging would often need to be repeated before move-in, an unnecessary extra cost — so it is timed once, precisely before the tenant moves in","Deep cleaning is optional and skipped for most units","It is tied to the release of the Empower deposit"],c:1,w:"Timing it to move-in avoids paying for two cleanings. Viewings happen on the show floor, so the individual unit is cleaned precisely once, right before move-in."},
+ {q:"A tenancy contract is signed and Ejari is registered. Which order of the next steps is correct at Managd?",o:["Move-in → tenant connects DEWA afterwards → cleaning when convenient","Deep cleaning → move-in → tenant sends DEWA documents","Tenant connects DEWA (and Empower if the building is connected) → all connection documents to Managd → deep cleaning → move-in day with a clean unit","Move-in on the owner's accounts → transfer of the accounts to the tenant"],c:2,w:"The deep cleaning is scheduled only after the tenant's DEWA is connected, so the unit is clean on move-in day."},
+ {q:"What is the actual standard used to issue letting clearance on a unit — “every last item on the snagging report is closed”, or something else?",o:["Every single item, including minor cosmetic ones, must be closed first","The unit is cleared once it is functionally sound and makes a flawless overall impression — not only once the very last minor cosmetic item has been closed","Clearance is issued the moment the developer confirms rectification, without our own check","Clearance depends solely on the owner's personal inspection"],c:1,w:"This is stated explicitly as the guiding standard — it is what allows minor cosmetic items to remain open in the report without blocking letting."},
+ {q:"A tenant wants to pay the cheque dated the 20th by bank transfer instead. What does the contract require?",o:["The transfer can arrive any time before the 20th","The transfer must be credited at least 5 calendar days before the cheque date — by the 15th — and the tenant sends Managd proof so the cheque is not presented","Transfers are not allowed; only cheques","The transfer must arrive by the 20th and the cheque is returned automatically"],c:1,w:"Five calendar days plus proof of transfer. Otherwise the cheque is presented as normal."},
+ {q:"Rent is due and has not been paid. When does the late payment penalty start, and how much is it?",o:["From the day after the due date, AED 100 in total","AED 100 per day plus VAT, from the fourth day after the due date until full payment — regardless of payment method and on top of other penalties","AED 100 per day, only for cheque payments","5% of the rent after one week"],c:1,w:"Addendum 12.6. It also applies to any rent shortfall created by the Payment Waterfall, from the fourth day after the original due date."},
+ {q:"A new tenant has not provided the Ejari registration by the lease start date. What applies?",o:["A reminder only — no penalty","AED 500 payable to Managd, once per lease year; the same applies at each renewal where Ejari is not maintained, after a formal written demand","AED 500 per month until registered","AED 100 per day plus VAT"],c:1,w:"Ejari penalties are one-time per lease year, subject to the Payment Waterfall and enforceable at the RDC."},
+ {q:"You send a formal demand on WhatsApp on Monday. The tenant says they only read it on Wednesday, so the deadline should run from Wednesday.",o:["Agree and restart the deadline from Wednesday","Formal notices by email or WhatsApp to the registered contact details are deemed received on the day of sending — the deadline runs from Monday","Formal notices are only valid by courier","Send the demand again by email to be safe and restart the clock"],c:1,w:"Addendum 21.2. Keeping contact details current is the tenant's responsibility."},
+ {q:"Five weeks before lease expiry, a tenant still owes an AED 1,000 violation fine. What has to happen before Managd and the landlord can decline renewal on that basis?",o:["Nothing — they can decline immediately","Written notice of the outstanding items at least 30 days before expiry; if they are not remedied within 15 days of that notice, renewal can be declined","A court order from the RDC","The tenant must first be fined a second time"],c:1,w:"Right to Deny Renewal, Addendum 13.4 — the notice gives the tenant a real chance to fix it."},
+ {q:"Move-out repair costs exceed the security deposit by AED 3,000. What does the contract say?",o:["Managd absorbs the difference","The tenant pays the balance within 5 working days of written demand; from day six, AED 100 per day accrues until paid, and both landlord and Managd can recover through the RDC with costs on the tenant","The owner must claim it from the tenant personally","It is written off after 45 days"],c:1,w:"Addendum 11.4."},
+ {q:"Building management fines the owner AED 1,000 because the tenant held a loud party after midnight. Who pays, and by when?",o:["The owner — fines from the building are an owner cost","Managd, as property manager","The tenant, within 5 working days of Managd's written notification","Nobody, because quiet hours are only a recommendation"],c:2,w:"Fines levied on the landlord as a direct result of the tenant's conduct are borne by the tenant. Quiet hours are 10:00 PM to 10:00 AM."},
+ {q:"A tenant wants to install built-in shelving that needs wall drilling beyond picture hanging. What applies?",o:["Allowed — tenants may furnish as they like","Prior written approval from the landlord or Managd is required; if approved, the tenant restores the original condition at their own cost on moving out unless otherwise agreed in writing","Allowed if they use Managd's contractor","Never allowed, under any circumstances"],c:1,w:"Alterations need prior written approval, and approved alterations are reinstated at the tenant's cost — otherwise the cost is deducted from the deposit."},
+ {q:"In an emergency, Managd used AED 800 of an owner's AED 2,000 maintenance deposit for an urgent repair above the tenant's AED 500 line. What happens next?",o:["The tenant must top up the AED 800","Nothing — the deposit is simply smaller now","The owner tops the maintenance deposit back up to AED 2,000; the owner is informed of the measure as always, and the deposit is refunded at the end of the management agreement","The amount is deducted from the tenant's security deposit"],c:2,w:"The maintenance deposit belongs to the owner's side of the arrangement. It exists so repairs can start immediately, and it is replenished after use."},
+ {q:"Six weeks before the lease expires, a tenant writes that they will not renew. What applies?",o:["Nothing — six weeks is enough notice","They must stay for another full year","The contract has already renewed at the 90-day mark, so leaving is an early termination: two months' rent penalty, after which the tenant is free to go","A penalty of one month's rent, because they are only a few weeks late"],c:2,w:"There is only one rule for a tenant who wants out before the contract allows it — two months' rent — and late notice falls under it."},
+ {q:"A tenant asks for a rent reduction more than 90 days before the lease expires. Which statement about the “under negotiation” status is correct?",o:["It can stay on until the tenant decides, however long that takes","It lets the coordinator agree a lower rent without the owner","It stops the automatic renewal while the owner is consulted about a possible reduction — it cannot be kept open for long, so the matter has to be resolved quickly","It has no effect on the automatic renewal"],c:2,w:"The status pauses auto-renewal for a short working window with the owner — it is not a parking place and not an approval."},
+ {q:"You notice the same move-out problem — missing Ejari cancellation — delaying deposit refunds across several of your units.",o:["Handle each case and move on","Raise it and propose a practical process improvement together with Line Management","Change the move-out checklist yourself without telling anyone","Nothing — it is the tenants' problem"],c:1,w:"Monitoring day-to-day operations for recurring issues and proactively proposing improvements with Line Management is part of the job description."}
 ];
 
 /* ======================= STATE ======================= */
@@ -490,7 +764,7 @@ function mountShell(){
           <circle id="ringFill" cx="18" cy="18" r="15.5" fill="none" stroke="var(--teal)" stroke-width="4"
                   stroke-linecap="round" transform="rotate(-90 18 18)" stroke-dasharray="97.4" stroke-dashoffset="97.4"/>
         </svg>
-        <div class="prog-t"><b id="progNum">0 of 11</b>modules complete</div>
+        <div class="prog-t"><b id="progNum">0 of 13</b>modules complete</div>
       </div>
       <nav><ol id="navList"></ol></nav>
       <div class="side-foot"><button class="linkbtn" id="resetBtn">Reset my progress</button></div>
@@ -591,7 +865,7 @@ function renderModule(m){
   if(m.id==="start"){
     main.appendChild(el(`<header class="hero">
       <h1>${m.title}</h1><p>${m.lede}</p>
-      <div class="meta"><div><b>11</b>modules</div><div><b>18</b>exam questions</div><div><b>80%</b>to pass</div></div></header>`));
+      <div class="meta"><div><b>${MODULES.length-1}</b>modules</div><div><b>${EXAM.length}</b>exam questions</div><div><b>80%</b>to pass</div></div></header>`));
   }else{
     main.appendChild(el(`<p class="eyebrow">${m.num}</p>`));
     main.appendChild(el(`<h2 class="mtitle">${m.title}</h2>`));
@@ -616,7 +890,7 @@ let examAnswers=[];
 function renderExam(){
   const main=document.getElementById("main"); main.innerHTML="";
   main.appendChild(el(`<p class="eyebrow">Final exam</p>`));
-  main.appendChild(el(`<h2 class="mtitle">Eighteen questions, 80% to pass</h2>`));
+  main.appendChild(el(`<h2 class="mtitle">${EXAM.length} questions, 80% to pass</h2>`));
   const left=MODULES.length-state.done.length;
   main.appendChild(el(`<p class="lede">${left>0?`You still have ${left} module${left>1?"s":""} to complete — you can take the exam anyway, but it will be harder than it needs to be.`:"All modules complete. Answer everything, then submit."}${state.best?` Your best score so far: ${state.best}%.`:""}</p>`));
   examAnswers=new Array(EXAM.length).fill(null);
