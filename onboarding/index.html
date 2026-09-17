@@ -1,0 +1,770 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>MANAGD — Tenant Coordinator Onboarding</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400&display=swap" rel="stylesheet">
+<style>
+:root{
+  --paper:#F1F4F3; --card:#FFFFFF; --ink:#12272B; --ink-soft:#456066;
+  --rule:#D5DEDC; --teal:#1F6F6B; --teal-dim:#E3EFEC; --brass:#A87E22; --brass-dim:#F6EEDA;
+  --bad:#A63A24; --bad-dim:#F7E6E1; --shadow:0 1px 0 rgba(18,39,43,.06);
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --paper:#0E1719; --card:#162326; --ink:#E7EEEC; --ink-soft:#9FB4B5;
+    --rule:#26383B; --teal:#63BFAF; --teal-dim:#15302E; --brass:#D6B25C; --brass-dim:#2B2415;
+    --bad:#E08268; --bad-dim:#331D17; --shadow:none;
+  }
+}
+:root[data-theme="dark"]{
+  --paper:#0E1719; --card:#162326; --ink:#E7EEEC; --ink-soft:#9FB4B5;
+  --rule:#26383B; --teal:#63BFAF; --teal-dim:#15302E; --brass:#D6B25C; --brass-dim:#2B2415;
+  --bad:#E08268; --bad-dim:#331D17; --shadow:none;
+}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0}
+body{background:var(--paper);color:var(--ink);font-family:"Source Serif 4",Georgia,serif;font-size:17px;line-height:1.62;-webkit-text-size-adjust:100%}
+h1,h2,h3,h4,.ui{font-family:"Bricolage Grotesque","Helvetica Neue",Arial,sans-serif;font-weight:700;letter-spacing:-.015em}
+a{color:var(--teal)}
+button{font-family:inherit}
+:focus-visible{outline:2px solid var(--teal);outline-offset:3px;border-radius:3px}
+@media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
+.shell{display:grid;grid-template-columns:292px minmax(0,1fr);min-height:100vh}
+.side{border-right:1px solid var(--rule);background:var(--card);padding:26px 22px 40px;position:sticky;top:0;height:100vh;overflow-y:auto}
+.main{padding:40px 6vw 96px;max-width:940px}
+@media (max-width:880px){
+  .shell{grid-template-columns:1fr}
+  .side{position:static;height:auto;border-right:none;border-bottom:1px solid var(--rule);padding:18px 20px 22px}
+  .main{padding:26px 20px 80px}
+  body{font-size:16.5px}
+}
+.brand{font-size:19px;line-height:1.2;margin:0}
+.brand small{display:block;font-family:"Source Serif 4",serif;font-weight:400;font-size:13px;color:var(--ink-soft);letter-spacing:0;margin-top:5px}
+.who{margin:16px 0 0;font-size:13px;color:var(--ink-soft);font-family:"Bricolage Grotesque",sans-serif}
+.who b{color:var(--ink)}
+.prog{display:flex;align-items:center;gap:12px;margin:14px 0 18px;padding:12px 14px;border:1px solid var(--rule);border-radius:10px;background:var(--paper)}
+.ring{width:42px;height:42px;flex:none}
+.prog-t{font-size:13.5px;line-height:1.35;color:var(--ink-soft);font-family:"Bricolage Grotesque",sans-serif;font-weight:500}
+.prog-t b{display:block;color:var(--ink);font-size:15px}
+nav ol{list-style:none;margin:0;padding:0}
+nav button{width:100%;text-align:left;background:none;border:0;padding:9px 10px 9px 34px;color:var(--ink);font-size:14.5px;line-height:1.35;cursor:pointer;border-radius:8px;position:relative;font-family:"Bricolage Grotesque",sans-serif;font-weight:500}
+nav button:hover{background:var(--paper)}
+nav button[aria-current="true"]{background:var(--teal-dim)}
+nav .mk{position:absolute;left:8px;top:10px;width:17px;height:17px;border-radius:50%;border:1.5px solid var(--rule);display:grid;place-items:center}
+nav .done .mk{background:var(--teal);border-color:var(--teal)}
+nav .done .mk::after{content:"✓";font-size:11px;line-height:1;color:#fff}
+.side-foot{margin-top:22px;padding-top:16px;border-top:1px solid var(--rule);display:flex;gap:12px;flex-wrap:wrap}
+.tiny{font-size:12.5px;color:var(--ink-soft);font-family:"Bricolage Grotesque",sans-serif}
+.linkbtn{background:none;border:0;color:var(--ink-soft);font-size:12.5px;cursor:pointer;text-decoration:underline;padding:0;font-family:"Bricolage Grotesque",sans-serif}
+.hero{border-bottom:1px solid var(--rule);padding-bottom:30px;margin-bottom:34px}
+.hero h1{font-size:clamp(32px,5.6vw,52px);line-height:1.03;margin:0 0 16px;max-width:16ch}
+.hero p{font-size:19px;max-width:60ch;color:var(--ink-soft);margin:0 0 22px}
+.hero .meta{display:flex;gap:26px;flex-wrap:wrap;font-family:"Bricolage Grotesque",sans-serif;font-size:13.5px;color:var(--ink-soft)}
+.hero .meta b{display:block;color:var(--ink);font-size:24px;font-weight:700;line-height:1.1}
+.eyebrow{font-family:"Bricolage Grotesque",sans-serif;font-size:13px;color:var(--teal);font-weight:600;margin:0 0 8px}
+h2.mtitle{font-size:clamp(26px,4.2vw,37px);line-height:1.1;margin:0 0 10px;max-width:21ch}
+.lede{font-size:18.5px;color:var(--ink-soft);margin:0 0 30px;max-width:62ch}
+.main p,.main li{max-width:70ch}
+h3{font-size:21px;margin:34px 0 10px}
+.main ul{padding-left:20px}
+.main li{margin:6px 0}
+.callout{border-left:3px solid var(--brass);background:var(--brass-dim);padding:14px 18px;border-radius:0 8px 8px 0;margin:22px 0;font-size:16.5px;max-width:70ch}
+.callout b{font-family:"Bricolage Grotesque",sans-serif}
+.tablewrap{overflow-x:auto;margin:20px 0;border:1px solid var(--rule);border-radius:10px;background:var(--card)}
+table{border-collapse:collapse;width:100%;min-width:520px;font-size:15.5px}
+th,td{text-align:left;padding:11px 14px;border-bottom:1px solid var(--rule);vertical-align:top}
+th{font-family:"Bricolage Grotesque",sans-serif;font-size:13.5px;color:var(--ink-soft);font-weight:600;background:var(--paper)}
+tr:last-child td{border-bottom:0}
+td.yes{color:var(--teal);font-weight:600}
+td.no{color:var(--ink-soft)}
+.flow{display:flex;gap:8px;flex-wrap:wrap;margin:22px 0}
+.flow div{flex:1 1 130px;border:1px solid var(--rule);background:var(--card);border-radius:10px;padding:12px 14px;font-family:"Bricolage Grotesque",sans-serif;font-size:14px;line-height:1.3}
+.flow span{display:block;color:var(--teal);font-size:12px;margin-bottom:5px;font-weight:600}
+.cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(190px,1fr));gap:12px;margin:22px 0}
+.flip{background:var(--card);border:1px solid var(--rule);border-radius:10px;padding:16px;cursor:pointer;text-align:left;min-height:106px;box-shadow:var(--shadow);display:flex;align-items:center;font-size:15px;line-height:1.4;color:var(--ink)}
+.flip:hover{border-color:var(--teal)}
+.flip .b{color:var(--teal);font-weight:600;font-family:"Bricolage Grotesque",sans-serif}
+.ex{background:var(--card);border:1px solid var(--rule);border-radius:12px;padding:20px 20px 16px;margin:26px 0;box-shadow:var(--shadow)}
+.ex .kind{font-family:"Bricolage Grotesque",sans-serif;font-size:12.5px;color:var(--brass);font-weight:600;margin-bottom:8px}
+.ex .q{font-size:17.5px;margin:0 0 14px;font-weight:600;font-family:"Bricolage Grotesque",sans-serif;line-height:1.35}
+.msg{background:var(--paper);border-radius:10px;padding:13px 15px;margin:0 0 16px;font-style:italic;border:1px solid var(--rule)}
+.msg b{display:block;font-style:normal;font-family:"Bricolage Grotesque",sans-serif;font-size:12.5px;color:var(--ink-soft);margin-bottom:5px;font-weight:600}
+.opts{display:grid;gap:8px}
+.opt{text-align:left;background:var(--paper);border:1px solid var(--rule);border-radius:9px;padding:11px 14px;cursor:pointer;font-size:15.8px;line-height:1.45;color:var(--ink);font-family:inherit}
+.opt:hover:not(:disabled){border-color:var(--teal)}
+.opt:disabled{cursor:default}
+.opt.right{border-color:var(--teal);background:var(--teal-dim)}
+.opt.wrong{border-color:var(--bad);background:var(--bad-dim)}
+.opt.picked{border-color:var(--teal);background:var(--teal-dim)}
+.why{margin-top:13px;font-size:15.5px;padding:12px 14px;border-radius:9px;line-height:1.5}
+.why.ok{background:var(--teal-dim)} .why.no{background:var(--bad-dim)}
+.why b{font-family:"Bricolage Grotesque",sans-serif}
+.btn{background:var(--teal);color:#fff;border:0;padding:12px 22px;border-radius:9px;font-size:15.5px;font-weight:600;cursor:pointer;font-family:"Bricolage Grotesque",sans-serif}
+.btn:disabled{opacity:.4;cursor:not-allowed}
+.btn.ghost{background:none;color:var(--ink);border:1px solid var(--rule)}
+.navrow{display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin-top:40px;padding-top:24px;border-top:1px solid var(--rule)}
+.gate{font-size:14px;color:var(--ink-soft);font-family:"Bricolage Grotesque",sans-serif}
+.score{font-size:60px;line-height:1;font-family:"Bricolage Grotesque",sans-serif;font-weight:700}
+.bar{height:8px;background:var(--rule);border-radius:4px;overflow:hidden;margin:14px 0 6px;max-width:420px}
+.bar i{display:block;height:100%;background:var(--teal)}
+.cert{border:2px solid var(--brass);border-radius:14px;padding:28px;margin:26px 0;background:var(--card);max-width:620px}
+.cert h3{margin:0 0 6px;font-size:24px}
+input[type=text],input[type=email],textarea{font-family:inherit;font-size:16px;padding:10px 13px;border:1px solid var(--rule);border-radius:8px;background:var(--paper);color:var(--ink);width:min(340px,100%)}
+textarea{width:100%;min-height:150px;font-size:13.5px;line-height:1.5}
+.gate-screen{max-width:520px;margin:8vh auto;background:var(--card);border:1px solid var(--rule);border-radius:14px;padding:32px}
+.field{margin:16px 0}
+.field label{display:block;font-family:"Bricolage Grotesque",sans-serif;font-size:13.5px;color:var(--ink-soft);margin-bottom:6px;font-weight:600}
+.hidden{display:none}
+.status{font-size:14px;font-family:"Bricolage Grotesque",sans-serif;color:var(--ink-soft);margin-top:10px}
+@media print{.side{display:none}.shell{display:block}.navrow,.btn{display:none}}
+</style>
+</head>
+<body>
+
+<!-- =============== CONFIG ===============
+  reportUrl:    the Google Apps Script "exec" URL from the setup guide below.
+                Every passed/attempted exam POSTs a row to your Google Sheet.
+                Leave "" to disable automatic sending.
+  sheetUrl:     the normal, human "Share" link to that same Google Sheet.
+                Powers the "Team progress" item in the sidebar — it just
+                opens the sheet in a new tab. Leave "" to hide that item.
+  managerEmail: used for the "Email it" fallback button on the result screen.
+======================================== -->
+<script>
+const CONFIG = {
+  reportUrl: "https://script.google.com/macros/s/AKfycbyyB-XmptQGYuZd6qKraB-HFRq6AjitXYnWI5GEkW4xuGAfO54d36VI1dL8bg4XTKvE/exec",
+  sheetUrl: "https://docs.google.com/spreadsheets/d/1219ANmyH53w5v7ru0CHCnvnV3H-KydnUyyDnh2fgMSo/edit?usp=sharing",
+  managerEmail: ""
+};
+</script>
+
+<div id="app"></div>
+
+<script>
+/* ======================= CONTENT ======================= */
+const MODULES = [
+{
+ id:"start", nav:"Start here", num:"", title:"You are the person the tenant actually talks to",
+ lede:"Owners are abroad. Building management is behind a ticket system. For a tenant, you are the company — so the accuracy of your answers is the product.",
+ blocks:[
+  {t:"p",v:"This course is built for tenant coordinators. Most of what you will do every day is answer a tenant: about a repair, a bill, a cooling charge, a deposit, a renewal. Around that sits the structure you need to know in order to answer correctly — who the three companies are, what the owner bought, and where our authority stops."},
+  {t:"h",v:"How it works"},
+  {t:"list",v:[
+    "Eleven modules. Read, then answer the questions inside each one.",
+    "Most questions are real tenant or owner messages. You choose how you would reply.",
+    "A module cannot be marked complete until every question in it has been answered. Getting one wrong is useful — the explanation is the point.",
+    "Final exam: 18 questions, 80% to pass, retakeable. When you pass, your results are sent to your manager."
+  ]},
+  {t:"callout",v:"<b>The one habit to build on day one.</b> If a tenant asks something you are not sure about, the right answer is “let me confirm and come back to you today”. Never improvise. A delayed answer costs nothing. A confident wrong answer costs a client."}
+ ]
+},
+{
+ id:"m1", nav:"1 · Who does what", num:"Module 1", title:"Three companies behind one inbox",
+ lede:"A tenant writes to one place. Behind it are three legal entities with strictly separated jobs. Knowing the split is what stops you promising something that is not yours to give.",
+ blocks:[
+  {t:"h",v:"MANAGD Property Management L.L.C. — operations, and your job"},
+  {t:"p",v:"Handover coordination with the developer, DEWA and Empower registration, organising and following up snagging and de-snagging including its own walkthrough of every unit, and letting clearance. Then the part you live in: preparation of the show floor, viewings, tenant screening and credit checks, the tenancy contract and Ejari registration, and the photo handover protocol at move-in."},
+  {t:"p",v:"During the tenancy Managd is the on-site contact for tenants, coordinates maintenance and emergencies, walks vacant units weekly, handles renewals, runs the first stage of collection on payment default, and does the move-out pre-inspection and deposit settlement."},
+  {t:"h",v:"DGMA Legal Consultancy FZ-LLC — legal, and all money"},
+  {t:"p",v:"Investor KYC and onboarding, preparation and notarisation of the Power of Attorney, legal representation towards developer and authorities, and legal representation of the owner when the tenancy contract is concluded. DGMA is the only party authorised under the Power of Attorney to receive rent or deposits. Cheques are issued to DGMA and the owner is paid out 10 to 14 days after clearing."},
+  {t:"h",v:"DG Homes Real Estate Broker L.L.C. — marketing"},
+  {t:"p",v:"Listings per apartment type on all portals — Property Finder, Bayut and others — cooperation with brokerage firms, and tenant acquisition. DG Homes also monitors the market together with Managd using the RERA index and rent levels, and re-markets the unit after a move-out."},
+  {t:"h",v:"Deliberately not ours"},
+  {t:"p",v:"Common areas, pool, outdoor facilities and the collection of the service charges lie with the building management company. Amount and use of the service charges are decided by the building management company and the owners association; Managd, DGMA and DG Homes have no influence on them. Defects in common areas we forward as a courtesy — without contractual obligation and without follow-up. Maintenance of the air conditioning inside the unit is the owner's responsibility, with coordination by Managd on request."},
+  {t:"cards",v:[
+    {f:"Who registers the unit's DEWA account?",b:"Managd, in the owner's name, under the PoA"},
+    {f:"Who may receive rent or a deposit?",b:"DGMA Legal only"},
+    {f:"Who re-markets a unit after move-out?",b:"DG Homes"},
+    {f:"Who fixes the lobby lift?",b:"Building management. We forward it as a courtesy, no follow-up"}
+  ]},
+  {t:"scenario",v:{from:"Tenant, WhatsApp, Saturday morning",msg:"The gym on the podium has been closed for two weeks and nobody answers. Can you sort it out? I pay rent, I should be able to use it.",
+   o:["Log it as a maintenance job and send a technician","Tell them common areas are managed by the building management company, that you will pass the report on, and that follow-up sits with the building","Tell them it is not your problem","Deduct something from their rent as compensation"],
+   c:1,w:"Common areas sit with the building management company. We forward reports as a courtesy — but without obligation and without follow-up, so do not promise to chase it. Saying it plainly is better than going quiet."}},
+  {t:"quiz",v:{q:"A tenant wants to hand you cash for the next rent instalment because their cheque bounced.",
+   o:["Accept it and issue a receipt","Refuse: only DGMA Legal is authorised to receive rent or deposits under the PoA — arrange payment through DGMA and escalate internally","Accept it and pass it to the owner directly","Ask DG Homes to take it"],
+   c:1,w:"This is the hardest line in the job because the tenant is trying to solve the problem. Managd is named in the PoA but is not permitted to receive funds. Never take money."}}
+ ]
+},
+{
+ id:"m2", nav:"2 · Our authority", num:"Module 2", title:"What the Power of Attorney lets us do",
+ lede:"Everything we do for an owner rests on one notarised document. You need both halves: what it covers, and what it explicitly excludes.",
+ blocks:[
+  {t:"p",v:"The Power of Attorney allows the authorised representatives to act on the owner's behalf in relation to their real estate assets in the UAE. It includes letting properties, collecting rent, negotiating and terminating tenancy contracts, and representation before authorities and service providers."},
+  {t:"p",v:"It names several companies and individuals who may act jointly or individually: DGMA Legal Consultancy FZ-LLC, D G Homes Real Estate Broker L.L.C., MANAGD Property Management L.L.C., and individually named persons employed by these companies."},
+  {t:"list",v:[
+    "Conclusion, amendment and termination of tenancy contracts.",
+    "Management of the property, including maintenance and communication with tenants.",
+    "Representation before authorities: Dubai Land Department, RERA, DEWA, and before courts and arbitration bodies.",
+    "Receipt of rent, deposits or other payments — DGMA Legal only."
+  ]},
+  {t:"callout",v:"<b>Named in the PoA ≠ allowed to handle money.</b> Managd and DG Homes are both named representatives, and neither may receive funds. No other company or individual named in the PoA is authorised to do so."},
+  {t:"h",v:"Limits and duties"},
+  {t:"p",v:"The PoA does not authorise the purchase, sale or transfer of properties, and the representative may not enter into agreements going beyond the powers set out in it. The representative is obliged to act in the owner's interest and to properly maintain all relevant financial and legal documents; misuse or breach of duty may result in criminal consequences."},
+  {t:"p",v:"It takes effect on notarisation and remains valid until revoked, and revocation must be carried out officially and lodged with the notary and the relevant authorities. Notarisation happens with a local UAE notary on the basis of a video recording provided by the investor, after digital onboarding through the Managd portal is complete and the DGMA and Managd invoices are settled."},
+  {t:"quiz",v:{q:"An owner abroad asks whether we can sell the unit for them under the PoA.",
+   o:["Yes — it covers representation before the Dubai Land Department","Yes, if DGMA and Managd act jointly","No — the PoA does not authorise purchase, sale or transfer","Yes, after the Defect Liability Period"],
+   c:2,w:"An explicit limitation. The PoA covers letting and management, not disposal of the asset."}},
+  {t:"quiz",v:{q:"When does the PoA stop being valid?",
+   o:["After two years, with the management agreement","When the tenancy ends","When it is officially revoked and lodged with the notary and the authorities","When the owner leaves the UAE"],
+   c:2,w:"Effective on notarisation, valid until formally revoked. Revocation is an official act, not an email."}}
+ ]
+},
+{
+ id:"m3", nav:"3 · Basic or Premium", num:"Module 3", title:"What the owner bought — and why it reaches the tenant",
+ lede:"The package decides what you may promise. It also decides who pays the service charge invoice and how far legal support goes when a tenant stops paying.",
+ blocks:[
+  {t:"p",v:"The rental management agreement governs the relationship between owner and property manager: services, responsibilities and financial obligations, so that the property is managed while the owner is not in Dubai."},
+  {t:"table",v:{head:["Service","Basic","Premium"],rows:[
+    ["Handover service: key handover, snagging &amp; de-snagging, DEWA and Empower registration, deep cleaning","✓","✓"],
+    ["Tenant management: tenant search, credit checks, contract conclusion and renewals","✓","✓"],
+    ["Rent administration: collection of rent payments, administration of security deposits","✓","✓"],
+    ["Maintenance coordination: organisation of maintenance and repair works","✓","✓"],
+    ["Authority liaison: Ejari registration, RERA, Dubai Land Department","✓","✓"],
+    ["Service charges paid out of the rental income (under Basic the owner pays directly)","—","✓"],
+    ["Legal representation on tenant default: out-of-court collection and support in RDC execution proceedings","—","✓"],
+    ["Third-party liability management: steering of subcontractor and maintenance agreements","—","✓"],
+    ["Management fee (minimum AED 3,500 plus 5% VAT)","5%","7%"]
+  ]}},
+  {t:"callout",v:"<b>Premium is not unlimited legal cover.</b> Representation in RDC court proceedings, first and second instance, is commissioned separately, as are court fees. In execution proceedings the owner additionally bears translation and out-of-pocket expenses of approximately AED 400."},
+  {t:"h",v:"Term, termination, owner obligations"},
+  {t:"p",v:"Two years with automatic renewal; termination is possible only after the minimum term of one year, in writing with 60 days notice. Extraordinary termination is possible if the manager breaches its duties, and on termination all documents, tenant information and outstanding payments are handed over to the owner. The owner provides proof of ownership, bank details and proof of identity, grants the PoA, pays the management fees punctually, and ensures funds are available for necessary repairs."},
+  {t:"quiz",v:{q:"Eight months in, an owner wants to terminate the agreement.",
+   o:["60 days written notice and it ends","Termination is possible only after the minimum term of one year, then in writing with 60 days notice","They must wait the full two years","Any time, no notice"],
+   c:1,w:"Unless the manager has breached its duties, which allows extraordinary termination, the one-year minimum applies first."}},
+  {t:"quiz",v:{q:"A Basic-package owner asks why the service charge invoice came to them directly.",
+   o:["A mistake on our side","Payment of service charges out of the rental income is a Premium service; under Basic the owner pays directly","Service charges are never paid from rent","It depends on the building"],
+   c:1,w:"One of the most frequent Basic-versus-Premium questions. If the owner wants it handled, the route is an upgrade."}}
+ ]
+},
+{
+ id:"m4", nav:"4 · Handover & snagging", num:"Module 4", title:"How a unit becomes lettable",
+ lede:"You will inherit units from this phase and answer tenant questions about defects that came out of it. You need the shape of it and the honest expectations it sets.",
+ blocks:[
+  {t:"flow",v:[["1","Snagging"],["2","Report to the developer"],["3","De-snagging"],["4","Check by our team"],["5","Letting clearance"]]},
+  {t:"p",v:"Snagging is the systematic inspection of a newly built property for structural and technical defects before official handover — structural incompletions, faulty installations, cosmetic damage. De-snagging is the follow-up check after the developer reports rectification. The report is also the basis on which claims are asserted against the developer."},
+  {t:"list",v:[
+    "A professional, independent snagging company inspects every apartment individually. Cost: AED 1.8 per sqft including VAT, a third-party service passed on to the owner; organisation and follow-up are included in both packages.",
+    "The report goes to the developer, who must rectify within an agreed period.",
+    "The snagging company verifies the rectification — usually 1 to 2 weeks.",
+    "Our property management team then walks through every single apartment itself; anything still open is reported again and followed up until the end of the Defect Liability Period.",
+    "After that check the team issues the letting clearance. At move-in, a detailed photo handover protocol is created with the tenant."
+  ]},
+  {t:"h",v:"What realistically gets fixed"},
+  {t:"table",v:{head:["Type of snag","Examples","Rectified by the developer?"],rows:[
+    ["Functional and technical defects","Installations, plumbing, electrics, doors and windows, sealing, leaks","Yes — enforced consistently; these affect the substance and usability of the apartment"],
+    ["Clearly visible cosmetic defects","Damaged tiles, faulty surfaces that stand out at first glance","As a rule, yes"],
+    ["Minor cosmetic snags","Fine scratches, minimal paint or grouting inaccuracies, traces of use — visible only on close inspection","Realistically not; considered customary in construction practice, but they remain documented in the report"]
+  ]}},
+  {t:"h",v:"Why handover can stall"},
+  {t:"p",v:"Almost all developers require proof, before handing over the keys, that a DEWA account has been activated in the owner's name — the developer does not want to remain liable for the unit's consumption after handover. Registration takes 3 to 5 working days and the deposit must be paid locally, so a late start delays the whole handover."},
+  {t:"scenario",v:{from:"New tenant, day two in the apartment",msg:"There are fine scratches on the wardrobe doors and the grouting in the second bathroom is uneven. This is a brand new building. Can you have the developer redo it?",
+   o:["Yes, raise it with the developer as a snag","Explain that minor cosmetic items visible only on close inspection are documented in the snagging report but are realistically not rectified, and that anything functional you will take up straight away","Tell them to raise it with the developer themselves","Arrange the work and charge the owner"],
+   c:1,w:"Separate the categories out loud, every time. Functional items get chased; minor cosmetic ones stay documented. And check the photo handover protocol — it also protects the tenant from being charged for this at move-out."}}
+ ]
+},
+{
+ id:"m5", nav:"5 · Move-in", num:"Module 5", title:"Move-in: Ejari, accounts, and the photo protocol",
+ lede:"Everything that goes wrong at move-out was either done or not done in this first week.",
+ blocks:[
+  {t:"h",v:"The sequence"},
+  {t:"flow",v:[["1","Tenancy contract concluded, DGMA representing the owner"],["2","Ejari registration"],["3","Tenant opens their own DEWA and Empower accounts"],["4","Photo handover protocol with the tenant"]]},
+  {t:"p",v:"The tenant opens their own new accounts with both DEWA and Empower and bears the ongoing cost of electricity, water and cooling from move-in. This requires Ejari registration of the tenancy contract — which is why the order matters and why a delayed Ejari means a tenant who cannot register."},
+  {t:"callout",v:"<b>There is no transfer of accounts.</b> The owner's DEWA account is not transferred to the tenant. It stays active permanently so the unit is supplied during vacancy — viewings, deep cleaning, the weekly walkthrough, and protecting the unit, for example running the AC against moisture and mould."},
+  {t:"h",v:"The photo handover protocol"},
+  {t:"p",v:"At move-in a detailed photo handover protocol is created with the tenant. At move-out the pre-inspection is carried out with the tenant against that protocol, and the deposit is settled on its basis. A protocol done carelessly at move-in becomes a dispute you cannot win later."},
+  {t:"p",v:"The deposit is 5%, held and settled by Managd, and it is settled only at move-out."},
+  {t:"cards",v:[
+    {f:"What must exist before the tenant can open DEWA and Empower accounts?",b:"Ejari registration of the tenancy contract"},
+    {f:"Deposit",b:"5%, held by Managd, settled only at move-out"},
+    {f:"What is the deposit settled against?",b:"The photo handover protocol created at move-in"},
+    {f:"Who holds the rent cheques?",b:"Cheques are issued to DGMA Legal; Managd administers them operationally"}
+  ]},
+  {t:"scenario",v:{from:"Tenant, move-in day",msg:"DEWA is asking for Ejari and I don't have it yet. Can I just use the owner's account for the first month and settle it later?",
+   o:["Yes, that is simplest — we will bill it back","No — the tenant opens their own accounts, and that requires Ejari; escalate the Ejari registration today so it is not delayed","Tell them to wait until next month","Ask the owner to pay it as goodwill"],
+   c:1,w:"There is no transfer and no informal sharing. What you can actually influence is the Ejari registration, so treat this as an internal escalation rather than a tenant problem."}},
+  {t:"quiz",v:{q:"A colleague did the move-in while you were away and took no photos. What is the consequence?",
+   o:["None, the contract is enough","The move-out pre-inspection has nothing to check the unit against, so the deposit settlement becomes one person's word against another's","The developer covers any damage","The tenant automatically loses the deposit"],
+   c:1,w:"The pre-inspection at move-out is done against the photo handover protocol. Without it there is no basis for either charging or clearing the tenant."}}
+ ]
+},
+{
+ id:"m6", nav:"6 · DEWA & Empower", num:"Module 6", title:"Electricity, water, cooling — the biggest source of tenant questions",
+ lede:"This module produces more wrong answers from new colleagues than the rest of the course combined. Read it twice.",
+ blocks:[
+  {t:"h",v:"Who is who"},
+  {t:"p",v:"DEWA, the Dubai Electricity and Water Authority, is the government provider for electricity and water; every unit requires its own DEWA account. Empower provides cooling — in many Dubai buildings air conditioning runs on district cooling, with chilled water delivered to the building, billed through a separate account per unit. Both providers are independent of Managd, DGMA Legal and the building management. We handle registration and coordination; the contracting party is always the owner, or later the tenant."},
+  {t:"h",v:"Before the building is connected to Empower"},
+  {t:"p",v:"An Empower account for a unit can only be set up once the building itself is connected to the district cooling network. New buildings frequently are not connected at handover. The apartment is still cooled — the supply runs centrally through the building and is billed through the service charges."},
+  {t:"p",v:"So that no high outstanding balance arises on the tenant's side during the tenancy, we bill the tenant a flat quarterly fee in advance for cooling, collect it, and transfer it to the owner together with the rent. Once the connection is made, the owners' accounts are registered and the tenant must register with Empower themselves; we inform the owner as soon as that is the case."},
+  {t:"table",v:{head:["","Building not yet connected","Building connected"],rows:[
+    ["Requirement for handover","DEWA proof only; Empower registration is technically not possible","DEWA and Empower proof; Managd registers both accounts in the owner's name"],
+    ["How cooling is billed","Centrally through the building, via the service charges, plus a quarterly flat charge collected from the tenant in advance and paid out with the rent","Directly by Empower on the tenant's own account"],
+    ["What the tenant must do","Pay the quarterly flat charge","Register with Empower themselves"]
+  ]}},
+  {t:"h",v:"When the tenant does not pay or does not register"},
+  {t:"p",v:"Non-payment leads to disconnection, restored at the tenant's own expense — AED 2,000 plus outstanding amounts. At move-out the tenant settles all outstanding amounts first on the final bill; only then can the accounts be closed. Invoices from the tenancy period are never taken over by the owner — not even to bridge a gap."},
+  {t:"cards",v:[
+    {f:"DEWA emergency, electricity and water",b:"991"},
+    {f:"DEWA customer care, 24/7",b:"04 601 9999, also WhatsApp · customercare@dewa.gov.ae · DEWA Smart App"},
+    {f:"Empower customer care",b:"04 559 2888 · billing@empower.ae · head office 04 375 5555 · e-services.empower.ae"},
+    {f:"DEWA activation time",b:"3 to 5 working days; deposit paid locally"},
+    {f:"DEWA registration and deposit",b:"AED 2,155 for apartments; AED 2,000–4,000 by property type"},
+    {f:"Empower registration and deposit",b:"Usually AED 2,000 for apartments; AED 1,000–2,000 by property type"}
+  ]},
+  {t:"scenario",v:{from:"Tenant, quarter two",msg:"Why am I paying you a cooling charge every quarter when I have no Empower account and no Empower bill? Is this your fee?",
+   o:["Explain it is an administrative fee","Explain that the building is not yet connected to the Empower network, so individual registration is technically impossible; cooling runs centrally and is billed via service charges, and the quarterly flat charge in advance is what prevents a large balance building up","Say it is a refundable deposit","Agree to waive it"],
+   c:1,w:"The tenant is not being overcharged and it is not our fee — it is collected and transferred to the owner with the rent. Say why it exists, and that it changes once the building is connected."}},
+  {t:"scenario",v:{from:"Owner, forwarding an invoice",msg:"An Empower bill arrived covering a period when the tenant was living there. Shall I just pay it and we deduct it later?",
+   o:["Yes, pay and deduct","No — invoices of the tenancy period are never taken over by the owner, not even to bridge a gap; we pursue it with the tenant","Split it","Send it to the building management company"],
+   c:1,w:"Paying once establishes the precedent, and recovering it afterwards is much harder than never paying it."}},
+  {t:"quiz",v:{q:"The building has just been connected to Empower. The tenant does nothing.",
+   o:["Central billing simply continues","Managd registers on their behalf","In the worst case the connection is cut and restored at the tenant's own expense — AED 2,000 plus outstanding amounts","The owner becomes liable"],
+   c:2,w:"We give the tenant notice of the registration obligation. Enforcement and the reconnection cost sit with the provider and the tenant."}}
+ ]
+},
+{
+ id:"m7", nav:"7 · Living in the unit", num:"Module 7", title:"Maintenance, emergencies, and what is not ours",
+ lede:"The day-to-day. Most of it is one decision: can I commission this, or do I need the owner first?",
+ blocks:[
+  {t:"h",v:"The maintenance rule"},
+  {t:"p",v:"A cost estimate is always prepared. Up to AED 1,000 the work can be commissioned independently with the owner informed; above that, owner approval is required. A maintenance deposit of AED 2,000 applies after the Defect Liability Period. Managd selects and supervises the service providers and handles warranty management."},
+  {t:"callout",v:"<b>AED 1,000 and AED 2,000 are different things.</b> AED 1,000 is the threshold for acting without approval. AED 2,000 is the maintenance deposit after the DLP. Mixing them up is the most common numeric error in this job."},
+  {t:"h",v:"What is not our responsibility"},
+  {t:"list",v:[
+    "Common areas, pool and outdoor facilities — the building management company. We forward defects as a courtesy, without obligation and without follow-up.",
+    "Maintenance of the air conditioning inside the unit — the owner's responsibility; Managd coordinates on request.",
+    "The amount and use of service charges — the owners association and the building management company."
+  ]},
+  {t:"h",v:"Vacancy and emergencies"},
+  {t:"p",v:"Vacant units are walked through weekly and the water pressure is reduced. For emergencies Managd provides fast coordination and is the direct on-site contact for tenants. For electricity and water emergencies, DEWA's emergency number is 991."},
+  {t:"scenario",v:{from:"Tenant, 9pm",msg:"Water is coming through the ceiling in the bedroom. It's getting worse.",
+   o:["Ask them to email the details tomorrow","Treat it as an emergency: coordinate immediately, and if electricity or water safety is involved, DEWA emergency is 991; document it and get a cost estimate for the works","Tell them to call the building management","Tell them to arrange a plumber and send the invoice"],
+   c:1,w:"Fast coordination in emergencies is exactly what Managd is contracted for. The cost estimate and the AED 1,000 approval logic still apply to the repair itself — but they do not delay stopping the damage."}},
+  {t:"quiz",v:{q:"A quote comes in at AED 1,600 for a repair.",
+   o:["Commission it and inform the owner afterwards","Send the cost estimate to the owner and wait for approval","Split it into two jobs under AED 1,000","Take it from the tenant's deposit"],
+   c:1,w:"Above AED 1,000 the owner approves first. The deposit is settled only at move-out and is not a working budget."}},
+  {t:"quiz",v:{q:"A tenant asks who services the AC inside the apartment.",
+   o:["The building management, via service charges","The developer","It is the owner's responsibility; Managd coordinates it on request","The tenant, at their own cost"],
+   c:2,w:"Explicitly carved out as the owner's responsibility, with coordination by Managd on request."}}
+ ]
+},
+{
+ id:"m8", nav:"8 · Money", num:"Module 8", title:"Rent, deposit, service charges",
+ lede:"Three different pots of money that tenants routinely confuse with each other.",
+ blocks:[
+  {t:"h",v:"Rent"},
+  {t:"p",v:"Cheques are issued to DGMA Legal, the only party authorised to receive funds. Managd administers the cheques operationally and handles default management for bounced cheques. The owner is paid 10 to 14 days after clearing; under Premium the service charges are paid out of the rental income first."},
+  {t:"h",v:"Deposit"},
+  {t:"p",v:"The tenant deposit is 5%, held and settled by Managd, and settled only at move-out — against the photo handover protocol, with the remaining balance returned to the tenant."},
+  {t:"h",v:"Service charges — the owner's cost, not the tenant's"},
+  {t:"p",v:"Service charges are every owner's annual contribution to the running costs of the building: maintenance and cleaning of common areas, pool, gym and outdoor facilities, security, lifts, building insurance, building management, and a reserve fund for major repairs. While the building is not connected to Empower, central cooling runs through them too."},
+  {t:"p",v:"They are calculated per square foot according to the allocation key registered with the Dubai Land Department; the rate differs from building to building and is set anew every year. The budget is decided by the owners association and the building management company it appoints, and is reviewed and approved by RERA before it may be billed through Mollak — the Dubai Land Department platform on which every building, unit and owner is registered. Billing runs on quarterly prepayment with automated reminders."},
+  {t:"callout",v:"<b>Service charges are not a Managd or DGMA fee.</b> They apply to every property in Dubai, whether it is rented out, owner-occupied or vacant. Managd, DGMA and DG Homes are not part of the owners association and have no voting rights there."},
+  {t:"quiz",v:{q:"An owner asks us to negotiate the service charge rate down.",
+   o:["Escalate it to our management to negotiate","Explain that the rate is set annually by the owners association and its building management, approved by RERA and billed via Mollak, and that we have no influence and no vote","Say it cannot ever change","Offer a management fee discount instead"],
+   c:1,w:"Be straight about the limit of our role. Owners generally accept it when the actual decision chain is named."}},
+  {t:"quiz",v:{q:"A unit is vacant for six months. Service charges are:",
+   o:["Suspended","Halved","Payable — they apply to every property in Dubai regardless of occupancy","Payable only under Premium"],
+   c:2,w:"The charge follows the unit, not the tenancy."}},
+  {t:"quiz",v:{q:"A tenant asks to have a damaged blind deducted from their deposit now, mid-tenancy.",
+   o:["Deduct it and send confirmation","The deposit is settled only at move-out; arrange the repair through the normal maintenance route instead","Refuse any repair","Take it from the next rent cheque"],
+   c:1,w:"The deposit is held and settled at move-out, against the photo handover protocol. Mid-tenancy repairs run through the maintenance process with its cost estimate and approval threshold."}}
+ ]
+},
+{
+ id:"m9", nav:"9 · Renewal", num:"Module 9", title:"Renewal: when the right move is silence",
+ lede:"Your own core area. The sequence is fixed, and the most common mistake is talking to the tenant too early.",
+ blocks:[
+  {t:"p",v:"Before the 90-day window, the market and the RERA index are reviewed and the position is aligned with the owner. If the rent is at market level, no tenant contact is made deliberately — the contract renews automatically. If the tenant comes back with a counter-offer, the owner is consulted. Market monitoring runs with DG Homes, using the RERA index and rent levels."},
+  {t:"callout",v:"<b>Silence here is a decision, not an oversight.</b> Opening a conversation with a tenant who would have renewed quietly at market rent invites a negotiation the owner did not need."},
+  {t:"flow",v:[["1","Review market and RERA index before the 90-day window"],["2","Align the position with the owner"],["3","If at market level: no tenant contact, auto-renewal"],["4","Counter-offer from the tenant: consult the owner"]]},
+  {t:"scenario",v:{from:"Tenant, 100 days before contract end",msg:"I'd like to stay another year. What's the new rent going to be?",
+   o:["Quote a small increase to be safe","Say nothing changes and it renews","Check market and RERA index, align with the owner, then come back — if the rent is at market level the contract renews automatically on the same terms","Refer them to DG Homes"],
+   c:2,w:"Even when the tenant initiates, the order does not change: market and index, then owner, then tenant. Never quote a number the owner has not agreed."}},
+  {t:"quiz",v:{q:"The rent is at market level and the 90-day window is approaching. What do you do?",
+   o:["Send a renewal offer to confirm intentions","Deliberately make no tenant contact so the contract auto-renews","Serve a 90-day notice as a formality","Ask DG Homes to re-market the unit"],
+   c:1,w:"Contact is what opens a renegotiation. If the position is already right, do not create one."}},
+  {t:"quiz",v:{q:"A tenant counter-offers below the position you agreed with the owner.",
+   o:["Accept if it is close","Reject it immediately","Consult the owner — counter-offers are an owner decision","Ask DGMA to decide"],
+   c:2,w:"Owner consultation on tenant counter-offers is explicitly part of the renewal process."}}
+ ]
+},
+{
+ id:"m10", nav:"10 · Default & move-out", num:"Module 10", title:"When payment stops, and when the tenancy ends",
+ lede:"Two processes with a strict order. Skipping a step here creates legal problems, not just service problems.",
+ blocks:[
+  {t:"h",v:"Payment default"},
+  {t:"table",v:{head:["Stage","Who","What happens"],rows:[
+    ["Stage 1","Managd","Reminders and collection from the tenant"],
+    ["Stage 2","DGMA Legal — Premium included, Basic on separate mandate","Written demand with a 5-day deadline; recommendation and support for RDC execution proceedings; expenses of approximately AED 400 borne by the owner"],
+    ["Court proceedings","DGMA Legal, separate mandate only","First and second instance, plus court fees — never automatically included"]
+  ]}},
+  {t:"p",v:"Managd also handles default management for bounced cheques as part of rental income administration, and eviction measures in the case of rent default form part of the tenant management scope."},
+  {t:"h",v:"Move-out"},
+  {t:"list",v:[
+    "Pre-inspection with the tenant against the photo handover protocol.",
+    "Recording and execution of the required works.",
+    "Deposit settlement, with the remaining balance returned to the tenant.",
+    "The tenant settles all outstanding utility amounts first on the final bill; only then can the DEWA and Empower accounts be closed.",
+    "DGMA handles payout and settlement of the funds flows; DG Homes re-markets the unit."
+  ]},
+  {t:"scenario",v:{from:"Tenant, two weeks before moving out",msg:"Just close my DEWA and Empower accounts for me and take whatever is owed from the deposit.",
+   o:["Agree, it is simpler","Explain that they settle all outstanding amounts first on the final bill — only then can the accounts be closed — and that the deposit is settled separately against the photo handover protocol","Close the accounts on their behalf","Tell them the owner will handle it"],
+   c:1,w:"Two separate processes that tenants constantly merge. Utilities are settled with the providers; the deposit is settled against the move-in protocol."}},
+  {t:"quiz",v:{q:"A tenant has missed two months. The owner is on Basic and wants a formal demand letter sent.",
+   o:["Managd sends it","DGMA sends it as part of Premium","Stage 2 sits with DGMA Legal — included under Premium, and on a separate mandate for Basic","Refer the owner to the RDC directly"],
+   c:2,w:"Stage 1 is ours: reminders and collection. Stage 2 is DGMA, and for a Basic owner it requires a separate mandate — say so before anything is promised."}}
+ ]
+},
+{
+ id:"m11", nav:"11 · Red flags", num:"Module 11", title:"Sentences that must never leave your keyboard",
+ lede:"The rules behind each of these come from the documents you have just read. The wording is what you can reuse.",
+ blocks:[
+  {t:"table",v:{head:["Never say","Say instead"],rows:[
+    ["“We'll transfer the DEWA account to you.”","“You open your own DEWA and Empower accounts after Ejari registration. The owner's account stays active so the unit is supplied when it is empty.”"],
+    ["“The developer will fix all of that.”","“Functional and clearly visible defects are enforced. Fine scratches and minor inaccuracies stay documented in the report but are realistically not rectified.”"],
+    ["“The service charge is too high, we'll get it reduced.”","“The rate is set annually by the owners association and its building management, approved by RERA and billed via Mollak. We have no influence and no vote.”"],
+    ["“Just give the money to me and I'll pass it on.”","“Rent and deposits go to DGMA Legal — the only party authorised to receive funds under the Power of Attorney.”"],
+    ["“Pay the outstanding bill for now, we'll deduct it later.”","“Invoices of the tenancy period are never taken over by the owner. We'll pursue it with the tenant.”"],
+    ["“I'll get this repair done today.” (above AED 1,000)","“Here is the cost estimate. Above AED 1,000 I need the owner's approval before commissioning it.”"],
+    ["“We'll take it off your deposit.” (mid-tenancy)","“The deposit is settled at move-out against the photo protocol. This goes through the normal maintenance process.”"],
+    ["“I think so.”","“Let me confirm that and come back to you today.”"]
+  ]}},
+  {t:"scenario",v:{from:"Tenant, on the phone, right now",msg:"Just yes or no — will the balcony grouting be redone before I move in?",
+   o:["“Yes, it's on the snagging list.”","“No, that won't be done.”","“It's documented in the report. Let me check which category it fell into and come back to you today with a firm answer.”","“That's up to the developer, I can't say anything.”"],
+   c:2,w:"The pressure to give a yes or no is exactly when the wrong sentence comes out. Naming what you will do and by when satisfies the tenant without committing to something you cannot deliver."}},
+  {t:"quiz",v:{q:"You are unsure whether something is covered under a Basic package and the owner is waiting on the line.",
+   o:["Give your best guess and correct it later","Say it is not included, to be safe","Say you will confirm and come back the same day","Transfer them to DGMA"],
+   c:2,w:"Both guessing directions cost you: under-promising creates an unnecessary upgrade conversation, over-promising creates a service you then deliver for free."}}
+ ]
+}
+];
+
+const EXAM = [
+ {q:"A tenant offers you cash because their cheque bounced. What do you do?",o:["Accept and issue a receipt","Refuse — only DGMA Legal may receive rent or deposits under the PoA — and arrange payment through DGMA","Accept and pass it to the owner","Ask DG Homes to take it"],c:1,w:"Managd is named in the PoA but is not permitted to receive funds."},
+ {q:"A tenant moves in. What happens to the owner's DEWA account?",o:["It transfers to the tenant","It is closed","It stays active in the owner's name; the tenant opens their own after Ejari registration","It stays active until the tenant's account opens, then closes"],c:2,w:"No transfer, ever. The owner's account keeps the unit supplied during vacancy."},
+ {q:"What must exist before a tenant can open their DEWA and Empower accounts?",o:["The photo handover protocol","Ejari registration of the tenancy contract","A letter from the owner","Approval from building management"],c:1,w:"Which is why a delayed Ejari becomes a tenant problem fast."},
+ {q:"The building is not connected to Empower. How is cooling handled?",o:["No cooling until connection","Centrally through the building, billed via service charges, with a quarterly flat charge collected from the tenant in advance and paid out with the rent","A temporary Empower account is opened","The developer pays for it"],c:1,w:"Individual registration is technically impossible before the building connection."},
+ {q:"After the building is connected, the tenant does not register with Empower.",o:["Central billing continues","Managd registers for them","In the worst case the connection is cut and restored at the tenant's expense — AED 2,000 plus outstanding amounts","The owner becomes liable"],c:2,w:"We notify the tenant of the obligation; enforcement sits with the provider."},
+ {q:"Up to what amount can maintenance be commissioned without owner approval?",o:["Any amount with a cost estimate","AED 1,000, with the owner informed","AED 2,000","No amount"],c:1,w:"AED 2,000 is the maintenance deposit after the DLP — a different number."},
+ {q:"A tenant asks who services the AC inside the apartment.",o:["Building management, via service charges","The developer","The owner's responsibility; Managd coordinates on request","The tenant"],c:2,w:"Explicitly carved out as the owner's responsibility."},
+ {q:"A tenant reports the podium gym is broken.",o:["We send a technician","Common areas sit with building management; we forward it as a courtesy, without obligation or follow-up","We charge it to the owner","We escalate to RERA"],c:1,w:"Also true for the pool, outdoor facilities and the collection of service charges."},
+ {q:"Fine scratches and minor grouting inaccuracies visible only on close inspection:",o:["Must be rectified by the developer","Are realistically not rectified, but stay documented in the report","Are fixed by Managd at the owner's cost","Are removed from the report after de-snagging"],c:1,w:"Documented, not rectified. Set the expectation before it becomes a complaint."},
+ {q:"Who decides the amount of the service charges?",o:["Managd","The Dubai Land Department alone","The owners association and its building management company, with the budget approved by RERA before billing via Mollak","The developer during the DLP"],c:2,w:"We are not in the owners association and have no vote."},
+ {q:"The rent is at market level and renewal is approaching.",o:["Contact the tenant before the 90-day window","Send a renewal offer with a small increase","Review market and RERA index before the 90-day window, align with the owner, and make no tenant contact so it auto-renews","Serve a 90-day notice as a formality"],c:2,w:"Deliberate silence. Contact opens a renegotiation the owner did not need."},
+ {q:"A tenant counter-offers below the agreed renewal position.",o:["Accept if close","Reject immediately","Consult the owner — counter-offers are an owner decision","Let DGMA decide"],c:2,w:"Owner consultation on counter-offers is part of the process."},
+ {q:"Which is included in Premium but not Basic?",o:["Tenant search and credit checks","Ejari registration","Service charges paid from rental income, legal representation on tenant default, third-party liability management","Snagging and deep cleaning"],c:2,w:"Fee difference 5% versus 7%, minimum AED 3,500 plus 5% VAT."},
+ {q:"A Basic owner wants a formal demand letter sent to a defaulting tenant.",o:["Managd sends it","It is included in Premium only, so nothing can be done","Stage 2 sits with DGMA Legal — Premium included, Basic on separate mandate","Refer the owner to the RDC"],c:2,w:"Stage 1 is ours: reminders and collection. Stage 2 is DGMA."},
+ {q:"How does the money flow after a tenancy contract is signed?",o:["Cheques to Managd, immediate payout","Cheques to DGMA Legal, payout 10–14 days after clearing; Managd administers the cheques and holds the 5% deposit, settled at move-out","Tenant pays the owner directly abroad","DG Homes takes the first cheque"],c:1,w:"Operational handling and legal receipt of funds are split between two entities."},
+ {q:"At move-out, the deposit is settled against:",o:["A technician's assessment","The photo handover protocol created at move-in","The snagging report","The tenancy contract"],c:1,w:"Which is why the move-in protocol has to be done properly every time."},
+ {q:"A tenant asks us to close their utility accounts and take what is owed from the deposit.",o:["Agree, it is simpler","They settle outstanding amounts first on the final bill, only then can accounts be closed; the deposit is settled separately against the photo protocol","Close the accounts for them","The owner handles it"],c:1,w:"Two separate processes that tenants routinely merge."},
+ {q:"An owner offers to pay an Empower invoice covering the tenancy period, to be deducted later.",o:["Let them","Invoices of the tenancy period are never taken over by the owner, not even to bridge a gap","Split it","Send it to building management"],c:1,w:"Paying once sets the precedent and makes recovery much harder."}
+];
+
+/* ======================= STATE ======================= */
+const KEY="managd-tc-onboarding-v2";
+let state={name:"",email:"",done:[],scores:{},best:0,examDate:"",sent:false};
+try{const s=localStorage.getItem(KEY); if(s) state=Object.assign(state,JSON.parse(s));}catch(e){}
+function save(){try{localStorage.setItem(KEY,JSON.stringify(state));}catch(e){}}
+
+const PAGES=[...MODULES.map(m=>m.id),"exam"];
+let current="start";
+const gradeable={};
+
+function el(html){const d=document.createElement("div");d.innerHTML=html.trim();return d.firstElementChild;}
+
+/* ======================= SHELL ======================= */
+function mountShell(){
+  document.getElementById("app").innerHTML=`
+  <div class="shell">
+    <aside class="side">
+      <h1 class="brand">Tenant Coordinator Onboarding<small>MANAGD · DGMA Legal · DG Homes — Dubai</small></h1>
+      <p class="who">Signed in as <b id="whoName"></b> · <button class="linkbtn" id="editName">change</button></p>
+      <div class="prog">
+        <svg class="ring" viewBox="0 0 36 36" aria-hidden="true">
+          <circle cx="18" cy="18" r="15.5" fill="none" stroke="var(--rule)" stroke-width="4"/>
+          <circle id="ringFill" cx="18" cy="18" r="15.5" fill="none" stroke="var(--teal)" stroke-width="4"
+                  stroke-linecap="round" transform="rotate(-90 18 18)" stroke-dasharray="97.4" stroke-dashoffset="97.4"/>
+        </svg>
+        <div class="prog-t"><b id="progNum">0 of 11</b>modules complete</div>
+      </div>
+      <nav><ol id="navList"></ol></nav>
+      <div class="side-foot"><button class="linkbtn" id="resetBtn">Reset my progress</button></div>
+    </aside>
+    <main class="main" id="main" tabindex="-1"></main>
+  </div>`;
+  document.getElementById("whoName").textContent=state.name||"—";
+  document.getElementById("editName").addEventListener("click",()=>askName(true));
+  document.getElementById("resetBtn").addEventListener("click",()=>{
+    if(!confirm("Clear your progress on this device?")) return;
+    state={name:state.name,email:state.email,done:[],scores:{},best:0,examDate:"",sent:false};
+    save(); buildNav(); updateProgress(); go("start");
+  });
+  buildNav(); updateProgress(); go(current);
+}
+
+function askName(isEdit){
+  document.getElementById("app").innerHTML=`
+   <div class="gate-screen">
+     <h2 class="mtitle" style="font-size:28px">${isEdit?"Update your details":"Before you start"}</h2>
+     <p class="lede" style="font-size:16.5px;margin-bottom:6px">Your name is attached to your exam result so your manager can see who has completed the course.</p>
+     <div class="field"><label for="n">Full name</label><input type="text" id="n" value="${state.name||""}" placeholder="e.g. Amina Hassan"></div>
+     <div class="field"><label for="e">Work email (optional)</label><input type="email" id="e" value="${state.email||""}" placeholder="name@getmanagd.com"></div>
+     <button class="btn" id="startBtn">${isEdit?"Save":"Start the course"}</button>
+     <p class="tiny" id="err" style="color:var(--bad);margin-top:10px"></p>
+   </div>`;
+  document.getElementById("startBtn").addEventListener("click",()=>{
+    const n=document.getElementById("n").value.trim();
+    if(n.length<2){document.getElementById("err").textContent="Please enter your name.";return;}
+    state.name=n; state.email=document.getElementById("e").value.trim(); save(); mountShell();
+  });
+  document.getElementById("n").focus();
+}
+
+/* ======================= BLOCKS ======================= */
+function renderBlocks(blocks,pageId){
+  const out=document.createElement("div");
+  gradeable[pageId]={total:0,answered:0,correct:0};
+  blocks.forEach(b=>{
+    if(b.t==="p") out.appendChild(el(`<p>${b.v}</p>`));
+    else if(b.t==="h") out.appendChild(el(`<h3>${b.v}</h3>`));
+    else if(b.t==="list") out.appendChild(el(`<ul>${b.v.map(i=>`<li>${i}</li>`).join("")}</ul>`));
+    else if(b.t==="callout") out.appendChild(el(`<div class="callout">${b.v}</div>`));
+    else if(b.t==="table") out.appendChild(el(`<div class="tablewrap"><table><thead><tr>${b.v.head.map(h=>`<th>${h}</th>`).join("")}</tr></thead><tbody>${b.v.rows.map(r=>`<tr>${r.map(c=>`<td${c==="✓"?' class="yes"':(c==="—"?' class="no"':"")}>${c}</td>`).join("")}</tr>`).join("")}</tbody></table></div>`));
+    else if(b.t==="flow") out.appendChild(el(`<div class="flow">${b.v.map(s=>`<div><span>Step ${s[0]}</span>${s[1]}</div>`).join("")}</div>`));
+    else if(b.t==="cards"){
+      const wrap=el(`<div class="cards"></div>`);
+      b.v.forEach(c=>{
+        const btn=el(`<button class="flip" type="button"></button>`);
+        let f=false; const paint=()=>{btn.innerHTML=f?`<span class="b">${c.b}</span>`:`<span>${c.f}</span>`;};
+        paint(); btn.addEventListener("click",()=>{f=!f;paint();});
+        wrap.appendChild(btn);
+      });
+      out.appendChild(wrap);
+    }
+    else if(b.t==="quiz"||b.t==="scenario"){ gradeable[pageId].total++; out.appendChild(buildQuestion(b,pageId)); }
+  });
+  return out;
+}
+
+function buildQuestion(b,pageId){
+  const isScen=b.t==="scenario", d=b.v;
+  const box=el(`<div class="ex">
+    <div class="kind">${isScen?"Scenario — choose your reply":"Check yourself"}</div>
+    ${isScen?`<div class="msg"><b>${d.from}</b>${d.msg}</div><p class="q">How do you respond?</p>`:`<p class="q">${d.q}</p>`}
+    <div class="opts"></div><div class="why hidden"></div></div>`);
+  const opts=box.querySelector(".opts"), why=box.querySelector(".why");
+  d.o.forEach((text,i)=>{
+    const btn=el(`<button class="opt" type="button"></button>`); btn.textContent=text;
+    btn.addEventListener("click",()=>{
+      if(box.dataset.answered) return;
+      box.dataset.answered="1";
+      [...opts.children].forEach((o,j)=>{o.disabled=true; if(j===d.c)o.classList.add("right");});
+      const ok=i===d.c; if(!ok) btn.classList.add("wrong");
+      why.className="why "+(ok?"ok":"no");
+      why.innerHTML=`<b>${ok?"Correct.":"Not this one."}</b> ${d.w}`;
+      gradeable[pageId].answered++; if(ok) gradeable[pageId].correct++;
+      updateGate(pageId);
+    });
+    opts.appendChild(btn);
+  });
+  return box;
+}
+
+function updateGate(pageId){
+  const g=gradeable[pageId]; if(!g) return;
+  const btn=document.getElementById("completeBtn"), note=document.getElementById("gateNote");
+  if(!btn) return;
+  const left=g.total-g.answered;
+  btn.disabled=left>0;
+  if(note) note.textContent = left>0 ? `${left} question${left>1?"s":""} left in this module`
+    : (g.total?`${g.correct} of ${g.total} right first time`:"");
+}
+
+/* ======================= PAGES ======================= */
+function renderModule(m){
+  const main=document.getElementById("main"); main.innerHTML="";
+  if(m.id==="start"){
+    main.appendChild(el(`<header class="hero">
+      <h1>${m.title}</h1><p>${m.lede}</p>
+      <div class="meta"><div><b>11</b>modules</div><div><b>18</b>exam questions</div><div><b>80%</b>to pass</div></div></header>`));
+  }else{
+    main.appendChild(el(`<p class="eyebrow">${m.num}</p>`));
+    main.appendChild(el(`<h2 class="mtitle">${m.title}</h2>`));
+    main.appendChild(el(`<p class="lede">${m.lede}</p>`));
+  }
+  main.appendChild(renderBlocks(m.blocks,m.id));
+  const isDone=state.done.includes(m.id);
+  const row=el(`<div class="navrow"><button class="btn" id="completeBtn">${isDone?"Completed — continue":"Mark complete and continue"}</button><span class="gate" id="gateNote"></span></div>`);
+  main.appendChild(row);
+  row.querySelector("#completeBtn").addEventListener("click",()=>{
+    const g=gradeable[m.id];
+    if(g&&g.total) state.scores[m.id]={c:g.correct,t:g.total};
+    if(!state.done.includes(m.id)) state.done.push(m.id);
+    save(); buildNav(); updateProgress();
+    const i=PAGES.indexOf(m.id); go(PAGES[Math.min(i+1,PAGES.length-1)]);
+  });
+  updateGate(m.id);
+  main.focus(); window.scrollTo(0,0);
+}
+
+let examAnswers=[];
+function renderExam(){
+  const main=document.getElementById("main"); main.innerHTML="";
+  main.appendChild(el(`<p class="eyebrow">Final exam</p>`));
+  main.appendChild(el(`<h2 class="mtitle">Eighteen questions, 80% to pass</h2>`));
+  const left=MODULES.length-state.done.length;
+  main.appendChild(el(`<p class="lede">${left>0?`You still have ${left} module${left>1?"s":""} to complete — you can take the exam anyway, but it will be harder than it needs to be.`:"All modules complete. Answer everything, then submit."}${state.best?` Your best score so far: ${state.best}%.`:""}</p>`));
+  examAnswers=new Array(EXAM.length).fill(null);
+  const form=document.createElement("div");
+  EXAM.forEach((q,qi)=>{
+    const box=el(`<div class="ex"><div class="kind">Question ${qi+1} of ${EXAM.length}</div><p class="q">${q.q}</p><div class="opts"></div><div class="why hidden"></div></div>`);
+    const opts=box.querySelector(".opts");
+    q.o.forEach((text,i)=>{
+      const btn=el(`<button class="opt" type="button"></button>`); btn.textContent=text;
+      btn.addEventListener("click",()=>{
+        if(box.dataset.locked) return;
+        examAnswers[qi]=i;
+        [...opts.children].forEach(o=>o.classList.remove("picked"));
+        btn.classList.add("picked");
+        const sb=document.getElementById("submitExam"); if(sb) sb.disabled=examAnswers.includes(null);
+      });
+      opts.appendChild(btn);
+    });
+    form.appendChild(box);
+  });
+  main.appendChild(form);
+  const row=el(`<div class="navrow"><button class="btn" id="submitExam" disabled>Submit exam</button><span class="gate">Answer all ${EXAM.length} questions to submit</span></div>`);
+  main.appendChild(row);
+  const result=el(`<div id="examResult"></div>`); main.appendChild(result);
+
+  row.querySelector("#submitExam").addEventListener("click",()=>{
+    let correct=0;
+    [...form.children].forEach((box,qi)=>{
+      box.dataset.locked="1";
+      const q=EXAM[qi], opts=box.querySelectorAll(".opt"), why=box.querySelector(".why");
+      opts.forEach((o,i)=>{o.disabled=true;o.classList.remove("picked");
+        if(i===q.c)o.classList.add("right"); else if(i===examAnswers[qi])o.classList.add("wrong");});
+      const ok=examAnswers[qi]===q.c; if(ok)correct++;
+      why.className="why "+(ok?"ok":"no");
+      why.innerHTML=`<b>${ok?"Correct.":"Not this one."}</b> ${q.w}`;
+    });
+    const pct=Math.round(correct/EXAM.length*100), passed=pct>=80;
+    if(pct>state.best){state.best=pct; state.examDate=new Date().toISOString().slice(0,10);}
+    save(); buildNav();
+    result.innerHTML="";
+    result.appendChild(el(`<div style="margin-top:34px"><div class="score">${pct}%</div>
+      <div class="bar"><i style="width:${pct}%"></i></div>
+      <p>${correct} of ${EXAM.length} correct. ${passed?"That is a pass.":"You need 80%. Review the explanations above and retake it."}</p></div>`));
+    result.appendChild(buildReportBox(pct,correct,passed));
+    const retake=el(`<div class="navrow"><button class="btn ghost" id="retake">Retake the exam</button></div>`);
+    retake.querySelector("#retake").addEventListener("click",()=>renderExam());
+    result.appendChild(retake);
+    result.scrollIntoView({behavior:"smooth",block:"start"});
+  });
+  main.focus(); window.scrollTo(0,0);
+}
+
+function reportPayload(pct,correct){
+  return {
+    name:state.name, email:state.email,
+    date:new Date().toISOString(),
+    modulesCompleted:state.done.filter(id=>id!=="start").length,
+    modulesTotal:MODULES.length-1,
+    moduleScores:Object.keys(state.scores).map(k=>`${k}:${state.scores[k].c}/${state.scores[k].t}`).join(", "),
+    examScorePct:pct, examCorrect:correct, examTotal:EXAM.length,
+    passed:pct>=80
+  };
+}
+
+function buildReportBox(pct,correct,passed){
+  const p=reportPayload(pct,correct);
+  const text=`MANAGD onboarding result
+Name: ${p.name}
+Email: ${p.email||"—"}
+Date: ${new Date().toLocaleString()}
+Modules completed: ${p.modulesCompleted} of ${p.modulesTotal}
+Module scores (first attempt): ${p.moduleScores||"—"}
+Exam: ${p.examCorrect}/${p.examTotal} = ${p.examScorePct}% — ${p.passed?"PASS":"FAIL"}`;
+
+  const box=el(`<div class="cert">
+    <h3>${passed?"Onboarding complete":"Result recorded"}</h3>
+    <p class="tiny" style="margin:0 0 14px">Send this to your manager. If automatic sending is switched off, copy the summary or email it.</p>
+    <div class="navrow" style="margin-top:0;border:0;padding-top:0">
+      <button class="btn" id="sendBtn">Send my results</button>
+      <button class="btn ghost" id="copyBtn">Copy summary</button>
+      ${CONFIG.managerEmail?`<a class="btn ghost" style="text-decoration:none;display:inline-block" href="mailto:${CONFIG.managerEmail}?subject=${encodeURIComponent("Onboarding result — "+p.name)}&body=${encodeURIComponent(text)}">Email it</a>`:""}
+      <button class="btn ghost" id="printBtn">Print</button>
+    </div>
+    <p class="status" id="sendStatus"></p>
+    <textarea readonly id="summaryBox">${text}</textarea>
+  </div>`);
+
+  box.querySelector("#copyBtn").addEventListener("click",()=>{
+    const ta=box.querySelector("#summaryBox"); ta.select();
+    try{document.execCommand("copy");}catch(e){}
+    if(navigator.clipboard) navigator.clipboard.writeText(text).catch(()=>{});
+    box.querySelector("#sendStatus").textContent="Summary copied.";
+  });
+  box.querySelector("#printBtn").addEventListener("click",()=>window.print());
+  box.querySelector("#sendBtn").addEventListener("click",async()=>{
+    const st=box.querySelector("#sendStatus"); st.textContent="Sending…";
+    if(!CONFIG.reportUrl){
+      st.textContent="Automatic sending isn't set up on this copy — use Copy summary or Email it instead.";
+      return;
+    }
+    try{
+      // Apps Script web apps don't return CORS headers, so the response
+      // body can't be read from the browser — "no-cors" still delivers
+      // the POST, we just can't confirm the read side of it here.
+      await fetch(CONFIG.reportUrl,{method:"POST",mode:"no-cors",headers:{"Content-Type":"text/plain;charset=utf-8"},body:JSON.stringify(p)});
+      state.sent=true; save();
+      st.textContent="Sent — it should appear in the team sheet in a few seconds.";
+    }catch(e){
+      st.textContent="Could not reach the results sheet — use Copy summary or Email it instead.";
+    }
+  });
+  return box;
+}
+
+/* ======================= NAV ======================= */
+function buildNav(){
+  const list=document.getElementById("navList"); if(!list) return;
+  list.innerHTML="";
+  MODULES.forEach(m=>{
+    const li=el(`<li class="${state.done.includes(m.id)?"done":""}"><button type="button"><span class="mk"></span>${m.nav}</button></li>`);
+    li.querySelector("button").addEventListener("click",()=>go(m.id));
+    if(m.id===current) li.querySelector("button").setAttribute("aria-current","true");
+    list.appendChild(li);
+  });
+  const ex=el(`<li class="${state.best>=80?"done":""}"><button type="button"><span class="mk"></span>Final exam</button></li>`);
+  ex.querySelector("button").addEventListener("click",()=>go("exam"));
+  if(current==="exam") ex.querySelector("button").setAttribute("aria-current","true");
+  list.appendChild(ex);
+  if(CONFIG.sheetUrl){
+    const d=el(`<li><a href="${CONFIG.sheetUrl}" target="_blank" rel="noopener" style="display:block;padding:9px 10px 9px 34px;color:var(--ink);font-size:14.5px;border-radius:8px;text-decoration:none;position:relative;font-family:'Bricolage Grotesque',sans-serif;font-weight:500"><span class="mk" style="position:absolute;left:8px;top:10px"></span>Team progress ↗</a></li>`);
+    list.appendChild(d);
+  }
+}
+function updateProgress(){
+  const num=document.getElementById("progNum"); if(!num) return;
+  const total=MODULES.length, done=state.done.length;
+  num.textContent=`${done} of ${total}`;
+  document.getElementById("ringFill").setAttribute("stroke-dashoffset", 2*Math.PI*15.5*(1-done/total));
+}
+function go(id){
+  current=id;
+  if(id==="exam") renderExam();
+  else renderModule(MODULES.find(m=>m.id===id)||MODULES[0]);
+  buildNav();
+}
+
+/* ======================= BOOT ======================= */
+if(state.name) mountShell(); else askName(false);
+</script>
+</body>
+</html>
