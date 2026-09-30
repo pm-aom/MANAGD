@@ -140,15 +140,13 @@ textarea{width:100%;min-height:150px;font-size:13.5px;line-height:1.5}
   reportUrl:    the Google Apps Script "exec" URL from the setup guide below.
                 Every passed/attempted exam POSTs a row to your Google Sheet.
                 Leave "" to disable automatic sending.
-  sheetUrl:     the normal, human "Share" link to that same Google Sheet.
-                Powers the "Team progress" item in the sidebar — it just
-                opens the sheet in a new tab. Leave "" to hide that item.
+  sheetUrl:     not used in this course — staff must not see the results sheet.
   managerEmail: used for the "Email it" fallback button on the result screen.
 ======================================== -->
 <script>
 const CONFIG = {
   reportUrl: "https://script.google.com/macros/s/AKfycbyyB-XmptQGYuZd6qKraB-HFRq6AjitXYnWI5GEkW4xuGAfO54d36VI1dL8bg4XTKvE/exec",
-  sheetUrl: "https://docs.google.com/spreadsheets/d/1219ANmyH53w5v7ru0CHCnvnV3H-KydnUyyDnh2fgMSo/edit?usp=sharing",
+  sheetUrl: "",
   managerEmail: ""
 };
 </script>
@@ -673,10 +671,6 @@ function buildNav(){
   ex.querySelector("button").addEventListener("click",()=>go("exam"));
   if(current==="exam") ex.querySelector("button").setAttribute("aria-current","true");
   list.appendChild(ex);
-  if(CONFIG.sheetUrl){
-    const d=el(`<li><a href="${CONFIG.sheetUrl}" target="_blank" rel="noopener" style="display:block;padding:9px 10px 9px 34px;color:var(--ink);font-size:14.5px;border-radius:8px;text-decoration:none;position:relative;font-family:'Poppins',sans-serif;font-weight:500"><span class="mk" style="position:absolute;left:8px;top:10px"></span>Team progress ↗</a></li>`);
-    list.appendChild(d);
-  }
 }
 function updateProgress(){
   const num=document.getElementById("progNum"); if(!num) return;
