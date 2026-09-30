@@ -1,0 +1,698 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>MANAGD — The Ticket System</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  /* MANAGD brand: blue #276EF1, navy #0F1C4D */
+  --navy:#0F1C4D; --blue:#276EF1;
+  --paper:#F4F6FC; --card:#FFFFFF; --ink:#0F1C4D; --ink-soft:#586489;
+  --rule:#DBE2F2; --teal:#276EF1; --teal-dim:#E6EDFE; --brass:#1B55C0; --brass-dim:#E6EDFE;
+  --bad:#A63A24; --bad-dim:#F7E6E1; --ok-dim:#D5E2FD; --shadow:0 1px 0 rgba(15,28,77,.07);
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+--blue:#5C93F8; --paper:#0A1230; --card:#131C42; --ink:#E9EEFA; --ink-soft:#9DA9CE;
+    --rule:#26315C; --teal:#5C93F8; --teal-dim:#1B2B58; --brass:#7FA9FB; --brass-dim:#18244C;
+    --bad:#E08268; --bad-dim:#3A1E18; --ok-dim:#20346E; --shadow:none;
+  }
+}
+:root[data-theme="dark"]{
+--blue:#5C93F8; --paper:#0A1230; --card:#131C42; --ink:#E9EEFA; --ink-soft:#9DA9CE;
+  --rule:#26315C; --teal:#5C93F8; --teal-dim:#1B2B58; --brass:#7FA9FB; --brass-dim:#18244C;
+  --bad:#E08268; --bad-dim:#3A1E18; --ok-dim:#20346E; --shadow:none;
+}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0}
+body{background:var(--paper);color:var(--ink);font-family:"Inter","Helvetica Neue",Arial,sans-serif;font-size:16.5px;line-height:1.6;-webkit-text-size-adjust:100%}
+h1,h2,h3,h4,.ui{font-family:"Poppins","Helvetica Neue",Arial,sans-serif;font-weight:600;letter-spacing:-.02em}
+a{color:var(--teal)}
+button{font-family:inherit}
+:focus-visible{outline:2px solid var(--teal);outline-offset:3px;border-radius:3px}
+@media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
+.shell{display:grid;grid-template-columns:292px minmax(0,1fr);min-height:100vh}
+.side{border-right:1px solid var(--rule);background:var(--card);padding:26px 22px 40px;position:sticky;top:0;height:100vh;overflow-y:auto}
+.main{padding:40px 6vw 96px;max-width:940px}
+@media (max-width:880px){
+  .shell{grid-template-columns:1fr}
+  .side{position:static;height:auto;border-right:none;border-bottom:1px solid var(--rule);padding:18px 20px 22px}
+  .main{padding:26px 20px 80px}
+  body{font-size:16.5px}
+}
+.logo{display:block;width:158px;height:auto;margin:0 0 14px}
+.logo.on-dark{display:none}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]) .logo.on-light{display:none} :root:not([data-theme="light"]) .logo.on-dark{display:block}}
+:root[data-theme="dark"] .logo.on-light{display:none}
+:root[data-theme="dark"] .logo.on-dark{display:block}
+.brand{font-size:17px;line-height:1.25;margin:0}
+.brand small{display:block;font-family:"Inter",sans-serif;font-weight:400;font-size:13px;color:var(--ink-soft);letter-spacing:0;margin-top:5px}
+.who{margin:16px 0 0;font-size:13px;color:var(--ink-soft);font-family:"Poppins",sans-serif}
+.who b{color:var(--ink)}
+.prog{display:flex;align-items:center;gap:12px;margin:14px 0 18px;padding:12px 14px;border:1px solid var(--rule);border-radius:10px;background:var(--paper)}
+.ring{width:42px;height:42px;flex:none}
+.prog-t{font-size:13.5px;line-height:1.35;color:var(--ink-soft);font-family:"Poppins",sans-serif;font-weight:500}
+.prog-t b{display:block;color:var(--ink);font-size:15px}
+nav ol{list-style:none;margin:0;padding:0}
+nav button{width:100%;text-align:left;background:none;border:0;padding:9px 10px 9px 34px;color:var(--ink);font-size:14.5px;line-height:1.35;cursor:pointer;border-radius:8px;position:relative;font-family:"Poppins",sans-serif;font-weight:500}
+nav button:hover{background:var(--paper)}
+nav button[aria-current="true"]{background:var(--teal-dim)}
+nav .mk{position:absolute;left:8px;top:10px;width:17px;height:17px;border-radius:50%;border:1.5px solid var(--rule);display:grid;place-items:center}
+nav .done .mk{background:var(--teal);border-color:var(--teal)}
+nav button[aria-current="true"]{box-shadow:inset 3px 0 0 var(--blue)}
+nav .done .mk::after{content:"✓";font-size:11px;line-height:1;color:#fff}
+.side-foot{margin-top:22px;padding-top:16px;border-top:1px solid var(--rule);display:flex;gap:12px;flex-wrap:wrap}
+.tiny{font-size:12.5px;color:var(--ink-soft);font-family:"Poppins",sans-serif}
+.linkbtn{background:none;border:0;color:var(--ink-soft);font-size:12.5px;cursor:pointer;text-decoration:underline;padding:0;font-family:"Poppins",sans-serif}
+.hero{border-bottom:1px solid var(--rule);padding-bottom:30px;margin-bottom:34px;position:relative}
+.hero::before{content:"";display:block;width:54px;height:4px;border-radius:2px;background:var(--blue);margin:0 0 18px}
+.hero h1{font-size:clamp(32px,5.6vw,52px);line-height:1.03;margin:0 0 16px;max-width:16ch}
+.hero p{font-size:18px;max-width:60ch;color:var(--ink-soft);margin:0 0 22px}
+.hero .meta{display:flex;gap:26px;flex-wrap:wrap;font-family:"Poppins",sans-serif;font-size:13.5px;color:var(--ink-soft)}
+.hero .meta b{display:block;color:var(--ink);font-size:24px;font-weight:700;line-height:1.1}
+.eyebrow{font-family:"Poppins",sans-serif;font-size:13px;color:var(--teal);font-weight:600;margin:0 0 8px}
+h2.mtitle{font-size:clamp(26px,4.2vw,37px);line-height:1.1;margin:0 0 10px;max-width:21ch}
+.lede{font-size:17.5px;color:var(--ink-soft);margin:0 0 30px;max-width:62ch}
+.main p,.main li{max-width:70ch}
+h3{font-size:21px;margin:34px 0 10px}
+.main ul{padding-left:20px}
+.main li{margin:6px 0}
+.callout{border-left:3px solid var(--blue);background:var(--brass-dim);padding:14px 18px;border-radius:0 8px 8px 0;margin:22px 0;font-size:16.5px;max-width:70ch}
+.callout b{font-family:"Poppins",sans-serif}
+.tablewrap{overflow-x:auto;margin:20px 0;border:1px solid var(--rule);border-radius:10px;background:var(--card)}
+table{border-collapse:collapse;width:100%;min-width:520px;font-size:15.5px}
+th,td{text-align:left;padding:11px 14px;border-bottom:1px solid var(--rule);vertical-align:top}
+th{font-family:"Poppins",sans-serif;font-size:13.5px;color:var(--ink-soft);font-weight:600;background:var(--paper)}
+tr:last-child td{border-bottom:0}
+td.yes{color:var(--teal);font-weight:600}
+td.no{color:var(--ink-soft)}
+.flow{display:flex;gap:8px;flex-wrap:wrap;margin:22px 0}
+.flow div{flex:1 1 130px;border:1px solid var(--rule);background:var(--card);border-radius:10px;padding:12px 14px;font-family:"Poppins",sans-serif;font-size:14px;line-height:1.3}
+.flow span{display:block;color:var(--teal);font-size:12px;margin-bottom:5px;font-weight:600}
+.cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(190px,1fr));gap:12px;margin:22px 0}
+.flip{background:var(--card);border:1px solid var(--rule);border-radius:10px;padding:16px;cursor:pointer;text-align:left;min-height:106px;box-shadow:var(--shadow);display:flex;align-items:center;font-size:15px;line-height:1.4;color:var(--ink)}
+.flip:hover{border-color:var(--teal)}
+.flip .b{color:var(--teal);font-weight:600;font-family:"Poppins",sans-serif}
+.ex{background:var(--card);border:1px solid var(--rule);border-radius:12px;padding:20px 20px 16px;margin:26px 0;box-shadow:var(--shadow)}
+.ex .kind{font-family:"Poppins",sans-serif;font-size:12.5px;color:var(--brass);font-weight:600;margin-bottom:8px}
+.ex .q{font-size:17.5px;margin:0 0 14px;font-weight:600;font-family:"Poppins",sans-serif;line-height:1.35}
+.msg{background:var(--paper);border-radius:10px;padding:13px 15px;margin:0 0 16px;border:1px solid var(--rule)}
+.msg b{display:block;font-style:normal;font-family:"Poppins",sans-serif;font-size:12.5px;color:var(--ink-soft);margin-bottom:5px;font-weight:600}
+.opts{display:grid;gap:8px}
+.opt{text-align:left;background:var(--paper);border:1px solid var(--rule);border-radius:9px;padding:11px 14px;cursor:pointer;font-size:15.8px;line-height:1.45;color:var(--ink);font-family:inherit}
+.opt:hover:not(:disabled){border-color:var(--teal)}
+.opt:disabled{cursor:default}
+.opt.right{border-color:var(--blue);background:var(--ok-dim);box-shadow:inset 0 0 0 1px var(--blue);font-weight:600;padding-left:40px;position:relative}
+.opt.right::before{content:"✓";position:absolute;left:13px;top:50%;transform:translateY(-50%);width:19px;height:19px;border-radius:50%;background:var(--blue);color:#fff;font-size:12px;line-height:19px;text-align:center;font-family:"Poppins",sans-serif;font-weight:700}
+.opt.wrong{border-color:var(--bad);background:var(--bad-dim);box-shadow:inset 0 0 0 1px var(--bad);padding-left:40px;position:relative}
+.opt.wrong::before{content:"✕";position:absolute;left:13px;top:50%;transform:translateY(-50%);width:19px;height:19px;border-radius:50%;background:var(--bad);color:#fff;font-size:11px;line-height:19px;text-align:center;font-family:"Poppins",sans-serif;font-weight:700}
+.opt.picked{border-color:var(--teal);background:var(--teal-dim);box-shadow:inset 0 0 0 1px var(--teal)}
+.why{margin-top:13px;font-size:15.5px;padding:12px 14px;border-radius:9px;line-height:1.5}
+.why.ok{background:var(--ok-dim);border-left:3px solid var(--blue)} .why.no{background:var(--bad-dim);border-left:3px solid var(--bad)}
+.why b{font-family:"Poppins",sans-serif}
+.btn{background:var(--teal);color:#fff;border:0;padding:12px 22px;border-radius:9px;font-size:15.5px;font-weight:600;cursor:pointer;font-family:"Poppins",sans-serif}
+.btn:disabled{opacity:.4;cursor:not-allowed}
+.btn.ghost{background:none;color:var(--ink);border:1px solid var(--rule)}
+.navrow{display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin-top:40px;padding-top:24px;border-top:1px solid var(--rule)}
+.gate{font-size:14px;color:var(--ink-soft);font-family:"Poppins",sans-serif}
+.score{font-size:60px;line-height:1;font-family:"Poppins",sans-serif;font-weight:700}
+.bar{height:8px;background:var(--rule);border-radius:4px;overflow:hidden;margin:14px 0 6px;max-width:420px}
+.bar i{display:block;height:100%;background:var(--blue)}
+.cert{border:2px solid var(--blue);border-radius:14px;padding:28px;margin:26px 0;background:var(--card);max-width:620px}
+.cert h3{margin:0 0 6px;font-size:24px}
+input[type=text],input[type=email],textarea{font-family:inherit;font-size:16px;padding:10px 13px;border:1px solid var(--rule);border-radius:8px;background:var(--paper);color:var(--ink);width:min(340px,100%)}
+textarea{width:100%;min-height:150px;font-size:13.5px;line-height:1.5}
+.gate-screen{max-width:520px;margin:8vh auto;background:var(--card);border:1px solid var(--rule);border-radius:14px;padding:32px}
+.field{margin:16px 0}
+.field label{display:block;font-family:"Poppins",sans-serif;font-size:13.5px;color:var(--ink-soft);margin-bottom:6px;font-weight:600}
+.hidden{display:none}
+.status{font-size:14px;font-family:"Poppins",sans-serif;color:var(--ink-soft);margin-top:10px}
+@media print{.side{display:none}.shell{display:block}.navrow,.btn{display:none}}
+</style>
+</head>
+<body>
+
+<!-- =============== CONFIG ===============
+  reportUrl:    the Google Apps Script "exec" URL from the setup guide below.
+                Every passed/attempted exam POSTs a row to your Google Sheet.
+                Leave "" to disable automatic sending.
+  sheetUrl:     the normal, human "Share" link to that same Google Sheet.
+                Powers the "Team progress" item in the sidebar — it just
+                opens the sheet in a new tab. Leave "" to hide that item.
+  managerEmail: used for the "Email it" fallback button on the result screen.
+======================================== -->
+<script>
+const CONFIG = {
+  reportUrl: "https://script.google.com/macros/s/AKfycbyyB-XmptQGYuZd6qKraB-HFRq6AjitXYnWI5GEkW4xuGAfO54d36VI1dL8bg4XTKvE/exec",
+  sheetUrl: "https://docs.google.com/spreadsheets/d/1219ANmyH53w5v7ru0CHCnvnV3H-KydnUyyDnh2fgMSo/edit?usp=sharing",
+  managerEmail: ""
+};
+</script>
+
+<div id="app"></div>
+
+<script>
+/* ======================= CONTENT ======================= */
+const MODULES = [
+ {id:"start", nav:"Start here", num:"", title:"The ticket system in 7 short chapters",
+  lede:"This course is about the ticket system for investor requests. You have seen it live. This part helps you remember it.",
+  blocks:[
+   {t:"p",v:"Investors send questions from their portal. You answer them in the Employee Portal. The tricky part is that they see less than you do. They have different names for things, a different number, and fewer statuses."},
+   {t:"callout",v:"<b>One word before you start.</b> In the portal the role is called <b>Property Manager</b>. At Managd this is the <b>responsible Tenant Coordinator (TC)</b> of the unit. Same person, different label. This course uses “responsible TC” and shows the portal label where you need it."},
+   {t:"list",v:[
+     "This system is for <b>investor</b> requests.",
+     "7 chapters, about 3 minutes each.",
+     "2 questions after every chapter.",
+     "Final exam: 9 questions. You need 75% to pass. You can retake it.",
+     "Your progress is saved on this device.",
+     "When you pass, send your result to your manager with the button at the end."
+   ]},
+   {t:"callout",v:"<b>Remember this one line:</b> the investor only sees what you send them. And the system never chases a ticket for you."}
+  ]},
+
+ {id:"m1", nav:"1 · Two portals", num:"Chapter 1", title:"Two portals, one ticket",
+  lede:"The same item has two names and two numbers. It depends on who is looking at it.",
+  blocks:[
+   {t:"p",v:"Investors write to us under <b>Support</b>, in the portal and in the app. On their side it is called a <b>request</b>. You open the same item under <b>Tickets</b> in the Employee Portal."},
+   {t:"p",v:"Every ticket belongs to one investor. If the investor owns a unit, it also belongs to one unit. It also has a department, a category, a status, a priority and usually an assignee."},
+   {t:"table",v:{head:["You say","The investor sees"],rows:[
+     ["Ticket #46","Request ANF-0046"],
+     ["Department and Category","Area and Topic"],
+     ["Message to investor","Reply from the team"],
+     ["Internal note","nothing"],
+     ["4 statuses","3 statuses"]
+   ]}},
+   {t:"callout",v:"<b>Ticket #46 is request ANF-0046.</b> It is the same number with zeros in front. If an investor writes ANF-0046, search for 46."},
+   {t:"h",v:"What the investor can see"},
+   {t:"table",v:{head:["They see this","They do not see this"],rows:[
+     ["Their own messages and files","Internal notes and the files in them"],
+     ["Your messages to them, with files","Files you attached when you created a ticket"],
+     ["The subject and description you wrote","Priority, assignee, pulled-in colleagues"],
+     ["The status, in 3 stages","The status Waiting on investor"],
+     ["Status changes, as a line in their thread","Who changed anything, and when"]
+   ]}},
+   {t:"p",v:"Their request is a conversation. Their own messages are on one side, yours on the other, and between them the thread shows lines like <b>Status: Resolved</b>. So a status change is visible to them — but with no name and no reason. Only your message can explain it."},
+   {t:"list",v:[
+     "They can reply, add files, press <b>Mark as resolved</b> and press <b>Reopen</b>.",
+     "They see your first name only, like “Tobias · Managd”. No surname, no email address."
+   ]},
+   {t:"p",v:"In their list a request is titled by unit and building — <b>104 · The Ivy</b> — with department, topic, date and the first line of their own message underneath. So they recognise a request by the unit, not by a subject."},
+   {t:"quiz",v:{q:"An investor asks about request ANF-0203. Which ticket do you open?",
+     o:["Ticket #203 in the Employee Portal","Ticket #2030, with the zero kept","Ticket ANF-203, with the prefix","There is no ticket behind that number"],
+     c:0,w:"The investor number is the ticket number with zeros in front."}},
+   {t:"scenario",v:{from:"Investor, on the phone",msg:"I can see something changed on my request yesterday, but nobody explained it. What happened?",
+     o:["Explain it in a message to the investor","Tell them to open the history in their portal","Tell them the change is internal","Send them a screenshot of the history"],
+     c:0,w:"Their thread shows that the status changed, but not who changed it or why. Only a message to the investor can explain it."}}
+  ]},
+
+ {id:"m2", nav:"2 · Who sees a ticket", num:"Chapter 2", title:"Who sees a ticket, and who owns it",
+  lede:"Your role decides which tickets you see. The category decides which team owns the ticket.",
+  blocks:[
+   {t:"table",v:{head:["Role","Sees"],rows:[
+     ["Administrator","all four departments"],
+     ["Property Manager (this is the responsible TC)","Property Management"],
+     ["Finance Manager","Finance"],
+     ["Sales Agent","nothing — they have no Tickets menu"]
+   ]}},
+   {t:"list",v:[
+     "You always see a ticket you are <b>assigned to</b>. You always see a ticket you were <b>pulled into</b>. Your department does not matter here.",
+     "Legal &amp; Handover and App / Portal have no role yet. Only administrators see them, so those tickets will not appear in your lists.",
+     "If you can see a ticket, you can change everything on it. There is no read-only role.",
+     "Only administrators can delete a ticket. A deleted ticket is gone, with its files.",
+     "Cannot open a ticket? You get one message for two different cases: it does not exist, or you have no access. So the message is not proof that it was deleted."
+   ]},
+   {t:"h",v:"The category picks the department"},
+   {t:"p",v:"You never choose a department. You choose a category, and the department follows. So every ticket lands in the right department by itself."},
+   {t:"p",v:"The <b>assignee</b> is a different story. In Property Management the ticket also goes straight to the responsible TC of that unit. In Finance, Legal &amp; Handover and App / Portal it arrives with no assignee, and the department decides who answers."},
+   {t:"table",v:{head:["Department","Categories"],rows:[
+     ["Finance","Payout, Invoice, Service charge, Bank details, Statement, AFA Report"],
+     ["Property Management","Leasing, Tenant, Lease renewal, Maintenance, Key Handover, Viewing Request"],
+     ["Legal &amp; Handover","Handover, Power of attorney, Title Deed / OQOOD, Resale, DEWA, Empower, Legal Case, PM Contract"],
+     ["App / Portal","Bug, Feedback, Credentials, Data Entry, Connection Request"]
+   ]}},
+   {t:"p",v:"Every list also has an “Other” option. The investor chooses from the same lists. For them they are called Area and Topic."},
+   {t:"p",v:"Your own work sits in Property Management: Tenant, Lease renewal, Maintenance, Key Handover, Viewing Request. Good to know: <b>DEWA</b>, <b>Empower</b> and <b>Power of attorney</b> are not in that list. They belong to Legal &amp; Handover, so those tickets go to another team."},
+   {t:"callout",v:"<b>One request, one ticket.</b> A ticket has one category. If the investor asks about a second topic in the same ticket, ask them to send that question through <b>Support</b>. It then starts its own ticket, in the right department."},
+   {t:"callout",v:"<b>Careful when you change the category.</b> The ticket moves to the other department. If the assignee does not work there, the assignee is removed. And you may lose access to the ticket yourself."},
+   {t:"quiz",v:{q:"A TC is pulled into a Finance ticket. What can they do there?",
+     o:["Everything, except delete it","Only read it and write internal notes","Only reply to the investor","Nothing, until they get Finance rights"],
+     c:0,w:"Seeing a ticket and editing it are the same thing here. Only deleting is for administrators."}},
+   {t:"scenario",v:{from:"Investor, writing in ticket #52 (category: Tenant)",msg:"Thank you for the update on the new tenant. One more thing: my payout for August is still missing. Can you check that too?",
+     o:["Answer about the tenant here, and ask them to send the payout question through Support","Change the category of this ticket to Payout, so Finance takes it over","Answer the payout question here yourself, to save them a second wait","Change the category to Payout and pull in a finance colleague as well"],
+     c:0,w:"A ticket has only one category. If you change it to Payout, this whole ticket moves to Finance, the assignee can be removed, and you can lose access to it yourself. A request the investor sends through Support starts its own ticket in Finance, with a Cliq message and a confirmation email to the investor."}}
+  ]},
+
+ {id:"m3", nav:"3 · How it starts", num:"Chapter 3", title:"Two ways a ticket starts",
+  lede:"Who creates the ticket decides what happens automatically. Above all: who gets an email.",
+  blocks:[
+   {t:"h",v:"The investor creates it"},
+   {t:"list",v:[
+     "They write the message and pick the unit, the Area and the Topic. They can attach images and PDFs.",
+     "The investor never types a subject. The system builds it from unit and topic: “104 · The Ivy · Payout”. The investor only writes the message inside.",
+     "The ticket starts as <b>Open</b> with priority <b>Medium</b>.",
+     "Property Management tickets go straight to the <b>responsible TC of that unit</b> (the portal calls this the property manager). That person gets an email.",
+     "Tickets for the other departments arrive without an assignee. The department itself decides who answers.",
+     "The team gets a message in the <b>Zoho Cliq</b> channel.",
+     "The investor gets an email. It promises an answer <b>within 48 hours on business days</b> (Mon to Fri, 9:00 to 18:00 GST)."
+   ]},
+   {t:"callout",v:"<b>You can always tell where a ticket came from.</b> The header of the ticket says it: <i>Created by the investor in the portal on Sep 23, 2026</i>. Tickets created by an employee say so too."},
+   {t:"h",v:"You create it"},
+   {t:"list",v:[
+     "You fill in investor, unit, priority, category, subject and description. The assignee is optional.",
+     "If you leave the assignee empty on a Property Management ticket, the responsible TC of the unit gets it.",
+     "The investor sees your subject and description. <b>Files you attach here stay internal.</b>",
+     "The investor gets no email. There is no Cliq message. The assignee gets an email, but not if you assigned the ticket to yourself."
+   ]},
+   {t:"callout",v:"<b>A ticket you create is silent for the investor.</b> Nothing reaches them until you send a message to the investor."},
+   {t:"quiz",v:{q:"An investor sends a question about a lease renewal. The unit has a responsible TC. What happens by itself?",
+     o:["Open, Medium, assigned to that TC, and a Cliq message","Open, Medium, but somebody has to assign it by hand","In progress, as soon as the TC opens the ticket","Open, and the investor is told who will handle it"],
+     c:0,w:"Lease renewal is a Property Management category, so the ticket goes to the responsible TC of that unit. The investor never sees who is assigned."}},
+   {t:"quiz",v:{q:"A new investor request arrives and nobody is assigned to it. How does the team hear about it?",
+     o:["A message in the Zoho Cliq channel","An email to everyone in the department","A blue dot on the Tickets menu","A daily summary of new requests"],
+     c:0,w:"Cliq is the only signal for a ticket with no assignee — it shows a blue dot to nobody. So watch the channel and the filter Open + Unassigned."}}
+  ]},
+
+ {id:"m4", nav:"4 · Statuses", num:"Chapter 4", title:"4 statuses for you, 3 for them",
+  lede:"Your reply never changes the status. The investor's reply does.",
+  blocks:[
+   {t:"table",v:{head:["Your status","Use it when","They see"],rows:[
+     ["Open","nobody picked it up yet","Received, or In progress after your first message"],
+     ["In progress","you are working on it","In progress"],
+     ["Waiting on investor","you need an answer from them","In progress"],
+     ["Resolved","it is done","Resolved"]
+   ]}},
+   {t:"callout",v:"<b>Messages and notes never change the status.</b> You set it. On the ticket page it only works after you press <b>Save</b>. In the Kanban view, dragging a card changes it at once."},
+   {t:"h",v:"What the investor changes by themselves"},
+   {t:"list",v:[
+     "They reply to a <b>Resolved</b> ticket → it becomes <b>Open</b>.",
+     "They reply while it is <b>Waiting on investor</b> → it becomes <b>In progress</b>.",
+     "They press <b>Mark as resolved</b> → it becomes <b>Resolved</b>. This button only appears when the team wrote last.",
+     "They press <b>Reopen</b> → it becomes <b>Open</b>.",
+     "Every one of these sends an email to the assignee and to everyone pulled in.",
+     "When you change a status, the investor gets nothing."
+   ]},
+   {t:"quiz",v:{q:"You answered the investor and asked them a question. What do you still have to do?",
+     o:["Set Waiting on investor, and press Save","Nothing. The message sets that status for you","Set Resolved. They can always reopen it later","Leave it Open, so the whole team keeps seeing it"],
+     c:0,w:"You set every status by hand. After that, their reply moves the ticket to In progress by itself."}},
+   {t:"quiz",v:{q:"An investor asks why the request still says “In progress”. You set it to Waiting on investor days ago.",
+     o:["That status is internal. They see In progress","The status did not save. Open the ticket and set it again","Their portal is slow and updates during the night","They replied to you, so the status changed back"],
+     c:0,w:"You have 4 statuses, they have 3. If you are waiting for something, write it in a message."}}
+  ]},
+
+ {id:"m5", nav:"5 · Notes and messages", num:"Chapter 5", title:"Internal note or message to the investor",
+  lede:"Two tabs in the same box. One is for colleagues. One is for the client.",
+  blocks:[
+   {t:"p",v:"<b>Internal note is selected by default.</b> The <b>Message to investor</b> tab and its send button are red. Before it is sent, the system asks you to confirm. It shows the investor's name, your text and the number of files. An internal note is posted with no confirmation."},
+   {t:"p",v:"The box tells you which one is open. On the internal note it says: <i>Only visible to Managd employees, never to the investor</i>, and the button is <b>Add note</b>. On the other tab: <i>The investor sees this message in their portal and gets an email and a push notification</i>, and the button is <b>Send to investor</b>."},
+   {t:"table",v:{head:["","Internal note","Message to investor"],rows:[
+     ["Who sees it","employees on the ticket","the investor, and those employees"],
+     ["Who gets an email","only a colleague you pull in with it","the investor: email plus push, without your text"],
+     ["Files","stay internal","the investor sees them"]
+   ]}},
+   {t:"list",v:[
+     "Up to <b>10 files, 10 MB each</b>. You can send images, PDF, Word and Excel. Investors can send images and PDF only.",
+     "You cannot send a file without text.",
+     "<b>Pull in a colleague</b> from an internal note. They get that note by email and can see the ticket from then on. Later notes are emailed to nobody. So write what you need in that first note.",
+     "Sales agents cannot be pulled in.",
+     "The <b>blue dot</b> means: something is new for you. It only appears on your tickets, and only for other people's actions. It disappears when you open the ticket.",
+     "<b>Priority</b> is internal. The investor never sees it and never sets it. If they say “urgent”, you decide the priority."
+   ]},
+   {t:"scenario",v:{from:"You, about to write this in ticket #52",msg:"Finance says the payout is on hold until the invoice is settled. Let us not give the investor a date yet.",
+     o:["Check the tab first: this belongs in an internal note","No need to check. Internal note is always selected anyway","Write it as a message. The red confirmation step stops it","Send it on Cliq, so it never touches the ticket at all"],
+     c:0,w:"Internal note is the default tab, but look before you write. The investor sees every message you send them, and they never see internal notes."}},
+   {t:"quiz",v:{q:"You created a ticket and attached the statement to it. The investor writes that they cannot find the file. Why not?",
+     o:["Only files inside a message reach the investor","Their portal does not show PDF files","The file appears only after you set In progress","The file is too big for the investor portal"],
+     c:0,w:"Files you attach while creating a ticket stay internal. Send the statement again in a message."}}
+  ]},
+
+ {id:"m6", nav:"6 · What it will not do", num:"Chapter 6", title:"What the system does not do",
+  lede:"The system does not remind, chase or close anything. That part is your routine.",
+  blocks:[
+   {t:"list",v:[
+     "It does not assign tickets outside Property Management. The ticket reaches the right department, but the department picks the person.",
+     "It sends no email when a colleague replies or writes a note.",
+     "It does not track the 48 hours. It sends no reminder.",
+     "It never closes a ticket by itself.",
+     "<b>A new ticket with no assignee is new for nobody.</b> No blue dot, no red dot, no owner.",
+     "One small help: the time since the last action <b>turns red after 7 days</b>."
+   ]},
+   {t:"callout",v:"Tickets with no assignee are the easiest ones to lose. Check the <b>Cliq channel</b> and the filter <b>Status Open</b> + <b>Assignee Unassigned</b>."},
+   {t:"h",v:"The recommended routine"},
+   {t:"p",v:"The guide calls this a recommended workflow. The system does not force it."},
+   {t:"flow",v:[["1","Check Cliq, Open + Unassigned, and Assigned to me"],["2","Take the ticket: category, assignee, priority, In progress, Save"],["3","Answer within 48 business hours"],["4","Need an answer from them? Waiting on investor"],["5","Use notes for colleagues, and pull in other departments"],["6","Finished? Resolved"]]},
+   {t:"quiz",v:{q:"A colleague writes an internal note on your ticket. How do you find out?",
+     o:["By the blue dot, next time you look","By email, like with every action on your tickets","In the Cliq channel, which shows every note","Not at all. Only investor actions are shown"],
+     c:0,w:"Emails only come for: a new assignment, being pulled in, and the investor's own actions."}},
+   {t:"quiz",v:{q:"What exactly was the investor promised in the confirmation email?",
+     o:["An answer within 48 hours on business days","An answer within 48 hours, weekend included too","An answer on the next business day at the latest","A first reply within 7 days, as a service level"],
+     c:0,w:"Office hours are Mon to Fri, 9:00 to 18:00 GST. The system does not track these 48 hours."}}
+  ]},
+
+ {id:"m7", nav:"7 · Common mistakes", num:"Chapter 7", title:"9 mistakes everybody makes once",
+  lede:"Read this list twice. It is the short version of the whole course.",
+  blocks:[
+   {t:"table",v:{head:["What people think","What is true"],rows:[
+     ["“I replied, so it is In progress.”","The status did not move. Set it and press Save."],
+     ["“I created the ticket, so they know.”","They know nothing until you send a message."],
+     ["“I attached the file when I created it.”","That file is internal. Attach it to a message."],
+     ["“It is only an internal note.”","Every colleague who can see the ticket reads it."],
+     ["“They see that it is Waiting on investor.”","They see In progress. Tell them what you need."],
+     ["“Somebody will see the new ticket.”","With no assignee, it is new for nobody."],
+     ["“I moved it to the right category. Done.”","The assignee can be gone. Your own access can be gone."],
+     ["“Two questions, so I answer both here.”","One request, one ticket. Ask them to send the second one through Support."],
+     ["“I will delete this duplicate.”","Only administrators can. It is permanent, with the files."]
+   ]}},
+   {t:"p",v:"One more: you can correct the subject and description with <b>Edit</b>. The investor sees the new text. The change is not saved in the history."},
+   {t:"quiz",v:{q:"What does the system really do by itself?",
+     o:["It sets In progress when the investor replies","It closes tickets after 30 days as Resolved","It reminds the assignee before the 48 hours are over","It tells the investor when you change the status"],
+     c:0,w:"Only the investor moves a status by themselves: by replying, by Mark as resolved, by Reopen."}},
+   {t:"quiz",v:{q:"What does the investor never see?",
+     o:["Priority, assignee, Waiting on investor","The subject of a ticket that you created for them","The files you attached to a message to them","The files they uploaded to the request themselves"],
+     c:0,w:"They see their own content, your messages with files, your subject and description, and 3 statuses."}}
+  ]}
+];
+
+const EXAM = [
+ {q:"You are working on ticket #7. The investor asks for the reference of their request. What do you give them?",o:["ANF-0007","ANF-7, without zeros","#7, the same on both sides","The unit number, 104"],c:0,w:"Your ticket number becomes their request number with zeros in front. Ticket #7 is ANF-0007."},
+ {q:"An investor says they never got your answer, although you wrote it two days ago. What do you check first?",o:["Whether you wrote it as an internal note","Whether their email address is correct","Whether the ticket was moved to another department","Whether the status is still Waiting on investor"],c:0,w:"An internal note looks like a reply in the ticket, but the investor never sees it and gets no notification. Check the tab, then send it again as a message."},
+ {q:"You send a message to the investor with a statement attached. What arrives in their inbox?",o:["A short notice about a new reply, plus a push","Your full text and the attached file","Only the file, as an email attachment","Nothing — they have to check the portal"],c:0,w:"The email is only a pointer. They read your text and open the file in their portal."},
+ {q:"An investor writes: “This is urgent, please treat it as top priority.” What happens to the priority field?",o:["Nothing. You read the message and decide","It goes to Urgent, because the investor asked","It goes to High after 48 hours without an answer","Only your line manager can change it"],c:0,w:"Priority is internal. The investor never sees it and never sets it — take the urgency seriously in your answer instead."},
+ {q:"An investor asks for the full name and email address of the person handling their request. What can you give them?",o:["Neither — they only ever see a first name","The full name, but not the email address","Both, once the ticket is assigned","The name of the department instead"],c:0,w:"In their portal you appear as “Tobias · Managd”. Assignee, surname and email address stay internal."},
+ {q:"An investor writes in a lease renewal ticket: “And where is my payout for August?” What do you do?",o:["Answer about the renewal here, and ask them to use Support for the payout","Change the category to Payout, so that Finance takes the ticket over","Answer the payout question here yourself, to save them a second wait","Pull in a finance colleague, so they answer inside this ticket"],c:0,w:"One request, one ticket. A question they send through Support starts its own ticket in the right department — and changing the category would move this whole ticket to Finance."},
+ {q:"You resolved a ticket last week. Today the investor writes in it that the problem is back. What happened?",o:["It is Open again, and the assignee got an email","Nothing. A resolved ticket does not accept new messages","A new ticket was created, with a new number","The ticket moved to In progress, like after any reply"],c:0,w:"A reply to a resolved ticket reopens it by itself and notifies the assignee and everyone pulled in. You only have to pick it up again."},
+ {q:"An investor asks for their statement. You attach the PDF and press Send to investor without writing anything. What happens?",o:["It will not send. A message always needs text","Only the file goes out, with a notification","The file goes out and a standard text is added","The file is saved as an internal attachment"],c:0,w:"An attachment cannot be sent on its own. Write at least one line saying what the file is — the investor sees only the file name otherwise."},
+ {q:"A ticket is Waiting on investor and the investor replies. What happens?",o:["It becomes In progress, and the assignee gets an email","It stays Waiting on investor until you change it","It becomes Open, like a reply to a resolved ticket","It becomes Resolved, because they answered"],c:0,w:"Their reply is the one thing that brings the ticket back to you by itself — and it notifies the assignee and everyone pulled in."}
+];
+
+/* ======================= STATE ======================= */
+const KEY="managd-ticket-system-v1";
+let state={name:"",email:"",done:[],scores:{},best:0,examDate:"",sent:false};
+try{const s=localStorage.getItem(KEY); if(s) state=Object.assign(state,JSON.parse(s));}catch(e){}
+function save(){try{localStorage.setItem(KEY,JSON.stringify(state));}catch(e){}}
+
+const PAGES=[...MODULES.map(m=>m.id),"exam"];
+let current="start";
+const gradeable={};
+
+function shuffled(n){const a=[...Array(n).keys()];for(let i=n-1;i>0;i--){const r=Math.floor(Math.random()*(i+1));[a[i],a[r]]=[a[r],a[i]];}return a;}
+function el(html){const d=document.createElement("div");d.innerHTML=html.trim();return d.firstElementChild;}
+
+/* ======================= SHELL ======================= */
+function mountShell(){
+  document.getElementById("app").innerHTML=`
+  <div class="shell">
+    <aside class="side">
+      <img class="logo on-light" alt="MANAGD" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxMDAwIiBoZWlnaHQ9IjI1MCIgZmlsbD0ibm9uZSIgdmlld0JveD0iMCAwIDEwMDAgMjUwIj48cGF0aCBmaWxsPSIjMjc2ZWYxIiBkPSJtOTQuNTkyIDkyLjcwMyAxNi41ODItMTYuNTUzLTEwLjg1My00MC40MjhjLS4zMzMtLjM4My0yLjAxNS0xLjM4LTYuMDkyLTEuNjU1LTQuMjYtLjI4NC05LjUyOC4zMzktMTQuODM0IDEuNzU5bC0uMTM1LjAzNWMtNS4zMDcgMS40Mi0xMC4xODIgMy41MDktMTMuNzI4IDUuODgyLTMuMzkzIDIuMjcxLTQuMzUgMy45NzYtNC40NDcgNC40NzJsMTAuODUyIDQwLjQyOSAyMi42NTIgNi4wNTh6Ii8+PHBhdGggZmlsbD0iIzI3NmVmMSIgZD0ibTkyLjc5MiAxNjQuMzAzIDkuMzc5LTkuMzYgNy4yMDUtNy4xOTIgMTYuNTgyLTE2LjU1MiA3LjIwNi03LjE5MiA5LjM3Ny05LjM2MSA3LjIwNS03LjE5MiAyOS42NS0yOS41OTZjLjE2NS0uNDc5LjE5MS0yLjQzMy0xLjYxMS02LjA5My0xLjg4My0zLjgyNi01LjA1OC04LjA2Ny04Ljk0My0xMS45NDRsLS4xMDYtLjEwOGMtMy44NzYtMy44NjktOC4xMjYtNy4wNC0xMS45NTktOC45MTgtMy42NjgtMS43OTctNS42MjUtMS43NzItNi4xMDQtMS42MDdsLTI5LjY1IDI5LjU5Ni03LjIwNSA3LjE5My02LjU2MiA2LjU1LTEwLjAyMSAxMC4wMDMtNDUuMDc0LTEyLjA1Ni0yNy45MjQtNy40NjljLS40OTguMDk3LTIuMjA2IDEuMDUyLTQuNDggNC40MzgtMi4zNzggMy41NC00LjQ3MSA4LjQwNi01Ljg5MyAxMy43MDNsLS4wMzUuMTM1Yy0xLjQyMSA1LjI5NC0yLjA0NyAxMC41NTMtMS43NjIgMTQuODA1LjI3NSA0LjA2OSAxLjI3NSA1Ljc0OCAxLjY1OCA2LjA4bDM5LjE1MyAxMC40NzMgMTEuMTkzIDIuOTkzLTI2LjkzNiAyNi44ODctOS45MiA5LjkwMmMtLjE2NS40NzgtLjE5IDIuNDMxIDEuNjEgNi4wOTIgMS44ODIgMy44MjYgNS4wNTkgOC4wNjkgOC45NDMgMTEuOTQ2bC4wOS4wOTFjMy44OTIgMy44ODQgOC4xNDMgNy4wNTUgMTEuOTc0IDguOTM0IDMuNjY3IDEuNzk3IDUuNjI0IDEuNzcxIDYuMTA0IDEuNjA4bDE0LjUzOC0xNC41MTIgMTUuMTEyLTE1LjA4NHptNDEuODc2LS42NjktMi42MzctOS44MjUtMy40MzEtMTIuNzg1LTkuMzc2IDkuMzU5LTcuMjA2IDcuMTkyLTE2LjU4NCAxNi41NTQgMTAuODUyIDQwLjQyOWMuMzMzLjM4MiAyLjAxNSAxLjM4MSA2LjA5MiAxLjY1NSA0LjI1OS4yODUgOS41MjUtLjMzOSAxNC44My0xLjc1NmwuMTI3LS4wMzVjNS4zMTctMS40MjIgMTAuMTkzLTMuNTEgMTMuNzM5LTUuODgzIDMuMzkzLTIuMjcxIDQuMzUxLTMuOTc1IDQuNDQ3LTQuNDczbC0xMC44NTMtNDAuNDMxem01OS44ODMtMjkuNDQ1Yy0uMjc0LTQuMDY5LTEuMjc0LTUuNzQ4LTEuNjU4LTYuMDhsLTQwLjUwMi0xMC44MzMtMTYuNTgyIDE2LjU1MyA2LjA2OSAyMi42MSA0MC41MDUgMTAuODMyYy40OTgtLjA5NiAyLjIwNi0xLjA1MiA0LjQ4LTQuNDM4IDIuMzc3LTMuNTQgNC40Ny04LjQwNiA1Ljg5Mi0xMy43MDJsLjAzNy0uMTM0YzEuNDIxLTUuMjk3IDIuMDQ3LTEwLjU1NSAxLjc2LTE0LjgwOHoiLz48cGF0aCBmaWxsPSIjMGYxYzRkIiBkPSJNMjk1Ljg0MiAxMDIuNDA2Yy0xMC4xNDEgMC0xOC4zNjggNS43My0yMi45NiAxMS40NnY2NC45MzZoLTI3LjM2MVY4MC42MzNoMjcuMzYxVjk3LjI1YzcuNjUzLTExLjY1IDIwLjY2NC0xOS4yOSAzNC42MzItMTkuMjkgMTUuNjg5IDAgMjYuOTc4IDcuODMgMzEuOTUzIDIwLjgxNyA3LjY1My0xMi42MDUgMjEuODEyLTIwLjgxNyAzNi43MzctMjAuODE3IDIxLjQyOSAwIDM0LjYzMSAxNC43MDYgMzQuNjMxIDM3LjI0M3Y2My41OTloLTI3LjE2OXYtNTYuMTUxYzAtMTEuNjUtNi4xMjMtMjAuMjQ1LTE5LjEzNC0yMC4yNDUtOS41NjcgMC0xNy40MTIgNS4xNTctMjIuMTk1IDEwLjMxNHY2Ni4wODJoLTI3LjM2MXYtNTYuMTUxYzAtMTEuNjUtNi4xMjMtMjAuMjQ1LTE5LjEzNC0yMC4yNDVtMjA0LjMyMiA3Ni4zOTZ2LTE2LjQyNWMtNy40NjIgMTIuMjIzLTE5LjMyNSAxOS4yOS0zMi45MSAxOS4yOS0yNS40NDcgMC00NS41MzgtMjIuMTU1LTQ1LjUzOC01Mi4xNCAwLTI5LjQxMyAyMC4wOTEtNTEuNTY3IDQ1LjUzOC01MS41NjcgMTMuNTg1IDAgMjUuNDQ4IDcuMDY2IDMyLjkxIDE5LjA5OVY4MC42MzNoMjYuNTk2djk4LjE2OXptLTUxLjY2MS00OS4yNzVjMCAxNi4yMzQgMTEuMjg5IDI3LjUwMiAyNS4yNTcgMjcuNTAyIDExLjg2MyAwIDIxLjgxMi03LjQ0OCAyNi40MDQtMTYuMjM0VjExOC42NGMtNC43ODMtOC43ODUtMTQuNTQxLTE2LjIzNC0yNi40MDQtMTYuMjM0LTEzLjk2OCAwLTI1LjI1NyAxMS4yNjktMjUuMjU3IDI3LjEyMW0xNDIuODYyLTI3LjEyMWMtMTAuMzMyIDAtMTguNTYgNS45MjEtMjMuMTUyIDExLjQ2djY0LjkzNmgtMjcuMzYxVjgwLjYzM2gyNy4zNjFWOTcuMjVjNy42NTMtMTEuNjUgMjAuODU2LTE5LjI5IDM0LjYzMi0xOS4yOSAyMS44MTIgMCAzNS4wMTUgMTQuNzA2IDM1LjAxNSAzNy4yNDN2NjMuNTk5aC0yNy4zNjJ2LTU2LjE1MWMwLTExLjY1LTUuOTMxLTIwLjI0NS0xOS4xMzMtMjAuMjQ1bTEzNS43NDMgNzYuMzk2di0xNi40MjVjLTcuNDYyIDEyLjIyMy0xOS4zMjUgMTkuMjktMzIuOTEgMTkuMjktMjUuNDQ4IDAtNDUuNTM4LTIyLjE1NS00NS41MzgtNTIuMTQgMC0yOS40MTMgMjAuMDktNTEuNTY3IDQ1LjUzOC01MS41NjcgMTMuNTg1IDAgMjUuNDQ4IDcuMDY2IDMyLjkxIDE5LjA5OVY4MC42MzNoMjYuNTk1djk4LjE2OXptLTUxLjY2MS00OS4yNzVjMCAxNi4yMzQgMTEuMjg5IDI3LjUwMiAyNS4yNTYgMjcuNTAyIDExLjg2MyAwIDIxLjgxMy03LjQ0OCAyNi40MDUtMTYuMjM0VjExOC42NGMtNC43ODQtOC43ODUtMTQuNTQyLTE2LjIzNC0yNi40MDUtMTYuMjM0LTEzLjk2NyAwLTI1LjI1NiAxMS4yNjktMjUuMjU2IDI3LjEyMW0xOTQuOTA1IDU4LjgyNWMwIDE3LjU3MS0xMC41MjQgMjguNjQ4LTMyLjkxIDI4LjY0OGgtNTQuNTMxdi0yMS4wMDloNTIuNjE3YzUuMTY2IDAgOC4yMjgtMi42NzQgOC4yMjgtOC40MDN2LTI1Ljc4NGMtNy40NjIgMTEuNjUtMTkuMzI1IDE4LjUyNi0zMi45MSAxOC41MjYtMjUuNDQ4IDAtNDUuNTM4LTIxLjM5MS00NS41MzgtNTAuNDIxIDAtMjkuNzk1IDIwLjA5LTUxLjk1IDQ1LjUzOC01MS45NSAxMy41ODUgMCAyNS40NDggNy4wNjcgMzIuOTEgMTkuMjlWODAuNjM0aDI2LjU5NnptLTc4LjI1Ny01OC40NDNjMCAxNS44NTIgMTEuMjg5IDI3LjEyIDI1LjI1NiAyNy4xMiAxMS44NjMgMCAyMS42MjEtNy4yNTcgMjYuNDA1LTE2LjIzNHYtMjEuOTY0Yy00LjU5Mi04Ljc4NS0xNC41NDItMTYuNDI1LTI2LjQwNS0xNi40MjUtMTMuOTY3IDAtMjUuMjU2IDExLjQ2LTI1LjI1NiAyNy41MDNtMTY4LjMwOSA0OC44OTN2LTE2LjQyNWMtNy40NjIgMTIuMjIzLTE5LjMyNSAxOS4yOS0zMi45MSAxOS4yOS0yNS40NDggMC00NS41MzgtMjIuMTU1LTQ1LjUzOC01Mi4xNCAwLTI5LjQxMyAyMC4wOS01MS41NjcgNDUuNTM4LTUxLjU2NyAxMy41ODUgMCAyNS40NDggNy4wNjYgMzIuOTEgMTkuMDk5di02MS41SDk4N3YxNDMuMjQzem0tNTEuNjYxLTQ5LjI3NWMwIDE2LjIzNCAxMS4yODkgMjcuNTAyIDI1LjI1NyAyNy41MDIgMTEuODYyIDAgMjEuODEyLTcuNDQ4IDI2LjQwNC0xNi4yMzRWMTE4LjY0Yy00Ljc4My04Ljc4NS0xNC41NDItMTYuMjM0LTI2LjQwNC0xNi4yMzQtMTMuOTY4IDAtMjUuMjU3IDExLjI2OS0yNS4yNTcgMjcuMTIxIi8+PC9zdmc+">
+      <img class="logo on-dark" alt="MANAGD" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxMDAwIiBoZWlnaHQ9IjI1MCIgZmlsbD0ibm9uZSIgdmlld0JveD0iMCAwIDEwMDAgMjUwIj48cGF0aCBmaWxsPSIjMjc2ZWYxIiBkPSJtOTQuNTkyIDkyLjcwMyAxNi41ODItMTYuNTUzLTEwLjg1My00MC40MjhjLS4zMzMtLjM4My0yLjAxNS0xLjM4LTYuMDkyLTEuNjU1LTQuMjYtLjI4NC05LjUyOC4zMzktMTQuODM0IDEuNzU5bC0uMTM1LjAzNWMtNS4zMDcgMS40Mi0xMC4xODIgMy41MDktMTMuNzI4IDUuODgyLTMuMzkzIDIuMjcxLTQuMzUgMy45NzYtNC40NDcgNC40NzJsMTAuODUyIDQwLjQyOSAyMi42NTIgNi4wNTh6Ii8+PHBhdGggZmlsbD0iIzI3NmVmMSIgZD0ibTkyLjc5MiAxNjQuMzAzIDkuMzc5LTkuMzYgNy4yMDUtNy4xOTIgMTYuNTgyLTE2LjU1MiA3LjIwNi03LjE5MiA5LjM3Ny05LjM2MSA3LjIwNS03LjE5MiAyOS42NS0yOS41OTZjLjE2NS0uNDc5LjE5MS0yLjQzMy0xLjYxMS02LjA5My0xLjg4My0zLjgyNi01LjA1OC04LjA2Ny04Ljk0My0xMS45NDRsLS4xMDYtLjEwOGMtMy44NzYtMy44NjktOC4xMjYtNy4wNC0xMS45NTktOC45MTgtMy42NjgtMS43OTctNS42MjUtMS43NzItNi4xMDQtMS42MDdsLTI5LjY1IDI5LjU5Ni03LjIwNSA3LjE5My02LjU2MiA2LjU1LTEwLjAyMSAxMC4wMDMtNDUuMDc0LTEyLjA1Ni0yNy45MjQtNy40NjljLS40OTguMDk3LTIuMjA2IDEuMDUyLTQuNDggNC40MzgtMi4zNzggMy41NC00LjQ3MSA4LjQwNi01Ljg5MyAxMy43MDNsLS4wMzUuMTM1Yy0xLjQyMSA1LjI5NC0yLjA0NyAxMC41NTMtMS43NjIgMTQuODA1LjI3NSA0LjA2OSAxLjI3NSA1Ljc0OCAxLjY1OCA2LjA4bDM5LjE1MyAxMC40NzMgMTEuMTkzIDIuOTkzLTI2LjkzNiAyNi44ODctOS45MiA5LjkwMmMtLjE2NS40NzgtLjE5IDIuNDMxIDEuNjEgNi4wOTIgMS44ODIgMy44MjYgNS4wNTkgOC4wNjkgOC45NDMgMTEuOTQ2bC4wOS4wOTFjMy44OTIgMy44ODQgOC4xNDMgNy4wNTUgMTEuOTc0IDguOTM0IDMuNjY3IDEuNzk3IDUuNjI0IDEuNzcxIDYuMTA0IDEuNjA4bDE0LjUzOC0xNC41MTIgMTUuMTEyLTE1LjA4NHptNDEuODc2LS42NjktMi42MzctOS44MjUtMy40MzEtMTIuNzg1LTkuMzc2IDkuMzU5LTcuMjA2IDcuMTkyLTE2LjU4NCAxNi41NTQgMTAuODUyIDQwLjQyOWMuMzMzLjM4MiAyLjAxNSAxLjM4MSA2LjA5MiAxLjY1NSA0LjI1OS4yODUgOS41MjUtLjMzOSAxNC44My0xLjc1NmwuMTI3LS4wMzVjNS4zMTctMS40MjIgMTAuMTkzLTMuNTEgMTMuNzM5LTUuODgzIDMuMzkzLTIuMjcxIDQuMzUxLTMuOTc1IDQuNDQ3LTQuNDczbC0xMC44NTMtNDAuNDMxem01OS44ODMtMjkuNDQ1Yy0uMjc0LTQuMDY5LTEuMjc0LTUuNzQ4LTEuNjU4LTYuMDhsLTQwLjUwMi0xMC44MzMtMTYuNTgyIDE2LjU1MyA2LjA2OSAyMi42MSA0MC41MDUgMTAuODMyYy40OTgtLjA5NiAyLjIwNi0xLjA1MiA0LjQ4LTQuNDM4IDIuMzc3LTMuNTQgNC40Ny04LjQwNiA1Ljg5Mi0xMy43MDJsLjAzNy0uMTM0YzEuNDIxLTUuMjk3IDIuMDQ3LTEwLjU1NSAxLjc2LTE0LjgwOHoiLz48cGF0aCBmaWxsPSIjZmZmZmZmIiBkPSJNMjk1Ljg0MiAxMDIuNDA2Yy0xMC4xNDEgMC0xOC4zNjggNS43My0yMi45NiAxMS40NnY2NC45MzZoLTI3LjM2MVY4MC42MzNoMjcuMzYxVjk3LjI1YzcuNjUzLTExLjY1IDIwLjY2NC0xOS4yOSAzNC42MzItMTkuMjkgMTUuNjg5IDAgMjYuOTc4IDcuODMgMzEuOTUzIDIwLjgxNyA3LjY1My0xMi42MDUgMjEuODEyLTIwLjgxNyAzNi43MzctMjAuODE3IDIxLjQyOSAwIDM0LjYzMSAxNC43MDYgMzQuNjMxIDM3LjI0M3Y2My41OTloLTI3LjE2OXYtNTYuMTUxYzAtMTEuNjUtNi4xMjMtMjAuMjQ1LTE5LjEzNC0yMC4yNDUtOS41NjcgMC0xNy40MTIgNS4xNTctMjIuMTk1IDEwLjMxNHY2Ni4wODJoLTI3LjM2MXYtNTYuMTUxYzAtMTEuNjUtNi4xMjMtMjAuMjQ1LTE5LjEzNC0yMC4yNDVtMjA0LjMyMiA3Ni4zOTZ2LTE2LjQyNWMtNy40NjIgMTIuMjIzLTE5LjMyNSAxOS4yOS0zMi45MSAxOS4yOS0yNS40NDcgMC00NS41MzgtMjIuMTU1LTQ1LjUzOC01Mi4xNCAwLTI5LjQxMyAyMC4wOTEtNTEuNTY3IDQ1LjUzOC01MS41NjcgMTMuNTg1IDAgMjUuNDQ4IDcuMDY2IDMyLjkxIDE5LjA5OVY4MC42MzNoMjYuNTk2djk4LjE2OXptLTUxLjY2MS00OS4yNzVjMCAxNi4yMzQgMTEuMjg5IDI3LjUwMiAyNS4yNTcgMjcuNTAyIDExLjg2MyAwIDIxLjgxMi03LjQ0OCAyNi40MDQtMTYuMjM0VjExOC42NGMtNC43ODMtOC43ODUtMTQuNTQxLTE2LjIzNC0yNi40MDQtMTYuMjM0LTEzLjk2OCAwLTI1LjI1NyAxMS4yNjktMjUuMjU3IDI3LjEyMW0xNDIuODYyLTI3LjEyMWMtMTAuMzMyIDAtMTguNTYgNS45MjEtMjMuMTUyIDExLjQ2djY0LjkzNmgtMjcuMzYxVjgwLjYzM2gyNy4zNjFWOTcuMjVjNy42NTMtMTEuNjUgMjAuODU2LTE5LjI5IDM0LjYzMi0xOS4yOSAyMS44MTIgMCAzNS4wMTUgMTQuNzA2IDM1LjAxNSAzNy4yNDN2NjMuNTk5aC0yNy4zNjJ2LTU2LjE1MWMwLTExLjY1LTUuOTMxLTIwLjI0NS0xOS4xMzMtMjAuMjQ1bTEzNS43NDMgNzYuMzk2di0xNi40MjVjLTcuNDYyIDEyLjIyMy0xOS4zMjUgMTkuMjktMzIuOTEgMTkuMjktMjUuNDQ4IDAtNDUuNTM4LTIyLjE1NS00NS41MzgtNTIuMTQgMC0yOS40MTMgMjAuMDktNTEuNTY3IDQ1LjUzOC01MS41NjcgMTMuNTg1IDAgMjUuNDQ4IDcuMDY2IDMyLjkxIDE5LjA5OVY4MC42MzNoMjYuNTk1djk4LjE2OXptLTUxLjY2MS00OS4yNzVjMCAxNi4yMzQgMTEuMjg5IDI3LjUwMiAyNS4yNTYgMjcuNTAyIDExLjg2MyAwIDIxLjgxMy03LjQ0OCAyNi40MDUtMTYuMjM0VjExOC42NGMtNC43ODQtOC43ODUtMTQuNTQyLTE2LjIzNC0yNi40MDUtMTYuMjM0LTEzLjk2NyAwLTI1LjI1NiAxMS4yNjktMjUuMjU2IDI3LjEyMW0xOTQuOTA1IDU4LjgyNWMwIDE3LjU3MS0xMC41MjQgMjguNjQ4LTMyLjkxIDI4LjY0OGgtNTQuNTMxdi0yMS4wMDloNTIuNjE3YzUuMTY2IDAgOC4yMjgtMi42NzQgOC4yMjgtOC40MDN2LTI1Ljc4NGMtNy40NjIgMTEuNjUtMTkuMzI1IDE4LjUyNi0zMi45MSAxOC41MjYtMjUuNDQ4IDAtNDUuNTM4LTIxLjM5MS00NS41MzgtNTAuNDIxIDAtMjkuNzk1IDIwLjA5LTUxLjk1IDQ1LjUzOC01MS45NSAxMy41ODUgMCAyNS40NDggNy4wNjcgMzIuOTEgMTkuMjlWODAuNjM0aDI2LjU5NnptLTc4LjI1Ny01OC40NDNjMCAxNS44NTIgMTEuMjg5IDI3LjEyIDI1LjI1NiAyNy4xMiAxMS44NjMgMCAyMS42MjEtNy4yNTcgMjYuNDA1LTE2LjIzNHYtMjEuOTY0Yy00LjU5Mi04Ljc4NS0xNC41NDItMTYuNDI1LTI2LjQwNS0xNi40MjUtMTMuOTY3IDAtMjUuMjU2IDExLjQ2LTI1LjI1NiAyNy41MDNtMTY4LjMwOSA0OC44OTN2LTE2LjQyNWMtNy40NjIgMTIuMjIzLTE5LjMyNSAxOS4yOS0zMi45MSAxOS4yOS0yNS40NDggMC00NS41MzgtMjIuMTU1LTQ1LjUzOC01Mi4xNCAwLTI5LjQxMyAyMC4wOS01MS41NjcgNDUuNTM4LTUxLjU2NyAxMy41ODUgMCAyNS40NDggNy4wNjYgMzIuOTEgMTkuMDk5di02MS41SDk4N3YxNDMuMjQzem0tNTEuNjYxLTQ5LjI3NWMwIDE2LjIzNCAxMS4yODkgMjcuNTAyIDI1LjI1NyAyNy41MDIgMTEuODYyIDAgMjEuODEyLTcuNDQ4IDI2LjQwNC0xNi4yMzRWMTE4LjY0Yy00Ljc4My04Ljc4NS0xNC41NDItMTYuMjM0LTI2LjQwNC0xNi4yMzQtMTMuOTY4IDAtMjUuMjU3IDExLjI2OS0yNS4yNTcgMjcuMTIxIi8+PC9zdmc+">
+      <h1 class="brand">The Ticket System<small>Handling investor requests · Employee Portal</small></h1>
+      <p class="who">Signed in as <b id="whoName"></b> · <button class="linkbtn" id="editName">change</button></p>
+      <div class="prog">
+        <svg class="ring" viewBox="0 0 36 36" aria-hidden="true">
+          <circle cx="18" cy="18" r="15.5" fill="none" stroke="var(--rule)" stroke-width="4"/>
+          <circle id="ringFill" cx="18" cy="18" r="15.5" fill="none" stroke="var(--blue)" stroke-width="4"
+                  stroke-linecap="round" transform="rotate(-90 18 18)" stroke-dasharray="97.4" stroke-dashoffset="97.4"/>
+        </svg>
+        <div class="prog-t"><b id="progNum">0 of 8</b>chapters complete</div>
+      </div>
+      <nav><ol id="navList"></ol></nav>
+      <div class="side-foot"><button class="linkbtn" id="resetBtn">Reset my progress</button></div>
+    </aside>
+    <main class="main" id="main" tabindex="-1"></main>
+  </div>`;
+  document.getElementById("whoName").textContent=state.name||"—";
+  document.getElementById("editName").addEventListener("click",()=>askName(true));
+  document.getElementById("resetBtn").addEventListener("click",()=>{
+    if(!confirm("Clear your progress on this device?")) return;
+    state={name:state.name,email:state.email,done:[],scores:{},best:0,examDate:"",sent:false};
+    save(); buildNav(); updateProgress(); go("start");
+  });
+  buildNav(); updateProgress(); go(current);
+}
+
+function askName(isEdit){
+  document.getElementById("app").innerHTML=`
+   <div class="gate-screen">
+     <h2 class="mtitle" style="font-size:28px">${isEdit?"Update your details":"Before you start"}</h2>
+     <p class="lede" style="font-size:16.5px;margin-bottom:6px">Your name is attached to your exam result so your manager can see who has completed the course.</p>
+     <div class="field"><label for="n">Full name</label><input type="text" id="n" value="${state.name||""}" placeholder="e.g. Amina Hassan"></div>
+     <div class="field"><label for="e">Work email (optional)</label><input type="email" id="e" value="${state.email||""}" placeholder="name@getmanagd.com"></div>
+     <button class="btn" id="startBtn">${isEdit?"Save":"Start the course"}</button>
+     <p class="tiny" id="err" style="color:var(--bad);margin-top:10px"></p>
+   </div>`;
+  document.getElementById("startBtn").addEventListener("click",()=>{
+    const n=document.getElementById("n").value.trim();
+    if(n.length<2){document.getElementById("err").textContent="Please enter your name.";return;}
+    state.name=n; state.email=document.getElementById("e").value.trim(); save(); mountShell();
+  });
+  document.getElementById("n").focus();
+}
+
+/* ======================= BLOCKS ======================= */
+function renderBlocks(blocks,pageId){
+  const out=document.createElement("div");
+  gradeable[pageId]={total:0,answered:0,correct:0};
+  blocks.forEach(b=>{
+    if(b.t==="p") out.appendChild(el(`<p>${b.v}</p>`));
+    else if(b.t==="h") out.appendChild(el(`<h3>${b.v}</h3>`));
+    else if(b.t==="list") out.appendChild(el(`<ul>${b.v.map(i=>`<li>${i}</li>`).join("")}</ul>`));
+    else if(b.t==="callout") out.appendChild(el(`<div class="callout">${b.v}</div>`));
+    else if(b.t==="table") out.appendChild(el(`<div class="tablewrap"><table><thead><tr>${b.v.head.map(h=>`<th>${h}</th>`).join("")}</tr></thead><tbody>${b.v.rows.map(r=>`<tr>${r.map(c=>`<td${c==="✓"?' class="yes"':(c==="—"?' class="no"':"")}>${c}</td>`).join("")}</tr>`).join("")}</tbody></table></div>`));
+    else if(b.t==="flow") out.appendChild(el(`<div class="flow">${b.v.map(s=>`<div><span>Step ${s[0]}</span>${s[1]}</div>`).join("")}</div>`));
+    else if(b.t==="cards"){
+      const wrap=el(`<div class="cards"></div>`);
+      b.v.forEach(c=>{
+        const btn=el(`<button class="flip" type="button"></button>`);
+        let f=false; const paint=()=>{btn.innerHTML=f?`<span class="b">${c.b}</span>`:`<span>${c.f}</span>`;};
+        paint(); btn.addEventListener("click",()=>{f=!f;paint();});
+        wrap.appendChild(btn);
+      });
+      out.appendChild(wrap);
+    }
+    else if(b.t==="quiz"||b.t==="scenario"){ gradeable[pageId].total++; out.appendChild(buildQuestion(b,pageId)); }
+  });
+  return out;
+}
+
+function buildQuestion(b,pageId){
+  const isScen=b.t==="scenario", d=b.v;
+  const box=el(`<div class="ex">
+    <div class="kind">${isScen?"Scenario — choose your reply":"Check yourself"}</div>
+    ${isScen?`<div class="msg"><b>${d.from}</b>${d.msg}</div><p class="q">How do you respond?</p>`:`<p class="q">${d.q}</p>`}
+    <div class="opts"></div><div class="why hidden"></div></div>`);
+  const opts=box.querySelector(".opts"), why=box.querySelector(".why");
+  shuffled(d.o.length).forEach(i=>{
+    const text=d.o[i];
+    const btn=el(`<button class="opt" type="button"></button>`); btn.textContent=text; btn.dataset.i=i;
+    btn.addEventListener("click",()=>{
+      if(box.dataset.answered) return;
+      box.dataset.answered="1";
+      [...opts.children].forEach(o=>{o.disabled=true; if(+o.dataset.i===d.c)o.classList.add("right");});
+      const ok=i===d.c; if(!ok) btn.classList.add("wrong");
+      why.className="why "+(ok?"ok":"no");
+      why.innerHTML=`<b>${ok?"Correct.":"Not this one."}</b> ${d.w}`;
+      gradeable[pageId].answered++; if(ok) gradeable[pageId].correct++;
+      updateGate(pageId);
+    });
+    opts.appendChild(btn);
+  });
+  return box;
+}
+
+function updateGate(pageId){
+  const g=gradeable[pageId]; if(!g) return;
+  const btn=document.getElementById("completeBtn"), note=document.getElementById("gateNote");
+  if(!btn) return;
+  const left=g.total-g.answered;
+  btn.disabled=left>0;
+  if(note) note.textContent = left>0 ? `${left} question${left>1?"s":""} left in this chapter`
+    : (g.total?`${g.correct} of ${g.total} right first time`:"");
+}
+
+/* ======================= PAGES ======================= */
+function renderModule(m){
+  const main=document.getElementById("main"); main.innerHTML="";
+  if(m.id==="start"){
+    main.appendChild(el(`<header class="hero">
+      <h1>${m.title}</h1><p>${m.lede}</p>
+      <div class="meta"><div><b>${MODULES.length-1}</b>chapters</div><div><b>${EXAM.length}</b>exam questions</div><div><b>75%</b>to pass</div></div></header>`));
+  }else{
+    main.appendChild(el(`<p class="eyebrow">${m.num}</p>`));
+    main.appendChild(el(`<h2 class="mtitle">${m.title}</h2>`));
+    main.appendChild(el(`<p class="lede">${m.lede}</p>`));
+  }
+  main.appendChild(renderBlocks(m.blocks,m.id));
+  const isDone=state.done.includes(m.id);
+  const row=el(`<div class="navrow"><button class="btn" id="completeBtn">${isDone?"Completed — continue":"Mark complete and continue"}</button><span class="gate" id="gateNote"></span></div>`);
+  main.appendChild(row);
+  row.querySelector("#completeBtn").addEventListener("click",()=>{
+    const g=gradeable[m.id];
+    if(g&&g.total) state.scores[m.id]={c:g.correct,t:g.total};
+    if(!state.done.includes(m.id)) state.done.push(m.id);
+    save(); buildNav(); updateProgress();
+    const i=PAGES.indexOf(m.id); go(PAGES[Math.min(i+1,PAGES.length-1)]);
+  });
+  updateGate(m.id);
+  main.focus(); window.scrollTo(0,0);
+}
+
+let examAnswers=[];
+function renderExam(){
+  const main=document.getElementById("main"); main.innerHTML="";
+  main.appendChild(el(`<p class="eyebrow">Final exam</p>`));
+  main.appendChild(el(`<h2 class="mtitle">${EXAM.length} questions, 75% to pass</h2>`));
+  const left=MODULES.length-state.done.length;
+  main.appendChild(el(`<p class="lede">${left>0?`You still have ${left} chapter${left>1?"s":""} to complete — you can take the exam anyway, but it will be harder than it needs to be.`:"All modules complete. Answer everything, then submit."}${state.best?` Your best score so far: ${state.best}%.`:""}</p>`));
+  examAnswers=new Array(EXAM.length).fill(null);
+  const form=document.createElement("div");
+  EXAM.forEach((q,qi)=>{
+    const box=el(`<div class="ex"><div class="kind">Question ${qi+1} of ${EXAM.length}</div><p class="q">${q.q}</p><div class="opts"></div><div class="why hidden"></div></div>`);
+    const opts=box.querySelector(".opts");
+    shuffled(q.o.length).forEach(i=>{
+      const text=q.o[i];
+      const btn=el(`<button class="opt" type="button"></button>`); btn.textContent=text; btn.dataset.i=i;
+      btn.addEventListener("click",()=>{
+        if(box.dataset.locked) return;
+        examAnswers[qi]=i;
+        [...opts.children].forEach(o=>o.classList.remove("picked"));
+        btn.classList.add("picked");
+        const sb=document.getElementById("submitExam"); if(sb) sb.disabled=examAnswers.includes(null);
+      });
+      opts.appendChild(btn);
+    });
+    form.appendChild(box);
+  });
+  main.appendChild(form);
+  const row=el(`<div class="navrow"><button class="btn" id="submitExam" disabled>Submit exam</button><span class="gate">Answer all ${EXAM.length} questions to submit</span></div>`);
+  main.appendChild(row);
+  const result=el(`<div id="examResult"></div>`); main.appendChild(result);
+
+  row.querySelector("#submitExam").addEventListener("click",()=>{
+    let correct=0;
+    [...form.children].forEach((box,qi)=>{
+      box.dataset.locked="1";
+      const q=EXAM[qi], opts=box.querySelectorAll(".opt"), why=box.querySelector(".why");
+      opts.forEach(o=>{o.disabled=true;o.classList.remove("picked");
+        if(+o.dataset.i===q.c)o.classList.add("right"); else if(+o.dataset.i===examAnswers[qi])o.classList.add("wrong");});
+      const ok=examAnswers[qi]===q.c; if(ok)correct++;
+      why.className="why "+(ok?"ok":"no");
+      why.innerHTML=`<b>${ok?"Correct.":"Not this one."}</b> ${q.w}`;
+    });
+    const pct=Math.round(correct/EXAM.length*100), passed=pct>=75;
+    if(pct>state.best){state.best=pct; state.examDate=new Date().toISOString().slice(0,10);}
+    save(); buildNav();
+    result.innerHTML="";
+    result.appendChild(el(`<div style="margin-top:34px"><div class="score">${pct}%</div>
+      <div class="bar"><i style="width:${pct}%"></i></div>
+      <p>${correct} of ${EXAM.length} correct. ${passed?"That is a pass.":"You need 75%. Review the explanations above and retake it."}</p></div>`));
+    result.appendChild(buildReportBox(pct,correct,passed));
+    const retake=el(`<div class="navrow"><button class="btn ghost" id="retake">Retake the exam</button></div>`);
+    retake.querySelector("#retake").addEventListener("click",()=>renderExam());
+    result.appendChild(retake);
+    result.scrollIntoView({behavior:"smooth",block:"start"});
+  });
+  main.focus(); window.scrollTo(0,0);
+}
+
+function reportPayload(pct,correct){
+  return {
+    course:"Ticket system", name:state.name, email:state.email,
+    date:new Date().toISOString(),
+    modulesCompleted:state.done.filter(id=>id!=="start").length,
+    modulesTotal:MODULES.length-1,
+    moduleScores:Object.keys(state.scores).map(k=>`${k}:${state.scores[k].c}/${state.scores[k].t}`).join(", "),
+    examScorePct:pct, examCorrect:correct, examTotal:EXAM.length,
+    passed:pct>=75
+  };
+}
+
+function buildReportBox(pct,correct,passed){
+  const p=reportPayload(pct,correct);
+  const text=`MANAGD ticket system training — result
+Name: ${p.name}
+Email: ${p.email||"—"}
+Date: ${new Date().toLocaleString()}
+Chapters completed: ${p.modulesCompleted} of ${p.modulesTotal}
+Chapter scores (first attempt): ${p.moduleScores||"—"}
+Exam: ${p.examCorrect}/${p.examTotal} = ${p.examScorePct}% — ${p.passed?"PASS":"FAIL"}`;
+
+  const box=el(`<div class="cert">
+    <h3>${passed?"Training complete":"Result recorded"}</h3>
+    <p class="tiny" style="margin:0 0 14px">Send this to your manager. If automatic sending is switched off, copy the summary or email it.</p>
+    <div class="navrow" style="margin-top:0;border:0;padding-top:0">
+      <button class="btn" id="sendBtn">Send my results</button>
+      <button class="btn ghost" id="copyBtn">Copy summary</button>
+      ${CONFIG.managerEmail?`<a class="btn ghost" style="text-decoration:none;display:inline-block" href="mailto:${CONFIG.managerEmail}?subject=${encodeURIComponent("Ticket system training — "+p.name)}&body=${encodeURIComponent(text)}">Email it</a>`:""}
+      <button class="btn ghost" id="printBtn">Print</button>
+    </div>
+    <p class="status" id="sendStatus"></p>
+    <textarea readonly id="summaryBox">${text}</textarea>
+  </div>`);
+
+  box.querySelector("#copyBtn").addEventListener("click",()=>{
+    const ta=box.querySelector("#summaryBox"); ta.select();
+    try{document.execCommand("copy");}catch(e){}
+    if(navigator.clipboard) navigator.clipboard.writeText(text).catch(()=>{});
+    box.querySelector("#sendStatus").textContent="Summary copied.";
+  });
+  box.querySelector("#printBtn").addEventListener("click",()=>window.print());
+  box.querySelector("#sendBtn").addEventListener("click",async()=>{
+    const st=box.querySelector("#sendStatus"); st.textContent="Sending…";
+    if(!CONFIG.reportUrl){
+      st.textContent="Automatic sending isn't set up on this copy — use Copy summary or Email it instead.";
+      return;
+    }
+    try{
+      // Apps Script web apps don't return CORS headers, so the response
+      // body can't be read from the browser — "no-cors" still delivers
+      // the POST, we just can't confirm the read side of it here.
+      await fetch(CONFIG.reportUrl,{method:"POST",mode:"no-cors",headers:{"Content-Type":"text/plain;charset=utf-8"},body:JSON.stringify(p)});
+      state.sent=true; save();
+      st.textContent="Sent — it should appear in the team sheet in a few seconds.";
+    }catch(e){
+      st.textContent="Could not reach the results sheet — use Copy summary or Email it instead.";
+    }
+  });
+  return box;
+}
+
+/* ======================= NAV ======================= */
+function buildNav(){
+  const list=document.getElementById("navList"); if(!list) return;
+  list.innerHTML="";
+  MODULES.forEach(m=>{
+    const li=el(`<li class="${state.done.includes(m.id)?"done":""}"><button type="button"><span class="mk"></span>${m.nav}</button></li>`);
+    li.querySelector("button").addEventListener("click",()=>go(m.id));
+    if(m.id===current) li.querySelector("button").setAttribute("aria-current","true");
+    list.appendChild(li);
+  });
+  const ex=el(`<li class="${state.best>=75?"done":""}"><button type="button"><span class="mk"></span>Final exam</button></li>`);
+  ex.querySelector("button").addEventListener("click",()=>go("exam"));
+  if(current==="exam") ex.querySelector("button").setAttribute("aria-current","true");
+  list.appendChild(ex);
+  if(CONFIG.sheetUrl){
+    const d=el(`<li><a href="${CONFIG.sheetUrl}" target="_blank" rel="noopener" style="display:block;padding:9px 10px 9px 34px;color:var(--ink);font-size:14.5px;border-radius:8px;text-decoration:none;position:relative;font-family:'Poppins',sans-serif;font-weight:500"><span class="mk" style="position:absolute;left:8px;top:10px"></span>Team progress ↗</a></li>`);
+    list.appendChild(d);
+  }
+}
+function updateProgress(){
+  const num=document.getElementById("progNum"); if(!num) return;
+  const total=MODULES.length, done=state.done.length;
+  num.textContent=`${done} of ${total}`;
+  document.getElementById("ringFill").setAttribute("stroke-dashoffset", 2*Math.PI*15.5*(1-done/total));
+}
+function go(id){
+  current=id;
+  if(id==="exam") renderExam();
+  else renderModule(MODULES.find(m=>m.id===id)||MODULES[0]);
+  buildNav();
+}
+
+/* ======================= BOOT ======================= */
+if(state.name) mountShell(); else askName(false);
+</script>
+</body>
+</html>
