@@ -191,9 +191,9 @@ const MODULES = [
      ["Your messages to them, with files","Files you attached when you created a ticket"],
      ["The subject and description you wrote","Priority, assignee, pulled-in colleagues"],
      ["The status, in 3 stages","The status Waiting on investor"],
-     ["Status changes, as a line in their thread","Who changed anything, and when"]
+     ["Status changes, as a line in their thread","Who changed it, or why"]
    ]}},
-   {t:"p",v:"Their request is a conversation. Their own messages are on one side, yours on the other, and between them the thread shows lines like <b>Status: Resolved</b>. So a status change is visible to them — but with no name and no reason. Only your message can explain it."},
+   {t:"p",v:"Their request is a conversation. Their own messages are on one side, yours on the other, and between them the thread shows lines like <b>Status: Resolved</b>. The line sits where the change happened, so they can roughly see when — but never who changed it or why. Only your message explains that. A change to <b>Waiting on investor</b> never appears there, because it is not one of their three stages."},
    {t:"list",v:[
      "They can reply, add files, press <b>Mark as resolved</b> and press <b>Reopen</b>.",
      "They see your first name only, like “Tobias · Managd”. No surname, no email address."
@@ -219,8 +219,9 @@ const MODULES = [
    {t:"list",v:[
      "You always see a ticket you are <b>assigned to</b>. You always see a ticket you were <b>pulled into</b>. Your department does not matter here.",
      "Legal &amp; Handover and App / Portal have no role yet. Only administrators see them, so those tickets will not appear in your lists.",
-     "If you can see a ticket, you can change everything on it. There is no read-only role.",
+     "There is no view-only role. If you can open a ticket, you can also reply to the investor, write notes, change the status, priority, category and assignee, pull in colleagues and upload files.",
      "Only administrators can delete a ticket. A deleted ticket is gone, with its files.",
+     "So pulling in a colleague is not giving them a look — it gives them the same rights you have. And in someone else's ticket, do your part and leave the rest alone.",
      "Cannot open a ticket? You get one message for two different cases: it does not exist, or you have no access. So the message is not proof that it was deleted."
    ]},
    {t:"h",v:"The category picks the department"},
@@ -238,7 +239,7 @@ const MODULES = [
    {t:"callout",v:"<b>Careful when you change the category.</b> The ticket moves to the other department. If the assignee does not work there, the assignee is removed. And you may lose access to the ticket yourself."},
    {t:"quiz",v:{q:"A TC is pulled into a Finance ticket. What can they do there?",
      o:["Everything, except delete it","Only read it and write internal notes","Only reply to the investor","Nothing, until they get Finance rights"],
-     c:0,w:"Seeing a ticket and editing it are the same thing here. Only deleting is for administrators."}},
+     c:0,w:"Seeing a ticket and editing it are the same thing here: they could reply to the investor or change the category. Only deleting is for administrators."}},
    {t:"scenario",v:{from:"Investor, writing in ticket #52 (category: Tenant)",msg:"Thank you for the update on the new tenant. One more thing: my payout for August is still missing. Can you check that too?",
      o:["Answer about the tenant here, and ask them to send the payout question through Support","Change the category of this ticket to Payout, so Finance takes it over","Answer the payout question here yourself, to save them a second wait","Change the category to Payout and pull in a finance colleague as well"],
      c:0,w:"A ticket has only one category. If you change it to Payout, this whole ticket moves to Finance, the assignee can be removed, and you can lose access to it yourself. A request the investor sends through Support starts its own ticket in Finance, with a Cliq message and a confirmation email to the investor."}}
@@ -252,7 +253,7 @@ const MODULES = [
      "They write the message and pick the unit, the Area and the Topic. They can attach images and PDFs.",
      "The investor never types a subject. The system builds it from unit and topic: “104 · The Ivy · Payout”. The investor only writes the message inside.",
      "The ticket starts as <b>Open</b> with priority <b>Medium</b>.",
-     "Property Management tickets go straight to the <b>responsible TC of that unit</b> (the portal calls this the property manager). That person gets an email.",
+     "Property Management tickets go straight to the <b>responsible TC of that unit</b> (the portal calls this the property manager), and that person gets an email. This only works if a TC is set for the unit. If not, the ticket arrives with no assignee.",
      "Tickets for the other departments arrive without an assignee. The department itself decides who answers.",
      "The team gets a message in the <b>Zoho Cliq</b> channel.",
      "The investor gets an email. It promises an answer <b>within 48 hours on business days</b> (Mon to Fri, 9:00 to 18:00 GST)."
@@ -284,18 +285,20 @@ const MODULES = [
      ["Resolved","it is done","Resolved"]
    ]}},
    {t:"callout",v:"<b>Messages and notes never change the status.</b> You set it. On the ticket page it only works after you press <b>Save</b>. In the Kanban view, dragging a card changes it at once."},
+   {t:"callout",v:"<b>This is the practical reason to use Waiting on investor.</b> It is the only status that brings a ticket back to you on its own. Answer and leave the ticket on Open, and their reply moves nothing — the ticket just sits in the first column."},
    {t:"h",v:"What the investor changes by themselves"},
    {t:"list",v:[
      "They reply to a <b>Resolved</b> ticket → it becomes <b>Open</b>.",
      "They reply while it is <b>Waiting on investor</b> → it becomes <b>In progress</b>.",
      "They press <b>Mark as resolved</b> → it becomes <b>Resolved</b>. This button only appears when the team wrote last.",
      "They press <b>Reopen</b> → it becomes <b>Open</b>.",
-     "Every one of these sends an email to the assignee and to everyone pulled in.",
-     "When you change a status, the investor gets nothing."
+     "A reply on a ticket that is <b>Open</b> or <b>In progress</b> moves nothing. The status only jumps out of <b>Waiting on investor</b> and out of <b>Resolved</b>.",
+     "Every one of these sends an email to the assignee and to everyone pulled in. If nobody is assigned, the team gets a Cliq message instead.",
+     "When you change a status, the investor gets no email and no push. The change only shows up as a line in their thread."
    ]},
    {t:"quiz",v:{q:"You answered the investor and asked them a question. What do you still have to do?",
      o:["Set Waiting on investor, and press Save","Nothing. The message sets that status for you","Set Resolved. They can always reopen it later","Leave it Open, so the whole team keeps seeing it"],
-     c:0,w:"You set every status by hand. After that, their reply moves the ticket to In progress by itself."}},
+     c:0,w:"You set every status by hand. After that, their reply moves the ticket to In progress by itself. Left on Open, their reply would move nothing."}},
    {t:"quiz",v:{q:"An investor asks why the request still says “In progress”. You set it to Waiting on investor days ago.",
      o:["That status is internal. They see In progress","The status did not save. Open the ticket and set it again","Their portal is slow and updates during the night","They replied to you, so the status changed back"],
      c:0,w:"You have 4 statuses, they have 3. If you are waiting for something, write it in a message."}}
@@ -364,10 +367,10 @@ const MODULES = [
      ["“Two questions, so I answer both here.”","One request, one ticket. Ask them to send the second one through Support."],
      ["“I will delete this duplicate.”","Only administrators can. It is permanent, with the files."]
    ]}},
-   {t:"p",v:"One more: you can correct the subject and description with <b>Edit</b>. The investor sees the new text. The change is not saved in the history."},
+   {t:"p",v:"One more, about <b>Edit</b>: it only works on tickets an employee created. A request the investor wrote themselves cannot be edited by anyone. On your own tickets the investor sees the new text, and the change is not saved in the history."},
    {t:"quiz",v:{q:"What does the system really do by itself?",
-     o:["It sets In progress when the investor replies","It closes tickets after 30 days as Resolved","It reminds the assignee before the 48 hours are over","It tells the investor when you change the status"],
-     c:0,w:"Only the investor moves a status by themselves: by replying, by Mark as resolved, by Reopen."}},
+     o:["It sets In progress when a Waiting ticket gets a reply","It closes tickets that have been Resolved for 30 days","It reminds the assignee before the 48 hours are over","It emails the investor when you change the status"],
+     c:0,w:"Only the investor moves a status by themselves. A reply while Waiting on investor sets In progress; a reply to a Resolved ticket sets Open. Your own status change does appear in their thread, but the system sends no email or push about it."}},
    {t:"quiz",v:{q:"What does the investor never see?",
      o:["Priority, assignee, Waiting on investor","The subject of a ticket that you created for them","The files you attached to a message to them","The files they uploaded to the request themselves"],
      c:0,w:"They see their own content, your messages with files, your subject and description, and 3 statuses."}}
@@ -381,9 +384,9 @@ const EXAM = [
  {q:"An investor writes: “This is urgent, please treat it as top priority.” What happens to the priority field?",o:["Nothing. You read the message and decide","It goes to Urgent, because the investor asked","It goes to High after 48 hours without an answer","Only your line manager can change it"],c:0,w:"Priority is internal. The investor never sees it and never sets it — take the urgency seriously in your answer instead."},
  {q:"An investor asks for the full name and email address of the person handling their request. What can you give them?",o:["Neither — they only ever see a first name","The full name, but not the email address","Both, once the ticket is assigned","The name of the department instead"],c:0,w:"In their portal you appear as “Tobias · Managd”. Assignee, surname and email address stay internal."},
  {q:"An investor writes in a lease renewal ticket: “And where is my payout for August?” What do you do?",o:["Answer about the renewal here, and ask them to use Support for the payout","Change the category to Payout, so that Finance takes the ticket over","Answer the payout question here yourself, to save them a second wait","Pull in a finance colleague, so they answer inside this ticket"],c:0,w:"One request, one ticket. A question they send through Support starts its own ticket in the right department — and changing the category would move this whole ticket to Finance."},
- {q:"You resolved a ticket last week. Today the investor writes in it that the problem is back. What happened?",o:["It is Open again, and the assignee got an email","Nothing. A resolved ticket does not accept new messages","A new ticket was created, with a new number","The ticket moved to In progress, like after any reply"],c:0,w:"A reply to a resolved ticket reopens it by itself and notifies the assignee and everyone pulled in. You only have to pick it up again."},
+ {q:"You resolved a ticket last week. Today the investor writes in it that the problem is back. What happened?",o:["It is Open again, and the assignee got an email","Nothing. A resolved ticket does not accept new messages","A new ticket was created, with a new number","The ticket moved to In progress instead of Open"],c:0,w:"A reply to a resolved ticket reopens it by itself and notifies the assignee and everyone pulled in — you only have to pick it up again. In progress is what a reply produces from Waiting on investor; on a ticket that is already Open, a reply moves nothing."},
  {q:"An investor asks for their statement. You attach the PDF and press Send to investor without writing anything. What happens?",o:["It will not send. A message always needs text","Only the file goes out, with a notification","The file goes out and a standard text is added","The file is saved as an internal attachment"],c:0,w:"An attachment cannot be sent on its own. Write at least one line saying what the file is — the investor sees only the file name otherwise."},
- {q:"A ticket is Waiting on investor and the investor replies. What happens?",o:["It becomes In progress, and the assignee gets an email","It stays Waiting on investor until you change it","It becomes Open, like a reply to a resolved ticket","It becomes Resolved, because they answered"],c:0,w:"Their reply is the one thing that brings the ticket back to you by itself — and it notifies the assignee and everyone pulled in."}
+ {q:"You asked an investor for a document and set the ticket to Waiting on investor. How do you find out that they have answered?",o:["You get an email, and the ticket moves to In progress","Nothing arrives. You check the ticket yourself every few days","Only a blue dot appears, the system sends no email","Cliq posts a message about every investor reply"],c:0,w:"This is the one thing the system does for you. Their reply moves the ticket back to In progress and emails the assignee and everyone pulled in, so you do not have to keep checking the ticket. Left on Open, the same reply would move nothing."}
 ];
 
 /* ======================= STATE ======================= */
