@@ -195,7 +195,7 @@ const MODULES = [
    ]}},
    {t:"p",v:"Their request is a conversation. Their own messages are on one side, yours on the other, and between them the thread shows lines like <b>Status: Resolved</b>. The line sits where the change happened, so they can roughly see when — but never who changed it or why. Only your message explains that. A change to <b>Waiting on investor</b> never appears there, because it is not one of their three stages."},
    {t:"list",v:[
-     "They can reply, add files, press <b>Mark as resolved</b> and press <b>Reopen</b>.",
+     "They can reply, add files, press <b>Mark as resolved</b> and press <b>Reopen</b>. In a resolved request there is no reply box: they press <b>Reopen</b> first, then write.",
      "They see your first name only, like “Tobias · Managd”. No surname, no email address."
    ]},
    {t:"p",v:"In their list a request is titled by unit and building — <b>104 · The Ivy</b> — with department, topic, date and the first line of their own message underneath. So they recognise a request by the unit, not by a subject."},
@@ -285,20 +285,19 @@ const MODULES = [
      ["Resolved","it is done","Resolved"]
    ]}},
    {t:"callout",v:"<b>Messages and notes never change the status.</b> You set it. On the ticket page it only works after you press <b>Save</b>. In the Kanban view, dragging a card changes it at once."},
-   {t:"callout",v:"<b>This is the practical reason to use Waiting on investor.</b> It is the only status that brings a ticket back to you on its own. Answer and leave the ticket on Open, and their reply moves nothing — the ticket just sits in the first column."},
+   {t:"callout",v:"<b>This is the practical reason to use Waiting on investor.</b> It is the only status that brings a ticket back to you on its own. You are emailed about their reply either way — but on <b>Open</b> the ticket does not move, so it just sits in the first column."},
    {t:"h",v:"What the investor changes by themselves"},
    {t:"list",v:[
-     "They reply to a <b>Resolved</b> ticket → it becomes <b>Open</b>.",
-     "They reply while it is <b>Waiting on investor</b> → it becomes <b>In progress</b>.",
+     "They reply while it is <b>Waiting on investor</b> → it becomes <b>In progress</b>. This is the only status a reply moves.",
      "They press <b>Mark as resolved</b> → it becomes <b>Resolved</b>. This button only appears when the team wrote last.",
-     "They press <b>Reopen</b> → it becomes <b>Open</b>.",
-     "A reply on a ticket that is <b>Open</b> or <b>In progress</b> moves nothing. The status only jumps out of <b>Waiting on investor</b> and out of <b>Resolved</b>.",
-     "Every one of these sends an email to the assignee and to everyone pulled in. If nobody is assigned, the team gets a Cliq message instead.",
+     "They press <b>Reopen</b> → it becomes <b>Open</b>. In a resolved request this is their only way back in: there is no reply box until they reopen it.",
+     "A reply on a ticket that is <b>Open</b> or <b>In progress</b> changes nothing about the status.",
+     "<b>Every</b> investor reply emails the assignee and everyone pulled in, whatever the status. If nobody is assigned, the team gets a Cliq message instead. So you always hear about it — the status is what may or may not move.",
      "When you change a status, the investor gets no email and no push. The change only shows up as a line in their thread."
    ]},
    {t:"quiz",v:{q:"You answered the investor and asked them a question. What do you still have to do?",
      o:["Set Waiting on investor, and press Save","Nothing. The message sets that status for you","Set Resolved. They can always reopen it later","Leave it Open, so the whole team keeps seeing it"],
-     c:0,w:"You set every status by hand. After that, their reply moves the ticket to In progress by itself. Left on Open, their reply would move nothing."}},
+     c:0,w:"You set every status by hand. After that, their reply moves the ticket back to In progress by itself. Left on Open, you still get the email, but the ticket stays where it is."}},
    {t:"quiz",v:{q:"An investor asks why the request still says “In progress”. You set it to Waiting on investor days ago.",
      o:["That status is internal. They see In progress","The status did not save. Open the ticket and set it again","Their portal is slow and updates during the night","They replied to you, so the status changed back"],
      c:0,w:"You have 4 statuses, they have 3. If you are waiting for something, write it in a message."}}
@@ -370,7 +369,7 @@ const MODULES = [
    {t:"p",v:"One more, about <b>Edit</b>: it only works on tickets an employee created. A request the investor wrote themselves cannot be edited by anyone. On your own tickets the investor sees the new text, and the change is not saved in the history."},
    {t:"quiz",v:{q:"What does the system really do by itself?",
      o:["It sets In progress when a Waiting ticket gets a reply","It closes tickets that have been Resolved for 30 days","It reminds the assignee before the 48 hours are over","It emails the investor when you change the status"],
-     c:0,w:"Only the investor moves a status by themselves. A reply while Waiting on investor sets In progress; a reply to a Resolved ticket sets Open. Your own status change does appear in their thread, but the system sends no email or push about it."}},
+     c:0,w:"Only the investor moves a status by themselves: a reply while Waiting on investor sets In progress, and Reopen sets Open. Your own status change does appear in their thread, but the system sends no email or push about it."}},
    {t:"quiz",v:{q:"What does the investor never see?",
      o:["Priority, assignee, Waiting on investor","The subject of a ticket that you created for them","The files you attached to a message to them","The files they uploaded to the request themselves"],
      c:0,w:"They see their own content, your messages with files, your subject and description, and 3 statuses."}}
@@ -384,9 +383,9 @@ const EXAM = [
  {q:"An investor writes: “This is urgent, please treat it as top priority.” What happens to the priority field?",o:["Nothing. You read the message and decide","It goes to Urgent, because the investor asked","It goes to High after 48 hours without an answer","Only your line manager can change it"],c:0,w:"Priority is internal. The investor never sees it and never sets it — take the urgency seriously in your answer instead."},
  {q:"An investor asks for the full name and email address of the person handling their request. What can you give them?",o:["Neither — they only ever see a first name","The full name, but not the email address","Both, once the ticket is assigned","The name of the department instead"],c:0,w:"In their portal you appear as “Tobias · Managd”. Assignee, surname and email address stay internal."},
  {q:"An investor writes in a lease renewal ticket: “And where is my payout for August?” What do you do?",o:["Answer about the renewal here, and ask them to use Support for the payout","Change the category to Payout, so that Finance takes the ticket over","Answer the payout question here yourself, to save them a second wait","Pull in a finance colleague, so they answer inside this ticket"],c:0,w:"One request, one ticket. A question they send through Support starts its own ticket in the right department — and changing the category would move this whole ticket to Finance."},
- {q:"You resolved a ticket last week. Today the investor writes in it that the problem is back. What happened?",o:["It is Open again, and the assignee got an email","Nothing. A resolved ticket does not accept new messages","A new ticket was created, with a new number","The ticket moved to In progress instead of Open"],c:0,w:"A reply to a resolved ticket reopens it by itself and notifies the assignee and everyone pulled in — you only have to pick it up again. In progress is what a reply produces from Waiting on investor; on a ticket that is already Open, a reply moves nothing."},
+ {q:"You resolved a ticket last week. The problem is back and the investor wants to go on in the same request. What happens?",o:["They press Reopen, it becomes Open, and you are emailed","They write in the thread and it stays Resolved until you act","They press Reopen and the ticket comes back as In progress","Nothing. A resolved request is closed, so they raise a new one"],c:0,w:"A resolved request has no reply box. The investor presses Reopen first — that puts the ticket back to Open and emails the assignee and everyone pulled in — and only then writes. In progress is what a reply produces out of Waiting on investor."},
  {q:"An investor asks for their statement. You attach the PDF and press Send to investor without writing anything. What happens?",o:["It will not send. A message always needs text","Only the file goes out, with a notification","The file goes out and a standard text is added","The file is saved as an internal attachment"],c:0,w:"An attachment cannot be sent on its own. Write at least one line saying what the file is — the investor sees only the file name otherwise."},
- {q:"You asked an investor for a document and set the ticket to Waiting on investor. How do you find out that they have answered?",o:["You get an email, and the ticket moves to In progress","Nothing arrives. You check the ticket yourself every few days","Only a blue dot appears, the system sends no email","Cliq posts a message about every investor reply"],c:0,w:"This is the one thing the system does for you. Their reply moves the ticket back to In progress and emails the assignee and everyone pulled in, so you do not have to keep checking the ticket. Left on Open, the same reply would move nothing."}
+ {q:"You asked an investor for a document and set the ticket to Waiting on investor. How do you find out that they have answered?",o:["You get an email, and the ticket moves to In progress","Nothing arrives. You check the ticket yourself every few days","Only a blue dot appears, the system sends no email","Cliq posts a message about every investor reply"],c:0,w:"The email comes whatever the status — every investor reply notifies the assignee and everyone pulled in. What Waiting on investor adds is the move back to In progress, so the ticket returns to your active column by itself instead of sitting where you left it."}
 ];
 
 /* ======================= STATE ======================= */
