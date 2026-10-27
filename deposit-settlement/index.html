@@ -106,6 +106,7 @@
   }
 
   /* Print: only the letter, fields look like plain text */
+  .pv{display:none}
   @page{size:A4; margin:0}
   @media print{
     body{background:#fff}
@@ -113,6 +114,8 @@
     .sheet{margin:0; box-shadow:none; width:210mm; min-height:auto}
     .f,.f.empty{background:none!important; border:0!important; padding:0}
     .f::placeholder{color:transparent}
+    input[data-autosize]{display:none!important}
+    .pv{display:inline}
   }
 </style>
 </head>
@@ -203,8 +206,16 @@
     meas.textContent = el.value || (tight ? '' : el.placeholder) || ' ';
     el.style.width = (meas.getBoundingClientRect().width + (tight ? 1 : 12)) + 'px';
   }
+  // For print, show plain text copies of the inline fields so nothing gets cut off
   function tighten(on){
-    document.querySelectorAll('input[data-autosize]').forEach(function(i){ autosize(i, on); });
+    document.querySelectorAll('input[data-autosize]').forEach(function(i){
+      var pv = i.nextElementSibling;
+      if (!pv || !pv.classList.contains('pv')) {
+        pv = document.createElement('span'); pv.className = 'pv';
+        i.parentNode.insertBefore(pv, i.nextSibling);
+      }
+      pv.textContent = i.value;
+    });
   }
 
   function grow(el){
