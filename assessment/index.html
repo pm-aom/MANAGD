@@ -218,7 +218,7 @@ const INBOX = [
 ];
 
 const TIMELINE = {
-  intro:"Below is how one case unfolded. Decide at which point it went wrong.",
+  intro:"Below is how one case unfolded, step by step. Somewhere along the way it went wrong.",
   events:[
     { id:"t1", when:"3 September",
       what:"The tenant emails to say she will not renew. Her lease runs until 30 November." },
@@ -231,7 +231,7 @@ const TIMELINE = {
     { id:"t5", when:"2 October",
       what:"The owner calls the main line, furious. He has only now learned that his apartment is being vacated. He has also seen that, going by the date it was recorded, the tenant appears to have given notice late — although she wrote in good time." }
   ],
-  ask:"In two or three sentences: why that moment, and what should have happened instead?"
+  ask:"Explain your choice in two or three sentences: why that moment, and what should have happened instead."
 };
 
 const CASES = [
@@ -405,8 +405,9 @@ function screenInbox(){
       <h2>Monday morning</h2>
       <p class="lede">It is Monday, 9:00. You are back after two days off, and five things are waiting for you.</p>
       <div class="card" style="padding-bottom:24px">
-        <p><b>Put these in the order you would deal with them</b>, most important first. Drag them, or use the arrows.</p>
-        <p class="tiny">There is no single right order. We will ask you about your reasoning afterwards.</p>
+        <p><b>Put them in the order you would deal with them.</b> The one you would handle first goes at the top; the one that can wait longest goes at the bottom.</p>
+        <p>To move an item, drag it with the mouse, or use the <b>&#9650;</b> and <b>&#9660;</b> buttons on its right. The number on the left shows its place in your order.</p>
+        <p class="tiny">There is no single right order. We will ask you about your reasoning afterwards, so put them the way you would really work.</p>
         <ul class="inbox" id="inbox"></ul>
       </div>
       <div class="navrow"><button class="btn" id="next">Continue</button></div>
@@ -462,6 +463,8 @@ function screenTimeline(){
       <h2>Where did it go wrong?</h2>
       <p class="lede">${esc(TIMELINE.intro)}</p>
       <div class="card">
+        <p><b>Click the moment where you think the mistake was made</b> — the point at which someone should have acted differently. Then explain your choice in the box below.</p>
+        <p class="tiny">Only one moment can be selected. You can change your choice before continuing.</p>
         <ul class="tl" id="tl"></ul>
       </div>
       <div class="card">
