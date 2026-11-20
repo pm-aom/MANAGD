@@ -1,0 +1,595 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>MANAGD — Practical Assessment</title>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>/* ========== MANAGD Practical Assessment ========== */
+:root{
+  --navy:#0F1C4D;
+  --blue:#276EF1;
+  --blue-dim:#D5E2FD;
+  --ink:#161C33;
+  --mute:#5B6480;
+  --rule:#DCE1EC;
+  --paper:#FFFFFF;
+  --bg:#F1F3F8;
+  --tint:#F5F8FD;
+  --bad:#B42318;
+}
+
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --navy:#E8ECF7;
+    --blue:#5C93F8;
+    --blue-dim:#1C2B57;
+    --ink:#E6E9F2;
+    --mute:#99A2BC;
+    --rule:#2A3353;
+    --paper:#161C33;
+    --bg:#0D1226;
+    --tint:#1A2244;
+  }
+}
+
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+
+body{
+  margin:0;
+  background:var(--bg);
+  color:var(--ink);
+  font-family:Inter,-apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif;
+  font-size:16px;
+  line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+
+h1,h2,h3,.ui{font-family:Poppins,Inter,sans-serif}
+
+.wrap{max-width:760px;margin:0 auto;padding:0 20px 80px}
+
+/* ---------- masthead ---------- */
+header{padding:38px 0 0}
+.logo{display:block;width:132px;height:auto}
+.logo.on-dark{display:none}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]) .logo.on-light{display:none}
+  :root:not([data-theme="light"]) .logo.on-dark{display:block}
+}
+
+.kicker{
+  font-family:Poppins,Inter,sans-serif;
+  font-size:11.5px;font-weight:600;letter-spacing:.14em;
+  text-transform:uppercase;color:var(--blue);margin:26px 0 8px;
+}
+
+h1{font-size:34px;line-height:1.16;font-weight:600;letter-spacing:-.02em;color:var(--navy);margin:0 0 14px}
+h2{font-size:22px;line-height:1.26;font-weight:600;letter-spacing:-.015em;color:var(--navy);margin:0 0 10px}
+h3{font-size:16.5px;font-weight:600;color:var(--navy);margin:26px 0 8px}
+
+p{margin:0 0 14px}
+.lede{font-size:17.5px;color:var(--mute);margin:0 0 22px}
+.tiny{font-size:13.5px;color:var(--mute)}
+
+/* ---------- card ---------- */
+.card{
+  background:var(--paper);
+  border:1px solid var(--rule);
+  border-radius:14px;
+  padding:30px 32px;
+  margin:0 0 20px;
+}
+@media (max-width:560px){ .card{padding:22px 18px} h1{font-size:28px} }
+
+/* ---------- progress ---------- */
+.prog{display:flex;gap:6px;margin:26px 0 22px}
+.prog i{flex:1;height:4px;border-radius:2px;background:var(--rule);transition:background .25s}
+.prog i.on{background:var(--blue)}
+.prog i.now{background:var(--navy)}
+
+/* ---------- form ---------- */
+.field{margin:0 0 16px}
+label{display:block;font-family:Poppins,Inter,sans-serif;font-size:13.5px;font-weight:600;color:var(--navy);margin:0 0 6px}
+input[type=text],input[type=email],textarea{
+  font-family:inherit;font-size:16px;color:var(--ink);background:var(--paper);
+  padding:12px 14px;border:1px solid var(--rule);border-radius:9px;width:100%;
+}
+textarea{min-height:120px;resize:vertical;line-height:1.55}
+input:focus,textarea:focus{outline:2px solid var(--blue);outline-offset:1px;border-color:transparent}
+
+.btn{
+  font-family:Poppins,Inter,sans-serif;font-size:15px;font-weight:600;
+  background:var(--blue);color:#fff;border:0;border-radius:10px;
+  padding:13px 24px;cursor:pointer;transition:opacity .15s;
+}
+.btn:hover{opacity:.9}
+.btn[disabled]{opacity:.38;cursor:not-allowed}
+.btn.ghost{background:transparent;color:var(--mute);border:1px solid var(--rule)}
+
+.navrow{display:flex;align-items:center;gap:14px;flex-wrap:wrap;margin-top:26px}
+.gate{font-size:13.5px;color:var(--mute)}
+.err{color:var(--bad);font-size:13.5px;margin-top:10px;min-height:1px}
+
+/* ---------- inbox / ordering ---------- */
+.inbox{list-style:none;margin:0 0 6px;padding:0;counter-reset:n}
+.item{
+  display:flex;gap:14px;align-items:flex-start;
+  background:var(--paper);border:1px solid var(--rule);border-radius:11px;
+  padding:14px 14px 14px 16px;margin:0 0 9px;cursor:grab;
+}
+.item.drag{opacity:.4}
+.item.over{border-color:var(--blue);box-shadow:0 0 0 2px var(--blue-dim)}
+.rank{
+  flex:none;width:28px;height:28px;border-radius:50%;
+  background:var(--blue-dim);color:var(--navy);
+  font-family:Poppins,Inter,sans-serif;font-size:13.5px;font-weight:600;
+  display:flex;align-items:center;justify-content:center;margin-top:2px;
+}
+@media (prefers-color-scheme: dark){ :root:not([data-theme="light"]) .rank{color:var(--blue)} }
+.body{flex:1;min-width:0}
+.src{font-family:Poppins,Inter,sans-serif;font-size:11.5px;font-weight:600;letter-spacing:.07em;text-transform:uppercase;color:var(--mute);display:block;margin-bottom:3px}
+.txt{font-size:15px;line-height:1.5}
+.arrows{flex:none;display:flex;flex-direction:column;gap:3px}
+.arrows button{
+  width:30px;height:26px;border:1px solid var(--rule);background:var(--paper);
+  color:var(--mute);border-radius:7px;cursor:pointer;font-size:12px;line-height:1;
+}
+.arrows button:hover:not([disabled]){border-color:var(--blue);color:var(--blue)}
+.arrows button[disabled]{opacity:.3;cursor:default}
+
+/* ---------- timeline ---------- */
+.tl{list-style:none;margin:0;padding:0}
+.ev{
+  display:block;width:100%;text-align:left;
+  background:var(--paper);border:1px solid var(--rule);border-radius:11px;
+  padding:15px 18px;margin:0 0 9px;cursor:pointer;font:inherit;color:inherit;
+  transition:border-color .15s,background .15s;
+}
+.ev:hover{border-color:var(--blue)}
+.ev.sel{border-color:var(--blue);background:var(--blue-dim)}
+.ev .when{font-family:Poppins,Inter,sans-serif;font-size:13px;font-weight:600;color:var(--blue);display:block;margin-bottom:4px}
+.ev.sel .when{color:var(--navy)}
+@media (prefers-color-scheme: dark){ :root:not([data-theme="light"]) .ev.sel .when{color:var(--blue)} }
+.ev .what{font-size:15px;line-height:1.52}
+
+/* ---------- options ---------- */
+.opts{display:flex;flex-direction:column;gap:9px;margin:20px 0 0}
+.opt{
+  display:flex;gap:13px;align-items:flex-start;text-align:left;
+  background:var(--paper);border:1px solid var(--rule);border-radius:11px;
+  padding:14px 17px;cursor:pointer;font:inherit;color:inherit;
+  transition:border-color .15s,background .15s;
+}
+.opt:hover{border-color:var(--blue)}
+.opt.sel{border-color:var(--blue);background:var(--blue-dim)}
+.opt .mark{
+  flex:none;width:22px;height:22px;border-radius:50%;border:1.5px solid var(--rule);
+  margin-top:1px;display:flex;align-items:center;justify-content:center;
+  font-size:11px;font-weight:700;color:transparent;
+}
+.opt.sel .mark{border-color:var(--blue);background:var(--blue);color:#fff}
+.opt .lab{flex:1;font-size:15.5px;line-height:1.5}
+
+.situation{
+  background:var(--tint);border-left:3px solid var(--blue);
+  border-radius:0 9px 9px 0;padding:16px 20px;margin:0 0 6px;
+}
+.situation p:last-child{margin-bottom:0}
+
+.ask{font-family:Poppins,Inter,sans-serif;font-weight:600;color:var(--navy);margin:20px 0 0}
+
+/* ---------- done ---------- */
+.done{text-align:center;padding:40px 0 10px}
+.done .tick{
+  width:58px;height:58px;border-radius:50%;background:var(--blue-dim);
+  display:flex;align-items:center;justify-content:center;margin:0 auto 20px;
+  color:var(--blue);font-size:26px;
+}
+
+footer{margin-top:30px;font-size:13px;color:var(--mute);text-align:center}
+</style>
+</head>
+<body>
+
+<div class="wrap">
+  <header>
+    <img class="logo on-light" alt="MANAGD" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxMDAwIiBoZWlnaHQ9IjI1MCIgZmlsbD0ibm9uZSIgdmlld0JveD0iMCAwIDEwMDAgMjUwIj48cGF0aCBmaWxsPSIjMjc2ZWYxIiBkPSJtOTQuNTkyIDkyLjcwMyAxNi41ODItMTYuNTUzLTEwLjg1My00MC40MjhjLS4zMzMtLjM4My0yLjAxNS0xLjM4LTYuMDkyLTEuNjU1LTQuMjYtLjI4NC05LjUyOC4zMzktMTQuODM0IDEuNzU5bC0uMTM1LjAzNWMtNS4zMDcgMS40Mi0xMC4xODIgMy41MDktMTMuNzI4IDUuODgyLTMuMzkzIDIuMjcxLTQuMzUgMy45NzYtNC40NDcgNC40NzJsMTAuODUyIDQwLjQyOSAyMi42NTIgNi4wNTh6Ii8+PHBhdGggZmlsbD0iIzI3NmVmMSIgZD0ibTkyLjc5MiAxNjQuMzAzIDkuMzc5LTkuMzYgNy4yMDUtNy4xOTIgMTYuNTgyLTE2LjU1MiA3LjIwNi03LjE5MiA5LjM3Ny05LjM2MSA3LjIwNS03LjE5MiAyOS42NS0yOS41OTZjLjE2NS0uNDc5LjE5MS0yLjQzMy0xLjYxMS02LjA5My0xLjg4My0zLjgyNi01LjA1OC04LjA2Ny04Ljk0My0xMS45NDRsLS4xMDYtLjEwOGMtMy44NzYtMy44NjktOC4xMjYtNy4wNC0xMS45NTktOC45MTgtMy42NjgtMS43OTctNS42MjUtMS43NzItNi4xMDQtMS42MDdsLTI5LjY1IDI5LjU5Ni03LjIwNSA3LjE5My02LjU2MiA2LjU1LTEwLjAyMSAxMC4wMDMtNDUuMDc0LTEyLjA1Ni0yNy45MjQtNy40NjljLS40OTguMDk3LTIuMjA2IDEuMDUyLTQuNDggNC40MzgtMi4zNzggMy41NC00LjQ3MSA4LjQwNi01Ljg5MyAxMy43MDNsLS4wMzUuMTM1Yy0xLjQyMSA1LjI5NC0yLjA0NyAxMC41NTMtMS43NjIgMTQuODA1LjI3NSA0LjA2OSAxLjI3NSA1Ljc0OCAxLjY1OCA2LjA4bDM5LjE1MyAxMC40NzMgMTEuMTkzIDIuOTkzLTI2LjkzNiAyNi44ODctOS45MiA5LjkwMmMtLjE2NS40NzgtLjE5IDIuNDMxIDEuNjEgNi4wOTIgMS44ODIgMy44MjYgNS4wNTkgOC4wNjkgOC45NDMgMTEuOTQ2bC4wOS4wOTFjMy44OTIgMy44ODQgOC4xNDMgNy4wNTUgMTEuOTc0IDguOTM0IDMuNjY3IDEuNzk3IDUuNjI0IDEuNzcxIDYuMTA0IDEuNjA4bDE0LjUzOC0xNC41MTIgMTUuMTEyLTE1LjA4NHptNDEuODc2LS42NjktMi42MzctOS44MjUtMy40MzEtMTIuNzg1LTkuMzc2IDkuMzU5LTcuMjA2IDcuMTkyLTE2LjU4NCAxNi41NTQgMTAuODUyIDQwLjQyOWMuMzMzLjM4MiAyLjAxNSAxLjM4MSA2LjA5MiAxLjY1NSA0LjI1OS4yODUgOS41MjUtLjMzOSAxNC44My0xLjc1NmwuMTI3LS4wMzVjNS4zMTctMS40MjIgMTAuMTkzLTMuNTEgMTMuNzM5LTUuODgzIDMuMzkzLTIuMjcxIDQuMzUxLTMuOTc1IDQuNDQ3LTQuNDczbC0xMC44NTMtNDAuNDMxem01OS44ODMtMjkuNDQ1Yy0uMjc0LTQuMDY5LTEuMjc0LTUuNzQ4LTEuNjU4LTYuMDhsLTQwLjUwMi0xMC44MzMtMTYuNTgyIDE2LjU1MyA2LjA2OSAyMi42MSA0MC41MDUgMTAuODMyYy40OTgtLjA5NiAyLjIwNi0xLjA1MiA0LjQ4LTQuNDM4IDIuMzc3LTMuNTQgNC40Ny04LjQwNiA1Ljg5Mi0xMy43MDJsLjAzNy0uMTM0YzEuNDIxLTUuMjk3IDIuMDQ3LTEwLjU1NSAxLjc2LTE0LjgwOHoiLz48cGF0aCBmaWxsPSIjMGYxYzRkIiBkPSJNMjk1Ljg0MiAxMDIuNDA2Yy0xMC4xNDEgMC0xOC4zNjggNS43My0yMi45NiAxMS40NnY2NC45MzZoLTI3LjM2MVY4MC42MzNoMjcuMzYxVjk3LjI1YzcuNjUzLTExLjY1IDIwLjY2NC0xOS4yOSAzNC42MzItMTkuMjkgMTUuNjg5IDAgMjYuOTc4IDcuODMgMzEuOTUzIDIwLjgxNyA3LjY1My0xMi42MDUgMjEuODEyLTIwLjgxNyAzNi43MzctMjAuODE3IDIxLjQyOSAwIDM0LjYzMSAxNC43MDYgMzQuNjMxIDM3LjI0M3Y2My41OTloLTI3LjE2OXYtNTYuMTUxYzAtMTEuNjUtNi4xMjMtMjAuMjQ1LTE5LjEzNC0yMC4yNDUtOS41NjcgMC0xNy40MTIgNS4xNTctMjIuMTk1IDEwLjMxNHY2Ni4wODJoLTI3LjM2MXYtNTYuMTUxYzAtMTEuNjUtNi4xMjMtMjAuMjQ1LTE5LjEzNC0yMC4yNDVtMjA0LjMyMiA3Ni4zOTZ2LTE2LjQyNWMtNy40NjIgMTIuMjIzLTE5LjMyNSAxOS4yOS0zMi45MSAxOS4yOS0yNS40NDcgMC00NS41MzgtMjIuMTU1LTQ1LjUzOC01Mi4xNCAwLTI5LjQxMyAyMC4wOTEtNTEuNTY3IDQ1LjUzOC01MS41NjcgMTMuNTg1IDAgMjUuNDQ4IDcuMDY2IDMyLjkxIDE5LjA5OVY4MC42MzNoMjYuNTk2djk4LjE2OXptLTUxLjY2MS00OS4yNzVjMCAxNi4yMzQgMTEuMjg5IDI3LjUwMiAyNS4yNTcgMjcuNTAyIDExLjg2MyAwIDIxLjgxMi03LjQ0OCAyNi40MDQtMTYuMjM0VjExOC42NGMtNC43ODMtOC43ODUtMTQuNTQxLTE2LjIzNC0yNi40MDQtMTYuMjM0LTEzLjk2OCAwLTI1LjI1NyAxMS4yNjktMjUuMjU3IDI3LjEyMW0xNDIuODYyLTI3LjEyMWMtMTAuMzMyIDAtMTguNTYgNS45MjEtMjMuMTUyIDExLjQ2djY0LjkzNmgtMjcuMzYxVjgwLjYzM2gyNy4zNjFWOTcuMjVjNy42NTMtMTEuNjUgMjAuODU2LTE5LjI5IDM0LjYzMi0xOS4yOSAyMS44MTIgMCAzNS4wMTUgMTQuNzA2IDM1LjAxNSAzNy4yNDN2NjMuNTk5aC0yNy4zNjJ2LTU2LjE1MWMwLTExLjY1LTUuOTMxLTIwLjI0NS0xOS4xMzMtMjAuMjQ1bTEzNS43NDMgNzYuMzk2di0xNi40MjVjLTcuNDYyIDEyLjIyMy0xOS4zMjUgMTkuMjktMzIuOTEgMTkuMjktMjUuNDQ4IDAtNDUuNTM4LTIyLjE1NS00NS41MzgtNTIuMTQgMC0yOS40MTMgMjAuMDktNTEuNTY3IDQ1LjUzOC01MS41NjcgMTMuNTg1IDAgMjUuNDQ4IDcuMDY2IDMyLjkxIDE5LjA5OVY4MC42MzNoMjYuNTk1djk4LjE2OXptLTUxLjY2MS00OS4yNzVjMCAxNi4yMzQgMTEuMjg5IDI3LjUwMiAyNS4yNTYgMjcuNTAyIDExLjg2MyAwIDIxLjgxMy03LjQ0OCAyNi40MDUtMTYuMjM0VjExOC42NGMtNC43ODQtOC43ODUtMTQuNTQyLTE2LjIzNC0yNi40MDUtMTYuMjM0LTEzLjk2NyAwLTI1LjI1NiAxMS4yNjktMjUuMjU2IDI3LjEyMW0xOTQuOTA1IDU4LjgyNWMwIDE3LjU3MS0xMC41MjQgMjguNjQ4LTMyLjkxIDI4LjY0OGgtNTQuNTMxdi0yMS4wMDloNTIuNjE3YzUuMTY2IDAgOC4yMjgtMi42NzQgOC4yMjgtOC40MDN2LTI1Ljc4NGMtNy40NjIgMTEuNjUtMTkuMzI1IDE4LjUyNi0zMi45MSAxOC41MjYtMjUuNDQ4IDAtNDUuNTM4LTIxLjM5MS00NS41MzgtNTAuNDIxIDAtMjkuNzk1IDIwLjA5LTUxLjk1IDQ1LjUzOC01MS45NSAxMy41ODUgMCAyNS40NDggNy4wNjcgMzIuOTEgMTkuMjlWODAuNjM0aDI2LjU5NnptLTc4LjI1Ny01OC40NDNjMCAxNS44NTIgMTEuMjg5IDI3LjEyIDI1LjI1NiAyNy4xMiAxMS44NjMgMCAyMS42MjEtNy4yNTcgMjYuNDA1LTE2LjIzNHYtMjEuOTY0Yy00LjU5Mi04Ljc4NS0xNC41NDItMTYuNDI1LTI2LjQwNS0xNi40MjUtMTMuOTY3IDAtMjUuMjU2IDExLjQ2LTI1LjI1NiAyNy41MDNtMTY4LjMwOSA0OC44OTN2LTE2LjQyNWMtNy40NjIgMTIuMjIzLTE5LjMyNSAxOS4yOS0zMi45MSAxOS4yOS0yNS40NDggMC00NS41MzgtMjIuMTU1LTQ1LjUzOC01Mi4xNCAwLTI5LjQxMyAyMC4wOS01MS41NjcgNDUuNTM4LTUxLjU2NyAxMy41ODUgMCAyNS40NDggNy4wNjYgMzIuOTEgMTkuMDk5di02MS41SDk4N3YxNDMuMjQzem0tNTEuNjYxLTQ5LjI3NWMwIDE2LjIzNCAxMS4yODkgMjcuNTAyIDI1LjI1NyAyNy41MDIgMTEuODYyIDAgMjEuODEyLTcuNDQ4IDI2LjQwNC0xNi4yMzRWMTE4LjY0Yy00Ljc4My04Ljc4NS0xNC41NDItMTYuMjM0LTI2LjQwNC0xNi4yMzQtMTMuOTY4IDAtMjUuMjU3IDExLjI2OS0yNS4yNTcgMjcuMTIxIi8+PC9zdmc+">
+    <img class="logo on-dark" alt="MANAGD" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxMDAwIiBoZWlnaHQ9IjI1MCIgZmlsbD0ibm9uZSIgdmlld0JveD0iMCAwIDEwMDAgMjUwIj48cGF0aCBmaWxsPSIjMjc2ZWYxIiBkPSJtOTQuNTkyIDkyLjcwMyAxNi41ODItMTYuNTUzLTEwLjg1My00MC40MjhjLS4zMzMtLjM4My0yLjAxNS0xLjM4LTYuMDkyLTEuNjU1LTQuMjYtLjI4NC05LjUyOC4zMzktMTQuODM0IDEuNzU5bC0uMTM1LjAzNWMtNS4zMDcgMS40Mi0xMC4xODIgMy41MDktMTMuNzI4IDUuODgyLTMuMzkzIDIuMjcxLTQuMzUgMy45NzYtNC40NDcgNC40NzJsMTAuODUyIDQwLjQyOSAyMi42NTIgNi4wNTh6Ii8+PHBhdGggZmlsbD0iIzI3NmVmMSIgZD0ibTkyLjc5MiAxNjQuMzAzIDkuMzc5LTkuMzYgNy4yMDUtNy4xOTIgMTYuNTgyLTE2LjU1MiA3LjIwNi03LjE5MiA5LjM3Ny05LjM2MSA3LjIwNS03LjE5MiAyOS42NS0yOS41OTZjLjE2NS0uNDc5LjE5MS0yLjQzMy0xLjYxMS02LjA5My0xLjg4My0zLjgyNi01LjA1OC04LjA2Ny04Ljk0My0xMS45NDRsLS4xMDYtLjEwOGMtMy44NzYtMy44NjktOC4xMjYtNy4wNC0xMS45NTktOC45MTgtMy42NjgtMS43OTctNS42MjUtMS43NzItNi4xMDQtMS42MDdsLTI5LjY1IDI5LjU5Ni03LjIwNSA3LjE5My02LjU2MiA2LjU1LTEwLjAyMSAxMC4wMDMtNDUuMDc0LTEyLjA1Ni0yNy45MjQtNy40NjljLS40OTguMDk3LTIuMjA2IDEuMDUyLTQuNDggNC40MzgtMi4zNzggMy41NC00LjQ3MSA4LjQwNi01Ljg5MyAxMy43MDNsLS4wMzUuMTM1Yy0xLjQyMSA1LjI5NC0yLjA0NyAxMC41NTMtMS43NjIgMTQuODA1LjI3NSA0LjA2OSAxLjI3NSA1Ljc0OCAxLjY1OCA2LjA4bDM5LjE1MyAxMC40NzMgMTEuMTkzIDIuOTkzLTI2LjkzNiAyNi44ODctOS45MiA5LjkwMmMtLjE2NS40NzgtLjE5IDIuNDMxIDEuNjEgNi4wOTIgMS44ODIgMy44MjYgNS4wNTkgOC4wNjkgOC45NDMgMTEuOTQ2bC4wOS4wOTFjMy44OTIgMy44ODQgOC4xNDMgNy4wNTUgMTEuOTc0IDguOTM0IDMuNjY3IDEuNzk3IDUuNjI0IDEuNzcxIDYuMTA0IDEuNjA4bDE0LjUzOC0xNC41MTIgMTUuMTEyLTE1LjA4NHptNDEuODc2LS42NjktMi42MzctOS44MjUtMy40MzEtMTIuNzg1LTkuMzc2IDkuMzU5LTcuMjA2IDcuMTkyLTE2LjU4NCAxNi41NTQgMTAuODUyIDQwLjQyOWMuMzMzLjM4MiAyLjAxNSAxLjM4MSA2LjA5MiAxLjY1NSA0LjI1OS4yODUgOS41MjUtLjMzOSAxNC44My0xLjc1NmwuMTI3LS4wMzVjNS4zMTctMS40MjIgMTAuMTkzLTMuNTEgMTMuNzM5LTUuODgzIDMuMzkzLTIuMjcxIDQuMzUxLTMuOTc1IDQuNDQ3LTQuNDczbC0xMC44NTMtNDAuNDMxem01OS44ODMtMjkuNDQ1Yy0uMjc0LTQuMDY5LTEuMjc0LTUuNzQ4LTEuNjU4LTYuMDhsLTQwLjUwMi0xMC44MzMtMTYuNTgyIDE2LjU1MyA2LjA2OSAyMi42MSA0MC41MDUgMTAuODMyYy40OTgtLjA5NiAyLjIwNi0xLjA1MiA0LjQ4LTQuNDM4IDIuMzc3LTMuNTQgNC40Ny04LjQwNiA1Ljg5Mi0xMy43MDJsLjAzNy0uMTM0YzEuNDIxLTUuMjk3IDIuMDQ3LTEwLjU1NSAxLjc2LTE0LjgwOHoiLz48cGF0aCBmaWxsPSIjZmZmZmZmIiBkPSJNMjk1Ljg0MiAxMDIuNDA2Yy0xMC4xNDEgMC0xOC4zNjggNS43My0yMi45NiAxMS40NnY2NC45MzZoLTI3LjM2MVY4MC42MzNoMjcuMzYxVjk3LjI1YzcuNjUzLTExLjY1IDIwLjY2NC0xOS4yOSAzNC42MzItMTkuMjkgMTUuNjg5IDAgMjYuOTc4IDcuODMgMzEuOTUzIDIwLjgxNyA3LjY1My0xMi42MDUgMjEuODEyLTIwLjgxNyAzNi43MzctMjAuODE3IDIxLjQyOSAwIDM0LjYzMSAxNC43MDYgMzQuNjMxIDM3LjI0M3Y2My41OTloLTI3LjE2OXYtNTYuMTUxYzAtMTEuNjUtNi4xMjMtMjAuMjQ1LTE5LjEzNC0yMC4yNDUtOS41NjcgMC0xNy40MTIgNS4xNTctMjIuMTk1IDEwLjMxNHY2Ni4wODJoLTI3LjM2MXYtNTYuMTUxYzAtMTEuNjUtNi4xMjMtMjAuMjQ1LTE5LjEzNC0yMC4yNDVtMjA0LjMyMiA3Ni4zOTZ2LTE2LjQyNWMtNy40NjIgMTIuMjIzLTE5LjMyNSAxOS4yOS0zMi45MSAxOS4yOS0yNS40NDcgMC00NS41MzgtMjIuMTU1LTQ1LjUzOC01Mi4xNCAwLTI5LjQxMyAyMC4wOTEtNTEuNTY3IDQ1LjUzOC01MS41NjcgMTMuNTg1IDAgMjUuNDQ4IDcuMDY2IDMyLjkxIDE5LjA5OVY4MC42MzNoMjYuNTk2djk4LjE2OXptLTUxLjY2MS00OS4yNzVjMCAxNi4yMzQgMTEuMjg5IDI3LjUwMiAyNS4yNTcgMjcuNTAyIDExLjg2MyAwIDIxLjgxMi03LjQ0OCAyNi40MDQtMTYuMjM0VjExOC42NGMtNC43ODMtOC43ODUtMTQuNTQxLTE2LjIzNC0yNi40MDQtMTYuMjM0LTEzLjk2OCAwLTI1LjI1NyAxMS4yNjktMjUuMjU3IDI3LjEyMW0xNDIuODYyLTI3LjEyMWMtMTAuMzMyIDAtMTguNTYgNS45MjEtMjMuMTUyIDExLjQ2djY0LjkzNmgtMjcuMzYxVjgwLjYzM2gyNy4zNjFWOTcuMjVjNy42NTMtMTEuNjUgMjAuODU2LTE5LjI5IDM0LjYzMi0xOS4yOSAyMS44MTIgMCAzNS4wMTUgMTQuNzA2IDM1LjAxNSAzNy4yNDN2NjMuNTk5aC0yNy4zNjJ2LTU2LjE1MWMwLTExLjY1LTUuOTMxLTIwLjI0NS0xOS4xMzMtMjAuMjQ1bTEzNS43NDMgNzYuMzk2di0xNi40MjVjLTcuNDYyIDEyLjIyMy0xOS4zMjUgMTkuMjktMzIuOTEgMTkuMjktMjUuNDQ4IDAtNDUuNTM4LTIyLjE1NS00NS41MzgtNTIuMTQgMC0yOS40MTMgMjAuMDktNTEuNTY3IDQ1LjUzOC01MS41NjcgMTMuNTg1IDAgMjUuNDQ4IDcuMDY2IDMyLjkxIDE5LjA5OVY4MC42MzNoMjYuNTk1djk4LjE2OXptLTUxLjY2MS00OS4yNzVjMCAxNi4yMzQgMTEuMjg5IDI3LjUwMiAyNS4yNTYgMjcuNTAyIDExLjg2MyAwIDIxLjgxMy03LjQ0OCAyNi40MDUtMTYuMjM0VjExOC42NGMtNC43ODQtOC43ODUtMTQuNTQyLTE2LjIzNC0yNi40MDUtMTYuMjM0LTEzLjk2NyAwLTI1LjI1NiAxMS4yNjktMjUuMjU2IDI3LjEyMW0xOTQuOTA1IDU4LjgyNWMwIDE3LjU3MS0xMC41MjQgMjguNjQ4LTMyLjkxIDI4LjY0OGgtNTQuNTMxdi0yMS4wMDloNTIuNjE3YzUuMTY2IDAgOC4yMjgtMi42NzQgOC4yMjgtOC40MDN2LTI1Ljc4NGMtNy40NjIgMTEuNjUtMTkuMzI1IDE4LjUyNi0zMi45MSAxOC41MjYtMjUuNDQ4IDAtNDUuNTM4LTIxLjM5MS00NS41MzgtNTAuNDIxIDAtMjkuNzk1IDIwLjA5LTUxLjk1IDQ1LjUzOC01MS45NSAxMy41ODUgMCAyNS40NDggNy4wNjcgMzIuOTEgMTkuMjlWODAuNjM0aDI2LjU5NnptLTc4LjI1Ny01OC40NDNjMCAxNS44NTIgMTEuMjg5IDI3LjEyIDI1LjI1NiAyNy4xMiAxMS44NjMgMCAyMS42MjEtNy4yNTcgMjYuNDA1LTE2LjIzNHYtMjEuOTY0Yy00LjU5Mi04Ljc4NS0xNC41NDItMTYuNDI1LTI2LjQwNS0xNi40MjUtMTMuOTY3IDAtMjUuMjU2IDExLjQ2LTI1LjI1NiAyNy41MDNtMTY4LjMwOSA0OC44OTN2LTE2LjQyNWMtNy40NjIgMTIuMjIzLTE5LjMyNSAxOS4yOS0zMi45MSAxOS4yOS0yNS40NDggMC00NS41MzgtMjIuMTU1LTQ1LjUzOC01Mi4xNCAwLTI5LjQxMyAyMC4wOS01MS41NjcgNDUuNTM4LTUxLjU2NyAxMy41ODUgMCAyNS40NDggNy4wNjYgMzIuOTEgMTkuMDk5di02MS41SDk4N3YxNDMuMjQzem0tNTEuNjYxLTQ5LjI3NWMwIDE2LjIzNCAxMS4yODkgMjcuNTAyIDI1LjI1NyAyNy41MDIgMTEuODYyIDAgMjEuODEyLTcuNDQ4IDI2LjQwNC0xNi4yMzRWMTE4LjY0Yy00Ljc4My04Ljc4NS0xNC41NDItMTYuMjM0LTI2LjQwNC0xNi4yMzQtMTMuOTY4IDAtMjUuMjU3IDExLjI2OS0yNS4yNTcgMjcuMTIxIi8+PC9zdmc+">
+  </header>
+  <main id="app"></main>
+  <footer>MANAGD Property Management</footer>
+</div>
+
+<script>/* ===== content ===== */
+
+const INBOX = [
+  { id:"i1", src:"Email from an investor \u2014 Saturday, 14:20",
+    txt:"Owner of 1204, vacant since September. \u201cIt is now more than two months. Could you tell me at what price the apartment is being advertised, and on which portals it is currently listed?\u201d" },
+  { id:"i2", src:"WhatsApp from a tenant \u2014 Sunday, 19:40",
+    txt:"\u201cThird time I am writing about the oven. It has not worked since last week. Does anybody work there?\u201d" },
+  { id:"i3", src:"Reminder from the portal \u2014 Sunday, 06:00",
+    txt:"The lease on 905 expires in four days. No renewal started, no termination recorded." },
+  { id:"i4", src:"Message from a leasing agent \u2014 today, 08:35",
+    txt:"\u201cClient for 806 wants to view today at 17:00. He flies out tomorrow. Can you confirm?\u201d" },
+  { id:"i5", src:"Message from a leasing agent \u2014 Friday, 16:10",
+    txt:"\u201cA client asked me about 1204 last week. Is it still available? I could not find it on any of the portals.\u201d" }
+];
+
+const TIMELINE = {
+  intro:"Below is how one case unfolded. Decide at which point it went wrong.",
+  events:[
+    { id:"t1", when:"3 September",
+      what:"The tenant emails to say she will not renew. Her lease runs until 30 November." },
+    { id:"t2", when:"4 September",
+      what:"The coordinator calls her. It is a good conversation: she would stay if the rent came down and she could pay in six cheques instead of one. He tells her he will try to arrange it." },
+    { id:"t3", when:"5–19 September",
+      what:"He works on it — gathers comparable rents, prepares the reasoning for the owner, speaks to the tenant several times. He wants to go to the owner with a proposal rather than a problem." },
+    { id:"t4", when:"22 September",
+      what:"It does not come together: the tenant has found another apartment. The coordinator records the termination in the system." },
+    { id:"t5", when:"2 October",
+      what:"The owner calls the main line, furious. He has only now learned that his apartment is being vacated. He has also seen that, going by the date it was recorded, the tenant appears to have given notice late — although she wrote in good time." }
+  ],
+  ask:"In two or three sentences: why that moment, and what should have happened instead?"
+};
+
+const CASES = [
+  {
+    id:"c1",
+    title:"Case 1",
+    situation:[
+      "A new tenant moves in on Saturday. You discover there is an unpaid service charge on the apartment, and because of it he cannot register his Ejari.",
+      "The apartment is on the basic package — we do not handle the owner's service charges. His first rent payment has already reached us. The owner has not answered emails or calls for three days. Today is Thursday.",
+      "There are other vacant apartments on your list that he could take instead."
+    ],
+    ask:"What do you do?",
+    opts:[
+      "Pay the service charge out of the rent you are holding and recover it from the owner afterwards.",
+      "Escalate internally so someone senior reaches the owner today, and tell the tenant once you know.",
+      "Tell the tenant today, offer him another vacant apartment, and prepare to cancel this lease.",
+      "Let him move in on Saturday as planned, and sort the Ejari registration out afterwards."
+    ],
+    key:2
+  },
+  {
+    id:"c2",
+    title:"Case 2",
+    situation:[
+      "An investor writes on Friday evening. He has agreed a sale of his apartment with a buyer and is in a hurry.",
+      "He asks what the notice period is for ending the property management agreement and whether there is a penalty \u2014 and adds that he needs to know by Monday, or the sale timetable slips.",
+      "You have seen the standard terms and you are fairly sure you know the answer."
+    ],
+    ask:"What do you do?",
+    opts:[
+      "Tell him Legal handles these, pass the request to them today, and say when he will hear back.",
+      "Answer from the standard terms, adding that Legal will confirm the exact wording in writing.",
+      "Give him the notice period, which is standard, and leave the question of a penalty to Legal.",
+      "Send him the standard agreement template so that he can read the clauses himself over the weekend."
+    ],
+    key:0
+  },
+  {
+    id:"c3",
+    title:"Case 3",
+    situation:[
+      "The tenant has told you she will not be renewing \u2014 she plans to move out when the lease ends. She has lived in the apartment three years and has never paid late.",
+      "You think she can be kept. You know roughly what moving would cost her, and you believe a modest reduction would make her stay. You start putting an offer together.",
+      "Then you find in the file that two weeks ago the owner was sent a rent recommendation for this renewal with a specific figure, and he approved it in writing. Your figure is below his. The owner does not yet know that she is leaving."
+    ],
+    ask:"What do you do?",
+    opts:[
+      "Send her your lower figure \u2014 you know this tenant, and a vacancy costs the owner more than the difference.",
+      "Send her the approved figure, and tell the owner about it only if she turns it down.",
+      "Tell the owner today that she is leaving, what a vacancy would cost him, and what you suggest.",
+      "Ask whoever prepared the recommendation to revise it for this case, then go back to the owner."
+    ],
+    key:2
+  },
+  {
+    id:"c4",
+    title:"Case 4",
+    situation:[
+      "It starts with an ordinary question from the owner: is his tenant going to renew? The lease ends on 28 November.",
+      "You call the tenant. No answer. You email him, you message him \u2014 nothing, and nothing for the past two weeks either. Passing through the building, you ask security. They tell you the man left about three months ago with a suitcase and has not been seen since.",
+      "So you go back through the file. In May he wrote that he had moved out and wanted to end the tenancy early. Nobody ever completed the handover: the keys were never returned and no final inspection was done. He has paid the rent in full to the end of November, so on paper the apartment is still legally his.",
+      "And nobody has been inside it. It may be empty, it may still hold his belongings, it may be damaged.",
+      "You tell the owner what you have found. He is upset, and he wants the apartment back on the market now: \u201cYou have spare keys, don\u2019t you? And if he has already told you he is leaving and is now ignoring you \u2014 why can\u2019t you start legal action already?\u201d",
+      "You do have a spare key."
+    ],
+    ask:"What do you do?",
+    opts:[
+      "Use the spare key. Go over today, photograph every room, and send the owner the pictures the same day so he can see for himself where things stand.",
+      "Email the tenant that access is needed for an urgent maintenance inspection, give him 48 hours to object, and open the apartment if he does not reply.",
+      "Put the facts to the Legal team and ask how access can lawfully be obtained. Tell the owner the same day what you can and cannot do, and when he will hear from you.",
+      "Tell the owner that nothing can be done while the lease is still running, and book the inspection for the first week of December, when the apartment comes back to him."
+    ],
+    key:2
+  }
+];
+</script>
+<script>
+/* ================= config ================= */
+const CONFIG = {
+  // Paste the Google Apps Script web-app URL here to collect results.
+  reportUrl: "https://script.google.com/macros/s/AKfycbyx9cFXYavVgzQ6ynxuK77pSFkZoNC5a0O3hTPycfNNINp0y_HYx5eZdpRFt3fHAA/exec"
+};
+
+/* ================= state ================= */
+const KEY = "managd-assessment-v2";
+let S = { name:"", email:"", order:INBOX.map(x=>x.id), tlPick:"", tlWhy:"", ans:{}, t:{}, started:0 };
+try { const r = localStorage.getItem(KEY); if(r) S = Object.assign(S, JSON.parse(r)); } catch(e){}
+
+/* Saved progress may come from an older version of this page, with items that no
+   longer exist. Reconcile it against the current content before anything renders. */
+(function reconcile(){
+  const ids = INBOX.map(x=>x.id);
+  const kept = (Array.isArray(S.order) ? S.order : []).filter(id => ids.indexOf(id) !== -1);
+  ids.forEach(id => { if(kept.indexOf(id) === -1) kept.push(id); });
+  S.order = kept;
+
+  if(S.tlPick && !TIMELINE.events.some(e => e.id === S.tlPick)) S.tlPick = "";
+
+  const caseIds = CASES.map(c=>c.id);
+  const ans = {};
+  Object.keys(S.ans || {}).forEach(k => {
+    if(caseIds.indexOf(k) !== -1) ans[k] = S.ans[k];
+  });
+  S.ans = ans;
+})();
+function save(){ try{ localStorage.setItem(KEY, JSON.stringify(S)); }catch(e){} }
+
+const STEPS = ["inbox","timeline"].concat(CASES.map(c=>c.id));
+let step = 0, stepStart = 0;
+
+function el(html){ const d=document.createElement("div"); d.innerHTML=html.trim(); return d.firstElementChild; }
+function esc(s){ return String(s).replace(/[&<>"]/g, c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c])); }
+const app = () => document.getElementById("app");
+
+function progress(){
+  const p = el('<div class="prog"></div>');
+  STEPS.forEach((_,i)=>{
+    const b=document.createElement("i");
+    if(i<step) b.className="on";
+    if(i===step) b.className="now";
+    p.appendChild(b);
+  });
+  return p;
+}
+
+function markTime(){
+  if(stepStart){ const k=STEPS[step]; S.t[k]=(S.t[k]||0)+Math.round((Date.now()-stepStart)/1000); save(); }
+}
+function enter(){ stepStart = Date.now(); }
+
+/* ================= screens ================= */
+
+function screenIntro(){
+  app().innerHTML = "";
+  app().appendChild(el(`
+    <div>
+      <p class="kicker">Tenant Coordinator</p>
+      <h1>Practical Assessment</h1>
+      <p class="lede">Six short exercises based on real situations from our day-to-day work. It takes about 25 minutes.</p>
+      <div class="card">
+        <h2>Before you start</h2>
+        <p>You are not expected to know how Managd works internally — nothing here depends on our procedures, our systems or our fee structure.</p>
+        <p>Most of these situations have more than one defensible answer. We are interested in how you weigh them up, so answer as you would on an ordinary working day rather than looking for the textbook response.</p>
+        <p>You will not see a score. Your answers go to the interviewer, and we will talk them through together afterwards.</p>
+        <div class="field"><label for="n">Full name</label><input type="text" id="n" value="${esc(S.name)}" placeholder="e.g. Amina Hassan"></div>
+        <div class="field"><label for="e">Email address</label><input type="email" id="e" value="${esc(S.email)}" placeholder="name@example.com"></div>
+        <div class="navrow"><button class="btn" id="go">Start</button></div>
+        <p class="err" id="err"></p>
+      </div>
+    </div>`));
+
+  document.getElementById("go").onclick = ()=>{
+    const n=document.getElementById("n").value.trim();
+    const e=document.getElementById("e").value.trim();
+    const err=document.getElementById("err");
+    if(n.length<2){ err.textContent="Please enter your full name."; return; }
+    if(!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(e)){ err.textContent="Please enter a valid email address."; return; }
+    S.name=n; S.email=e; S.started=S.started||Date.now(); save();
+    step=0; render();
+  };
+  document.getElementById("n").focus();
+}
+
+/* ---------- 1. inbox ordering ---------- */
+function screenInbox(){
+  const a=app(); a.innerHTML="";
+  a.appendChild(progress());
+  a.appendChild(el(`
+    <div>
+      <p class="kicker">Exercise 1 of 6</p>
+      <h2>Monday morning</h2>
+      <p class="lede">It is Monday, 9:00. You are back after two days off, and five things are waiting for you.</p>
+      <div class="card" style="padding-bottom:24px">
+        <p><b>Put these in the order you would deal with them</b>, most important first. Drag them, or use the arrows.</p>
+        <p class="tiny">There is no single right order. We will ask you about your reasoning afterwards.</p>
+        <ul class="inbox" id="inbox"></ul>
+      </div>
+      <div class="navrow"><button class="btn" id="next">Continue</button></div>
+    </div>`));
+
+  const list=document.getElementById("inbox");
+  function paint(){
+    list.innerHTML="";
+    S.order.forEach((id,idx)=>{
+      const it=INBOX.find(x=>x.id===id);
+      const li=el(`<li class="item" draggable="true" data-id="${id}">
+        <span class="rank">${idx+1}</span>
+        <span class="body"><span class="src">${esc(it.src)}</span><span class="txt">${esc(it.txt)}</span></span>
+        <span class="arrows">
+          <button type="button" data-d="-1" ${idx===0?"disabled":""} aria-label="Move up">▲</button>
+          <button type="button" data-d="1" ${idx===S.order.length-1?"disabled":""} aria-label="Move down">▼</button>
+        </span>
+      </li>`);
+      li.querySelectorAll(".arrows button").forEach(b=>{
+        b.onclick=()=>{ const d=+b.dataset.d, j=idx+d;
+          if(j<0||j>=S.order.length) return;
+          const o=S.order.slice(); const [x]=o.splice(idx,1); o.splice(j,0,x);
+          S.order=o; save(); paint();
+        };
+      });
+      li.addEventListener("dragstart",ev=>{ ev.dataTransfer.setData("text/plain",id); li.classList.add("drag"); });
+      li.addEventListener("dragend",()=>{ li.classList.remove("drag"); list.querySelectorAll(".item").forEach(n=>n.classList.remove("over")); });
+      li.addEventListener("dragover",ev=>{ ev.preventDefault(); li.classList.add("over"); });
+      li.addEventListener("dragleave",()=>li.classList.remove("over"));
+      li.addEventListener("drop",ev=>{
+        ev.preventDefault(); li.classList.remove("over");
+        const from=ev.dataTransfer.getData("text/plain"); if(from===id) return;
+        const o=S.order.slice();
+        o.splice(o.indexOf(from),1);
+        o.splice(o.indexOf(id),0,from);
+        S.order=o; save(); paint();
+      });
+      list.appendChild(li);
+    });
+  }
+  paint();
+
+  document.getElementById("next").onclick=()=>{ markTime(); step=1; render(); };
+}
+
+/* ---------- 2. timeline ---------- */
+function screenTimeline(){
+  const a=app(); a.innerHTML="";
+  a.appendChild(progress());
+  a.appendChild(el(`
+    <div>
+      <p class="kicker">Exercise 2 of 6</p>
+      <h2>Where did it go wrong?</h2>
+      <p class="lede">${esc(TIMELINE.intro)}</p>
+      <div class="card">
+        <ul class="tl" id="tl"></ul>
+      </div>
+      <div class="card">
+        <div class="field">
+          <label for="tw">${esc(TIMELINE.ask)}</label>
+          <textarea id="tw" placeholder="Two or three sentences.">${esc(S.tlWhy||"")}</textarea>
+        </div>
+        <div class="navrow"><button class="btn" id="next">Continue</button><span class="gate" id="gate"></span></div>
+      </div>
+    </div>`));
+
+  const tl=document.getElementById("tl");
+  TIMELINE.events.forEach(ev=>{
+    const b=el(`<li><button class="ev${S.tlPick===ev.id?" sel":""}" data-id="${ev.id}">
+      <span class="when">${esc(ev.when)}</span><span class="what">${esc(ev.what)}</span></button></li>`);
+    b.querySelector("button").onclick=()=>{
+      S.tlPick=ev.id; save();
+      tl.querySelectorAll(".ev").forEach(n=>n.classList.toggle("sel", n.dataset.id===ev.id));
+      check();
+    };
+    tl.appendChild(b);
+  });
+
+  const tw=document.getElementById("tw"), gate=document.getElementById("gate"), next=document.getElementById("next");
+  function check(){
+    const ok = !!S.tlPick && tw.value.trim().length>=20;
+    next.disabled=!ok;
+    gate.textContent = ok ? "" : (!S.tlPick ? "Choose the moment first." : "Please explain your choice.");
+  }
+  tw.oninput=()=>{ S.tlWhy=tw.value; save(); check(); };
+  check();
+  next.onclick=()=>{ markTime(); step=2; render(); };
+}
+
+/* ---------- 3-6. cases ---------- */
+function screenCase(ci){
+  const c=CASES[ci], a=app(); a.innerHTML="";
+  a.appendChild(progress());
+  const sit=c.situation.map(p=>`<p>${esc(p)}</p>`).join("");
+  a.appendChild(el(`
+    <div>
+      <p class="kicker">Exercise ${ci+3} of 6</p>
+      <h2>${esc(c.title)}</h2>
+      <div class="card">
+        <div class="situation">${sit}</div>
+        <p class="ask">${esc(c.ask)}</p>
+        <div class="opts" id="opts"></div>
+        <div class="navrow"><button class="btn" id="next">${ci===CASES.length-1?"Finish":"Continue"}</button><span class="gate" id="gate"></span></div>
+      </div>
+    </div>`));
+
+  const box=document.getElementById("opts"), gate=document.getElementById("gate"), next=document.getElementById("next");
+  const letters="ABCD";
+  c.opts.forEach((o,i)=>{
+    const b=el(`<button class="opt${S.ans[c.id]===i?" sel":""}" data-i="${i}">
+      <span class="mark">${letters[i]}</span><span class="lab">${esc(o)}</span></button>`);
+    b.onclick=()=>{
+      S.ans[c.id]=i; save();
+      box.querySelectorAll(".opt").forEach(n=>n.classList.toggle("sel", +n.dataset.i===i));
+      check();
+    };
+    box.appendChild(b);
+  });
+  function check(){
+    const ok = S.ans[c.id]!==undefined;
+    next.disabled=!ok;
+    gate.textContent = ok ? "" : "Choose one option.";
+  }
+  check();
+  next.onclick=()=>{
+    markTime();
+    if(ci===CASES.length-1){ submit(); } else { step=ci+3; render(); }
+  };
+}
+
+/* ---------- done ---------- */
+function submit(){
+  const payload = {
+    kind:"tc-practical-assessment",
+    version:1,
+    name:S.name,
+    email:S.email,
+    submittedAt:new Date().toISOString(),
+    totalSeconds: Math.round((Date.now()-(S.started||Date.now()))/1000),
+    sectionSeconds:S.t,
+    inboxOrder:S.order.join(" > "),
+    timelinePick:S.tlPick,
+    timelineReason:S.tlWhy||"",
+    answers: CASES.map(c=>({
+      id:c.id,
+      chosen:"ABCD"[S.ans[c.id]] || "",
+      correct:"ABCD"[c.key],
+      match:(S.ans[c.id]===c.key)
+    })),
+    flags:{
+      leaseBeforeOwnerEmail: S.order.indexOf("i3") < S.order.indexOf("i1"),
+      loudTenantInTopHalf: S.order.indexOf("i2") < 3,
+      listingNoticeBeforeOwnerEmail: S.order.indexOf("i5") < S.order.indexOf("i1")
+    }
+  };
+  if(CONFIG.reportUrl){
+    try{
+      fetch(CONFIG.reportUrl,{method:"POST",mode:"no-cors",headers:{"Content-Type":"text/plain;charset=utf-8"},body:JSON.stringify(payload)});
+    }catch(e){}
+  }
+  try{ localStorage.setItem(KEY+"-result", JSON.stringify(payload)); }catch(e){}
+
+  app().innerHTML="";
+  app().appendChild(el(`
+    <div class="card done">
+      <div class="tick">✓</div>
+      <h2>Thank you, ${esc(S.name.split(" ")[0])}</h2>
+      <p class="lede" style="max-width:420px;margin:0 auto">Your answers have been sent to the interviewer. We will go through them with you in the conversation.</p>
+      <p class="tiny" style="margin-top:22px">You can close this page.</p>
+    </div>`));
+  window.scrollTo(0,0);
+}
+
+/* ================= router ================= */
+function render(){
+  enter();
+  if(step===0) screenInbox();
+  else if(step===1) screenTimeline();
+  else screenCase(step-2);
+  window.scrollTo(0,0);
+}
+
+screenIntro();
+</script>
+</body>
+</html>
